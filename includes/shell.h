@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/16 18:59:53 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/17 19:00:07 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,22 @@ typedef struct		s_meta
 {
 	struct winsize	ws;
 	char			*prompt;
+	int				fd; // pour les logs, penser a le supprimer
 }					t_meta;
 
 extern t_meta		g_meta;
 
 char				*get_cmdl(void);
+int					handle_arrows(char *buf, size_t *pos, char *cmdl);
+int					handle_del(char *buf, size_t *pos, char *cmdl);
+
+int					tc_go_up(size_t pos);
+int					tc_go_do(size_t pos);
+
+int					sh_putc(int c);
+
+void				print_cmdl(char *cmdl, size_t pos);
+
 void				terminit(t_termios *tcap, t_termios *save);
 
 int					tc_err_print(int ierr, int e);
