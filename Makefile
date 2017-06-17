@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/06/16 12:57:52 by nmougino         ###   ########.fr        #
+#    Updated: 2017/06/16 17:53:16 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ OBJDIR =	objs
 #	Liste des sources
 SRC =		main.c \
 			terminit.c \
+			metainit.c \
 			err_dep.c \
 			get_cmdl.c
 LIB =		ft

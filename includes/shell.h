@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/16 14:13:26 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/16 18:59:53 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,23 @@
 # define K_HOME		"\033[H"
 # define K_END		"\033[F"
 
-typedef struct	termios
-				t_termios;
 
-char	*get_cmdl(char *prompt);
-void	terminit(t_termios *tcap, t_termios *save);
+typedef struct		termios
+					t_termios;
 
-int		tc_err_print(int ierr, int e);
+typedef struct		s_meta
+{
+	struct winsize	ws;
+	char			*prompt;
+}					t_meta;
+
+extern t_meta		g_meta;
+
+char				*get_cmdl(void);
+void				terminit(t_termios *tcap, t_termios *save);
+
+int					tc_err_print(int ierr, int e);
+
+void				metainit(void);
 
 #endif
