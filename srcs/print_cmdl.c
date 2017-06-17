@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:36:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/17 19:28:29 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/17 19:32:22 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static size_t	sh_put_end(char *cmdl, size_t pos)
 		write(1, cmdl, 1);
 		++i;
 		++cmdl;
-		if (*cmdl)
-			tc_go_do(pos + i);
+		if (*cmdl && tc_go_do(pos + i))
+			tputs(tgetstr("ce", NULL), 1, sh_putc); //efface tout a droite du curseur
 	}
 	return (i);
 }
