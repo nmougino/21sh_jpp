@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/17 19:06:17 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/18 21:30:57 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,32 @@
 
 t_meta	g_meta;
 
+void	sh_cmdl_init(t_cmdl *cmdl)
+{
+	if (cmdl->cmdl)
+		ft_memdel((void**)(&(cmdl->cmdl)));
+	cmdl->pos = 0;
+}
+
 int	main(int ac, char **av, char **env)
 {
-	char		*cmdl;
 	t_termios	tcap;
 	t_termios	save;
+	t_cmdl		cmdl;
 	(void)ac;
 	(void)av;
 	(void)env;
 
+	cmdl.cmdl = NULL;
+	cmdl.pos = 0;
 	terminit(&tcap, &save);
 	metainit();
 	g_meta.fd = open("./log.txt", O_WRONLY | O_TRUNC | O_CREAT);
-	cmdl = get_cmdl();
-	ft_printf(" :: %s\n", cmdl);
+	new_get_cmdl(&cmdl);
+	ft_printf("\n :: %s\n", cmdl.cmdl);
 	if (tcsetattr(0, TCSADRAIN, &save) == -1)
 		exit (tc_err_print(ERR_TCSETATTR_FAIL, 0));
 	close(g_meta.fd);
+	sh_cmdl_init(&cmdl);
 	return (0);
 }

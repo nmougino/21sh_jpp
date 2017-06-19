@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:33:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/17 19:52:54 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/18 19:05:24 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	tc_go_up(size_t pos)
 {
 	extern t_meta	g_meta;
 
-	if (!((pos + ft_strlen(g_meta.prompt)) % g_meta.ws.ws_col))
+	if (!((pos + ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col - 1)))
 	{
 		ft_dprintf(g_meta.fd, "goup active\n");
 		tputs(tgetstr("up", NULL), 1, sh_putc);
@@ -38,12 +38,12 @@ int	tc_go_do(size_t pos)
 {
 	extern t_meta	g_meta;
 
-	if (!((pos + ft_strlen(g_meta.prompt)) % g_meta.ws.ws_col))
+	if (!((pos + ft_strlen(g_meta.prompt)) % (size_t)(g_meta.ws.ws_col + 1)))
 	{
 		// tputs(tgetstr("dl", NULL), 1, sh_putc); //descend le curseur d'une ligne (et va a gauche)
 		// write(1, "\n", 1);
-		ft_dprintf(g_meta.fd, "godo active\n");
-		tputs(tgetstr("do", NULL), 1, sh_putc);
+		ft_dprintf(g_meta.fd, "godo active %zu %zu %zu\n", pos, ft_strlen(g_meta.prompt), (size_t)(g_meta.ws.ws_col + 1));
+		tputs(tgetstr("sf", NULL), 1, sh_putc);
 		// tputs(tgetstr("do", NULL), 1, sh_putc); //descend le curseur d'une ligne (et va a gauche)
 		return (1);
 	}

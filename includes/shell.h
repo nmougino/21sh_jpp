@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/17 19:00:07 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/18 21:27:33 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,20 @@ typedef struct		s_meta
 	int				fd; // pour les logs, penser a le supprimer
 }					t_meta;
 
+typedef struct		s_cmdl
+{
+	char			*cmdl;
+	int				pos;
+}					t_cmdl;
+
 extern t_meta		g_meta;
+
+void				sh_cmdl_init(t_cmdl *cmdl);
+void				new_get_cmdl(t_cmdl *cmdl);
 
 char				*get_cmdl(void);
 int					handle_arrows(char *buf, size_t *pos, char *cmdl);
 int					handle_del(char *buf, size_t *pos, char *cmdl);
-
 int					tc_go_up(size_t pos);
 int					tc_go_do(size_t pos);
 
