@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/19 11:51:52 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/20 23:00:54 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,34 @@ extern t_meta	g_meta; //penser a supprimer
 // 	return (NULL);
 // }
 
-static void	new_print_cmdl(t_cmdl *cmdl)
-{
-	size_t	i;
+/*
+** Le depassement en fin de cmdl fonctionne
+** attelle toi aux fleches, puis au del
+*/
 
-	i = ft_strlen(cmdl->cmdl + cmdl->pos - 1);
-	ft_putstr(cmdl->cmdl + cmdl->pos - 1);
-	if (cmdl->cmdl[cmdl->pos])
+static int	sh_godo(int pos)
+{
+	if (!((pos + (int)ft_strlen(g_meta.prompt)
+	+ ((pos + (int)ft_strlen(g_meta.prompt)) > (g_meta.ws.ws_col + 1)))
+	% (g_meta.ws.ws_col + 1)))
 	{
-		while (i)
-		{
-			if (!(cmdl->pos + (int)ft_strlen(g_meta.prompt) % (g_meta.ws.ws_col + 1)))
-			{
-				tputs(tgetstr("up", NULL), 1, sh_putc);
-				ft_printf("\033[%dC", g_meta.ws.ws_col);
-			}
-			else
-				tputs(tgetstr("le", NULL), 1, sh_putc);
-			--i;
-		}
+		tputs(tgetstr("sf", NULL), 1, sh_putc);
+		return (0);
 	}
+	return (1);
+}
+
+static int	sh_goup(int pos)
+{
+	if (!((pos + (int)ft_strlen(g_meta.prompt)
+	+ ((pos + (int)ft_strlen(g_meta.prompt)) > g_meta.ws.ws_col))
+	% (g_meta.ws.ws_col)))
+	{
+		tputs(tgetstr("up", NULL), 1, sh_putc);
+		ft_printf("\033[%dC", g_meta.ws.ws_col);
+		return (0);
+	}
+	return (1);
 }
 
 static int	new_handle_arrows(t_cmdl *cmdl, char *buf)
@@ -93,20 +101,16 @@ static int	new_handle_arrows(t_cmdl *cmdl, char *buf)
 	{
 		if (cmdl->cmdl[cmdl->pos])
 		{
-			write(1, cmdl->cmdl + cmdl->pos, 1);
 			(cmdl->pos)++;
+			if (sh_godo(cmdl->pos))
+				tputs(tgetstr("ri", NULL), 1, sh_putc);
 		}
 	}
 	else if (ft_strequ(buf, K_LE_A))
 	{
 		if (cmdl->pos)
 		{
-			if (!(cmdl->pos + (int)ft_strlen(g_meta.prompt) % (g_meta.ws.ws_col + 1)))
-			{
-				tputs(tgetstr("up", NULL), 1, sh_putc);
-				ft_printf("\033[%dC", g_meta.ws.ws_col);
-			}
-			else
+			if (sh_goup(cmdl->pos + 1))
 				tputs(tgetstr("le", NULL), 1, sh_putc);
 			(cmdl->pos)--;
 		}
@@ -116,12 +120,53 @@ static int	new_handle_arrows(t_cmdl *cmdl, char *buf)
 
 static int	handle_action(t_cmdl *cmdl, char *buf)
 {
-	(void)buf;
-	(void)cmdl;
 	if (ft_strequ(buf, K_UP_A) || ft_strequ(buf, K_DO_A)
 		|| ft_strequ(buf, K_RI_A) || ft_strequ(buf, K_LE_A))
 		return (new_handle_arrows(cmdl, buf));
 	return (0);
+}
+
+static void	sh_putstr(t_cmdl *cmdl)
+{
+	char	*str;
+	int		pos;
+
+	str = cmdl->cmdl + cmdl->pos - 1;
+	pos = cmdl->pos;
+	while (*str)
+	{
+		write(1, str, 1);
+		++str;
+		++pos;
+		sh_godo(pos);
+		tputs(tgetstr("ce", NULL), 1, sh_putc);
+	}
+}
+
+static void	new_print_cmdl(t_cmdl *cmdl)
+{
+	int	i;
+
+	i = (int)(ft_strlen(cmdl->cmdl + cmdl->pos - 1)) - 1;
+	sh_putstr(cmdl);
+	// if (cmdl->cmdl[cmdl->pos])
+	// {
+	// 	while (i > 0)
+	// 	{
+	// 		if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col + 1)))
+	// 		{
+	// 			// ft_dprintf(g_meta.fd, "pupup\n");
+	// 			tputs(tgetstr("up", NULL), 1, sh_putc);
+	// 			ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
+	// 		}
+	// 		else
+	// 		{
+	// 			// ft_dprintf(g_meta.fd, "ramen a goch\n");
+	// 			tputs(tgetstr("le", NULL), 1, sh_putc);
+	// 		}
+	// 		--i;
+	// 	}
+	// }
 }
 
 void		new_get_cmdl(t_cmdl *cmdl)
@@ -143,10 +188,19 @@ void		new_get_cmdl(t_cmdl *cmdl)
 			break;
 		else if (!handle_action(cmdl, buf))
 		{
-			ft_dprintf(g_meta.fd, "insersion :: |%c| pos = %d\n", buf[0], cmdl->pos);
+			// ft_dprintf(g_meta.fd, "insersion :: |%c| pos = %d\n", buf[0], cmdl->pos);
 			ft_strinschar(&(cmdl->cmdl), (size_t)(cmdl->pos), buf[0]);
 			(cmdl->pos)++;
 			new_print_cmdl(cmdl);
+			// if (!((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+			// {
+			// 	// tputs(tgetstr("dl", NULL), 1, sh_putc); //descend le curseur d'une ligne (et va a gauche)
+			// 	// write(1, "\n", 1);
+			// 	ft_dprintf(g_meta.fd, "godo active %zu %zu %zu\n", cmdl->pos, ft_strlen(g_meta.prompt), (size_t)(g_meta.ws.ws_col + 1));
+			// 	tputs(tgetstr("sf", NULL), 1, sh_putc);
+			// 	// tputs(tgetstr("do", NULL), 1, sh_putc); //descend le curseur d'une ligne (et va a gauche)
+			// }
+
 			// (cmdl->pos)++;
 		}
 	}
