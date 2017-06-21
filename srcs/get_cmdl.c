@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/20 23:00:54 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/21 17:44:29 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,11 @@ static int	sh_goup(int pos)
 	return (1);
 }
 
+// static int	sh_godo_arrow(int pos)
+// {
+// 	if ((int)ft_strlen(g_meta.prompt) + pos)
+// }
+
 static int	new_handle_arrows(t_cmdl *cmdl, char *buf)
 {
 	if (ft_strequ(buf, K_RI_A))
@@ -102,15 +107,17 @@ static int	new_handle_arrows(t_cmdl *cmdl, char *buf)
 		if (cmdl->cmdl[cmdl->pos])
 		{
 			(cmdl->pos)++;
-			if (sh_godo(cmdl->pos))
-				tputs(tgetstr("ri", NULL), 1, sh_putc);
+			if ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))
+				ft_printf("\033[1C");
+			else
+				tputs(tgetstr("sf", NULL), 1, sh_putc);
 		}
 	}
 	else if (ft_strequ(buf, K_LE_A))
 	{
 		if (cmdl->pos)
 		{
-			if (sh_goup(cmdl->pos + 1))
+			if (sh_goup(cmdl->pos))
 				tputs(tgetstr("le", NULL), 1, sh_putc);
 			(cmdl->pos)--;
 		}
