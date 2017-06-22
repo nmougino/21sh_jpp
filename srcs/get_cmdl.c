@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/21 19:00:26 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/22 18:54:35 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,30 +161,23 @@ static void	new_print_cmdl(t_cmdl *cmdl)
 {
 	int	i;
 
-	i = (int)(ft_strlen(cmdl->cmdl + cmdl->pos - 1)) - 1;
+	i = (int)(ft_strlen(cmdl->cmdl + cmdl->pos));
 	sh_putstr(cmdl);
 	/*
-	**si tu n'es pas a la fin de la chaine, ca veut dire qu'en affichant
-	**la chaine decalee, le curseur est toujours a la fin, il faut donc
-	**restaurer sa position d'origine decalee de 1 vers la droite.
+	** si tu n'es pas a la fin de la chaine, ca veut dire qu'en affichant
+	** la chaine decalee, le curseur est toujours a la fin, il faut donc
+	** restaurer sa position d'origine decalee de 1 vers la droite.
 	*/
-	if (cmdl->cmdl[cmdl->pos])
+	while (i)
 	{
-		while (i > 0)
+		if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
 		{
-			if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col + 1)))
-			{
-				// ft_dprintf(g_meta.fd, "pupup\n");
-				tputs(tgetstr("up", NULL), 1, sh_putc);
-				ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
-			}
-			else
-			{
-				// ft_dprintf(g_meta.fd, "ramen a goch\n");
-				tputs(tgetstr("le", NULL), 1, sh_putc);
-			}
-			--i;
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
 		}
+		else
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		--i;
 	}
 }
 
