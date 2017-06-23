@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/23 16:30:41 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/23 17:20:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,22 @@ static void	sh_putstr(t_cmdl *cmdl)
 	}
 }
 
+static void	sh_restaure_cursor(int i, t_cmdl *cmdl)
+{
+	while (i)
+	{
+		// ICI
+		if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+		{
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
+		}
+		else
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		--i;
+	}
+}
+
 static void	new_print_cmdl(t_cmdl *cmdl)
 {
 	int	i;
@@ -132,17 +148,19 @@ static void	new_print_cmdl(t_cmdl *cmdl)
 	** la chaine decalee, le curseur est toujours a la fin, il faut donc
 	** restaurer sa position d'origine decalee de 1 vers la droite.
 	*/
-	while (i)
-	{
-		if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
-		{
-			tputs(tgetstr("up", NULL), 1, sh_putc);
-			ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
-		}
-		else
-			tputs(tgetstr("le", NULL), 1, sh_putc);
-		--i;
-	}
+	sh_restaure_cursor(i, cmdl);
+	// while (i)
+	// {
+	// 	// ICI
+	// 	if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+	// 	{
+	// 		tputs(tgetstr("up", NULL), 1, sh_putc);
+	// 		ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
+	// 	}
+	// 	else
+	// 		tputs(tgetstr("le", NULL), 1, sh_putc);
+	// 	--i;
+	// }
 }
 
 static int	new_handle_arrows(t_cmdl *cmdl, char *buf)
@@ -162,7 +180,7 @@ static int	new_handle_arrows(t_cmdl *cmdl, char *buf)
 	{
 		if (cmdl->pos)
 		{
-			ft_dprintf(g_meta.fd, "left :: |%d| pos + prompt = %d\n", (cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col), cmdl->pos + (int)ft_strlen(g_meta.prompt));
+			// ICI
 			if ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))
 				tputs(tgetstr("le", NULL), 1, sh_putc);
 			else
@@ -181,6 +199,7 @@ static int	new_handle_del(char *buf, t_cmdl *cmdl)
 	if (ft_strequ(buf, K_BCKSP) && cmdl->pos)
 	{
 		ft_strremchar(cmdl->cmdl, (size_t)(cmdl->pos - 1));
+		// ICI
 		if ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))
 			tputs(tgetstr("le", NULL), 1, sh_putc);
 		else
@@ -189,6 +208,7 @@ static int	new_handle_del(char *buf, t_cmdl *cmdl)
 			ft_printf("\033[%dC", g_meta.ws.ws_col);
 		}
 		--(cmdl->pos);
+		// ICI
 		if (cmdl->pos && ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
 			tputs(tgetstr("le", NULL), 1, sh_putc);
 		else if (cmdl->pos)
@@ -196,12 +216,40 @@ static int	new_handle_del(char *buf, t_cmdl *cmdl)
 			tputs(tgetstr("up", NULL), 1, sh_putc);
 			ft_printf("\033[%dC", g_meta.ws.ws_col);
 		}
-		ft_dprintf(g_meta.fd, "-----\npos = %d\ncmdl+pos = |%s|\n-----\n", cmdl->pos, cmdl->cmdl + cmdl->pos);
 		new_print_cmdl(cmdl);
 	}
-	else if (ft_strequ(buf, K_DEL))
+	else if (ft_strequ(buf, K_DEL) && (cmdl->cmdl[cmdl->pos]))
 	{
+		ft_strremchar(cmdl->cmdl, (size_t)(cmdl->pos));
+		// ICI
+		if (cmdl->pos && ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		else if (cmdl->pos)
+		{
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col);
+		}
+		new_print_cmdl(cmdl);
+	}
+	return (1);
+}
 
+static int	handle_home(t_cmdl *cmdl)
+{
+	sh_restaure_cursor(cmdl->pos, cmdl);
+	cmdl->pos = 0;
+	return (1);
+}
+
+static int	handle_end(t_cmdl *cmdl)
+{
+	while (cmdl->cmdl[cmdl->pos])
+	{
+		(cmdl->pos)++;
+		if ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))
+			ft_printf("\033[1C");
+		else
+			tputs(tgetstr("sf", NULL), 1, sh_putc);
 	}
 	return (1);
 }
@@ -213,6 +261,10 @@ static int	handle_action(t_cmdl *cmdl, char *buf)
 		return (new_handle_arrows(cmdl, buf));
 	else if (ft_strequ(buf, K_BCKSP) || ft_strequ(buf, K_DEL))
 		return (new_handle_del(buf, cmdl));
+	else if (ft_strequ(buf, K_HOME))
+		return (handle_home(cmdl));
+	else if (ft_strequ(buf, K_END))
+		return (handle_end(cmdl));
 	return (0);
 }
 
