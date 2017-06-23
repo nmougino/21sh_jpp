@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/22 18:54:35 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/23 16:30:41 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,51 @@ extern t_meta	g_meta; //penser a supprimer
 // 	if ((int)ft_strlen(g_meta.prompt) + pos)
 // }
 
+
+static void	sh_putstr(t_cmdl *cmdl)
+{
+	char	*str;
+	int		pos;
+
+	pos = cmdl->pos;
+	str = cmdl->cmdl + (pos ? pos - 1 : 0);
+	while (*str)
+	{
+		write(1, str, 1);
+		++str;
+		if (!((pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+			tputs(tgetstr("sf", NULL), 1, sh_putc);
+		++pos;
+		tputs(tgetstr("ce", NULL), 1, sh_putc);
+	}
+}
+
+static void	new_print_cmdl(t_cmdl *cmdl)
+{
+	int	i;
+
+	i = (int)(ft_strlen(cmdl->cmdl + cmdl->pos));
+	sh_putstr(cmdl);
+	if (!i)
+		tputs(tgetstr("ce", NULL), 1, sh_putc);
+	/*
+	** si tu n'es pas a la fin de la chaine, ca veut dire qu'en affichant
+	** la chaine decalee, le curseur est toujours a la fin, il faut donc
+	** restaurer sa position d'origine decalee de 1 vers la droite.
+	*/
+	while (i)
+	{
+		if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+		{
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
+		}
+		else
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		--i;
+	}
+}
+
 static int	new_handle_arrows(t_cmdl *cmdl, char *buf)
 {
 	if (ft_strequ(buf, K_RI_A))
@@ -131,54 +176,44 @@ static int	new_handle_arrows(t_cmdl *cmdl, char *buf)
 	return (1);
 }
 
+static int	new_handle_del(char *buf, t_cmdl *cmdl)
+{
+	if (ft_strequ(buf, K_BCKSP) && cmdl->pos)
+	{
+		ft_strremchar(cmdl->cmdl, (size_t)(cmdl->pos - 1));
+		if ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		else
+		{
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col);
+		}
+		--(cmdl->pos);
+		if (cmdl->pos && ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		else if (cmdl->pos)
+		{
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col);
+		}
+		ft_dprintf(g_meta.fd, "-----\npos = %d\ncmdl+pos = |%s|\n-----\n", cmdl->pos, cmdl->cmdl + cmdl->pos);
+		new_print_cmdl(cmdl);
+	}
+	else if (ft_strequ(buf, K_DEL))
+	{
+
+	}
+	return (1);
+}
+
 static int	handle_action(t_cmdl *cmdl, char *buf)
 {
 	if (ft_strequ(buf, K_UP_A) || ft_strequ(buf, K_DO_A)
 		|| ft_strequ(buf, K_RI_A) || ft_strequ(buf, K_LE_A))
 		return (new_handle_arrows(cmdl, buf));
+	else if (ft_strequ(buf, K_BCKSP) || ft_strequ(buf, K_DEL))
+		return (new_handle_del(buf, cmdl));
 	return (0);
-}
-
-static void	sh_putstr(t_cmdl *cmdl)
-{
-	char	*str;
-	int		pos;
-
-	str = cmdl->cmdl + cmdl->pos - 1;
-	pos = cmdl->pos;
-	while (*str)
-	{
-		write(1, str, 1);
-		++str;
-		if (!((pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
-			tputs(tgetstr("sf", NULL), 1, sh_putc);
-		++pos;
-		tputs(tgetstr("ce", NULL), 1, sh_putc);
-	}
-}
-
-static void	new_print_cmdl(t_cmdl *cmdl)
-{
-	int	i;
-
-	i = (int)(ft_strlen(cmdl->cmdl + cmdl->pos));
-	sh_putstr(cmdl);
-	/*
-	** si tu n'es pas a la fin de la chaine, ca veut dire qu'en affichant
-	** la chaine decalee, le curseur est toujours a la fin, il faut donc
-	** restaurer sa position d'origine decalee de 1 vers la droite.
-	*/
-	while (i)
-	{
-		if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
-		{
-			tputs(tgetstr("up", NULL), 1, sh_putc);
-			ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
-		}
-		else
-			tputs(tgetstr("le", NULL), 1, sh_putc);
-		--i;
-	}
 }
 
 void		new_get_cmdl(t_cmdl *cmdl)
@@ -201,21 +236,12 @@ void		new_get_cmdl(t_cmdl *cmdl)
 			break;
 		else if (!handle_action(cmdl, buf))
 		{
-			// ft_dprintf(g_meta.fd, "insersion :: |%c| pos = %d\n", buf[0], cmdl->pos);
+			ft_dprintf(g_meta.fd, "inseicirsion :: |%c| pos = %d\n", buf[0], cmdl->pos);
 			ft_strinschar(&(cmdl->cmdl), (size_t)(cmdl->pos), buf[0]);
 			(cmdl->pos)++;
 			new_print_cmdl(cmdl);
-			// if (!((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
-			// {
-			// 	// tputs(tgetstr("dl", NULL), 1, sh_putc); //descend le curseur d'une ligne (et va a gauche)
-			// 	// write(1, "\n", 1);
-			// 	ft_dprintf(g_meta.fd, "godo active %zu %zu %zu\n", cmdl->pos, ft_strlen(g_meta.prompt), (size_t)(g_meta.ws.ws_col + 1));
-			// 	tputs(tgetstr("sf", NULL), 1, sh_putc);
-			// 	// tputs(tgetstr("do", NULL), 1, sh_putc); //descend le curseur d'une ligne (et va a gauche)
-			// }
-
-			// (cmdl->pos)++;
 		}
+		ft_bzero(buf, 6);
 	}
 	tputs(tgetstr("SA", NULL), 1, sh_putc);
 }
