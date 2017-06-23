@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   metainit.c                                         :+:      :+:    :+:   */
+/*   handle_home_end.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/16 16:11:56 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/23 23:46:34 by nmougino         ###   ########.fr       */
+/*   Created: 2017/06/23 23:27:26 by nmougino          #+#    #+#             */
+/*   Updated: 2017/06/23 23:27:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	metainit(void)
+int	handle_home(t_cmdl *cmdl)
 {
-	extern t_meta	g_meta;
-	ioctl(0, TIOCGWINSZ, &(g_meta.ws));
-	g_meta.prompt = "prompt >> ";
-	g_meta.fd = open("./log.txt", O_WRONLY | O_TRUNC | O_CREAT);
+	sh_restaure_cursor(cmdl->pos, cmdl);
+	cmdl->pos = 0;
+	return (1);
+}
+
+int	handle_end(t_cmdl *cmdl)
+{
+	while (cmdl->cmdl[cmdl->pos])
+	{
+		(cmdl->pos)++;
+		// ICI
+		if ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))
+			ft_printf("\033[1C");
+		else
+			tputs(tgetstr("sf", NULL), 1, sh_putc);
+	}
+	return (1);
 }

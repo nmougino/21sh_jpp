@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/23 19:07:26 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/23 23:40:09 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,19 @@ typedef struct		s_cmdl
 extern t_meta		g_meta;
 
 void				sh_cmdl_init(t_cmdl *cmdl);
-void				new_get_cmdl(t_cmdl *cmdl);
+void				get_cmdl(t_cmdl *cmdl);
 
-char				*get_cmdl(void);
-int					handle_arrows(char *buf, size_t *pos, char *cmdl);
-int					handle_del(char *buf, size_t *pos, char *cmdl);
-int					tc_go_up(size_t pos);
-int					tc_go_do(size_t pos);
+int					handle_arrows(t_cmdl *cmdl, char *buf);
+int					handle_del(char *buf, t_cmdl *cmdl);
+int					handle_home(t_cmdl *cmdl);
+int					handle_end(t_cmdl *cmdl);
+int					handle_alt_arrows(t_cmdl *cmdl, char *buf);
+
+void				print_cmdl(t_cmdl *cmdl);
+void				sh_restaure_cursor(int i, t_cmdl *cmdl);
+void				sh_putstr(t_cmdl *cmdl);
 
 int					sh_putc(int c);
-
-void				print_cmdl(char *cmdl, size_t pos);
 
 void				terminit(t_termios *tcap, t_termios *save);
 

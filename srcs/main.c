@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/21 18:58:38 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/23 23:39:13 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int	main(int ac, char **av, char **env)
 	cmdl.pos = 0;
 	terminit(&tcap, &save);
 	metainit();
-	g_meta.fd = open("./log.txt", O_WRONLY | O_TRUNC | O_CREAT);
-	new_get_cmdl(&cmdl);
+	get_cmdl(&cmdl);
 	ft_printf("\n :: %s\n", cmdl.cmdl);
 	if (tcsetattr(0, TCSADRAIN, &save) == -1)
 		exit (tc_err_print(ERR_TCSETATTR_FAIL, 0));

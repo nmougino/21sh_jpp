@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/06/17 17:36:53 by nmougino         ###   ########.fr        #
+#    Updated: 2017/06/23 23:41:51 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,14 +29,15 @@ OBJDIR =	objs
 #	Liste des sources
 SRC =		err_dep.c \
 			get_cmdl.c \
+			handle_alt_arrows.c \
 			handle_arrows.c \
 			handle_del.c \
+			handle_home_end.c \
 			main.c \
 			metainit.c \
+			print_cmdl.c \
 			tc_putc.c \
-			tc_updo.c \
-			terminit.c \
-			print_cmdl.c
+			terminit.c
 LIB =		ft
 OBJ =		$(SRC:.c=.o)
 

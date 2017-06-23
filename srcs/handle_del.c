@@ -6,35 +6,48 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:30:55 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/17 20:21:40 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/23 23:27:01 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		handle_del(char *buf, size_t *pos, char *cmdl)
+int	handle_del(char *buf, t_cmdl *cmdl)
 {
-	if (ft_strequ(buf, K_BCKSP) && *pos)
+	if (ft_strequ(buf, K_BCKSP) && cmdl->pos)
 	{
-		ft_strremchar(cmdl, *pos - 1);
-		--(*pos);
-		if (!tc_go_up(*pos))
+		ft_strremchar(cmdl->cmdl, (size_t)(cmdl->pos - 1));
+		// ICI
+		if ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		else
 		{
-			ft_dprintf(g_meta.fd, "to the left\n");
-			tputs(tgetstr("le", NULL), 1, sh_putc); // move left
-			if (*pos)
-				tputs(tgetstr("le", NULL), 1, sh_putc); // move left
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col);
 		}
-		print_cmdl(cmdl, *pos);
+		--(cmdl->pos);
+		// ICI
+		if (cmdl->pos && ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		else if (cmdl->pos)
+		{
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col);
+		}
+		print_cmdl(cmdl);
 	}
-	else if (ft_strequ(buf, K_DEL) && cmdl[*pos])
+	else if (ft_strequ(buf, K_DEL) && (cmdl->cmdl[cmdl->pos]))
 	{
-		ft_strremchar(cmdl, *pos);
-		if (*pos)
-			tputs(tgetstr("le", NULL), 1, sh_putc); // move left
-		print_cmdl(cmdl, *pos);
-		if (!(*pos) && cmdl[*pos])
-			tputs(tgetstr("le", NULL), 1, sh_putc); // move left
+		ft_strremchar(cmdl->cmdl, (size_t)(cmdl->pos));
+		// ICI
+		if (cmdl->pos && ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		else if (cmdl->pos)
+		{
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col);
+		}
+		print_cmdl(cmdl);
 	}
 	return (1);
 }

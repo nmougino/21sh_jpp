@@ -6,33 +6,39 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:31:32 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/17 20:00:54 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/23 23:24:05 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		handle_arrows(char *buf, size_t *pos, char *cmdl)
+int	handle_arrows(t_cmdl *cmdl, char *buf)
 {
-	extern t_meta	g_meta;
-
-	if (ft_strequ(buf, K_UP_A))
-		return (1);
-	else if (ft_strequ(buf, K_DO_A))
-		return (1);
-	if (ft_strequ(buf, K_RI_A) && *pos < ft_strlen(cmdl))
+	if (ft_strequ(buf, K_RI_A))
 	{
-		if (!tc_go_do(*pos))
-			ft_putstr("\033[1C");
-		*pos += (*pos < ft_strlen(cmdl)) ? 1 : 0;
-		ft_dprintf(g_meta.fd, "right %zu / %d\n", *pos + ft_strlen(g_meta.prompt), g_meta.ws.ws_col);
+		if (cmdl->cmdl[cmdl->pos])
+		{
+			(cmdl->pos)++;
+			if ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))
+				ft_printf("\033[1C");
+			else
+				tputs(tgetstr("sf", NULL), 1, sh_putc);
+		}
 	}
-	else if (ft_strequ(buf, K_LE_A) && *pos)
+	else if (ft_strequ(buf, K_LE_A))
 	{
-		if (!tc_go_up(*pos))
-			ft_putstr("\033[1D");
-		*pos -= *pos ? 1 : 0;
-		ft_dprintf(g_meta.fd, "left %zu / %d\n", *pos + ft_strlen(g_meta.prompt), g_meta.ws.ws_col);
+		if (cmdl->pos)
+		{
+			// ICI
+			if ((cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))
+				tputs(tgetstr("le", NULL), 1, sh_putc);
+			else
+			{
+				tputs(tgetstr("up", NULL), 1, sh_putc);
+				ft_printf("\033[%dC", g_meta.ws.ws_col);
+			}
+			(cmdl->pos)--;
+		}
 	}
 	return (1);
 }

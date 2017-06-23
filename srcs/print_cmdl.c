@@ -6,58 +6,58 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:36:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/18 21:02:21 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/23 23:36:30 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
+void	sh_putstr(t_cmdl *cmdl)
+{
+	char	*str;
+	int		pos;
+
+	pos = cmdl->pos;
+	str = cmdl->cmdl + (pos ? pos - 1 : 0);
+	while (*str)
+	{
+		write(1, str, 1);
+		++str;
+		// ICI
+		if (!((pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+			tputs(tgetstr("sf", NULL), 1, sh_putc);
+		++pos;
+		tputs(tgetstr("ce", NULL), 1, sh_putc);
+	}
+}
+
 /*
-** Restitue la position du curseur
-** Alternative favorable a la sauvegarde de la position du curseur
-** native des termcaps
+** Restaure la position du curseur decalee de 1 vers la droite.
 */
 
-static void		tc_cur_restauration(size_t src, size_t pos)
+void	sh_restaure_cursor(int i, t_cmdl *cmdl)
 {
-	extern t_meta	g_meta;
-
-	while (src--)
+	while (i)
 	{
-		ft_dprintf(g_meta.fd, "ICI > %zu + %zu = %zu\n", src, pos, src + pos);
-		if (!tc_go_up(src + pos))
-			tputs(tgetstr("le", NULL), 1, sh_putc); // move left
-		ft_dprintf(g_meta.fd, "LA\n");
+		// ICI
+		if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+		{
+			tputs(tgetstr("up", NULL), 1, sh_putc);
+			ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
+		}
+		else
+			tputs(tgetstr("le", NULL), 1, sh_putc);
+		--i;
 	}
 }
 
-static void		sh_putstr_clear(char *cmdl, size_t pos)
+void	print_cmdl(t_cmdl *cmdl)
 {
-	(void)pos;
-	while (*cmdl)
-	{
-		ft_dprintf(g_meta.fd, "ICI\n");
-		// tc_go_do(pos++);
-		ft_dprintf(g_meta.fd, "la\n");
-		write(1, cmdl++, 1);
+	int	i;
 
-	}
-	tputs(tgetstr("ie", NULL), 1, sh_putc);
-}
-
-void			print_cmdl(char *cmdl, size_t pos)
-{
-	size_t	tmp;
-	char	*tar;
-
-	tar = pos ? (cmdl + pos - 1) : cmdl;
-	tputs(tgetstr("ce", NULL), 1, sh_putc); //efface tout a droite du curseur
-	sh_putstr_clear(tar, pos + 1);
-	tmp = ft_strlen(tar) - 1;
-	// if (cmdl[pos])
-	// 	tc_cur_restauration(tmp);
-	// else
-	// 	ft_dprintf(g_meta.fd, " >  %d\n", tmp);
-	if (tmp)
-		tc_cur_restauration(tmp, pos);
+	i = (int)(ft_strlen(cmdl->cmdl + cmdl->pos));
+	sh_putstr(cmdl);
+	if (!i)
+		tputs(tgetstr("ce", NULL), 1, sh_putc);
+	sh_restaure_cursor(i, cmdl);
 }
