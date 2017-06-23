@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/23 23:43:57 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/23 23:51:55 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@ static void	sh_putprompt(void)
 	}
 }
 
-void		get_cmdl(t_cmdl *cmdl)
+static void	get_cmdl_loop(t_cmdl *cmdl)
 {
-	char	buf[6];
+	char		buf[6];
 
-	tputs(tgetstr("RA", NULL), 1, sh_putc);
 	ft_bzero(buf, 6);
 	sh_putprompt();
 	cmdl->cmdl = ft_strdup("");
@@ -80,5 +79,17 @@ void		get_cmdl(t_cmdl *cmdl)
 		}
 		ft_bzero(buf, 6);
 	}
+}
+
+void		get_cmdl(t_cmdl *cmdl)
+{
+	t_termios	tcap;
+	t_termios	save;
+
+	terminit(&tcap, &save);
+	tputs(tgetstr("RA", NULL), 1, sh_putc);
+	get_cmdl_loop(cmdl);
 	tputs(tgetstr("SA", NULL), 1, sh_putc);
+	if (tcsetattr(0, TCSADRAIN, &save) == -1)
+		exit (tc_err_print(ERR_TCSETATTR_FAIL, 0));
 }

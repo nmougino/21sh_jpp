@@ -6,11 +6,25 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/23 23:39:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/23 23:52:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+------------------
+
+TERMCAPS:::
+
+reste::	copier coller
+		historique
+		up et down pour l'edition de cmdl multiligne
+		gestion des quotes... (gestion au main ??)
+
+------------------
+*/
+
 
 /*
 ** penser a remplacer les ansi escape sequences par des termcap
@@ -29,8 +43,6 @@ void	sh_cmdl_init(t_cmdl *cmdl)
 
 int	main(int ac, char **av, char **env)
 {
-	t_termios	tcap;
-	t_termios	save;
 	t_cmdl		cmdl;
 	(void)ac;
 	(void)av;
@@ -38,12 +50,9 @@ int	main(int ac, char **av, char **env)
 
 	cmdl.cmdl = NULL;
 	cmdl.pos = 0;
-	terminit(&tcap, &save);
 	metainit();
 	get_cmdl(&cmdl);
 	ft_printf("\n :: %s\n", cmdl.cmdl);
-	if (tcsetattr(0, TCSADRAIN, &save) == -1)
-		exit (tc_err_print(ERR_TCSETATTR_FAIL, 0));
 	close(g_meta.fd);
 	sh_cmdl_init(&cmdl);
 	return (0);
