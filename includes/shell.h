@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/23 23:40:09 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/25 18:37:52 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define K_DEL		"\033[3~"
 # define K_HOME		"\033[H"
 # define K_END		"\033[F"
+# define K_ALT_UP_A	"\033\033[A"
+# define K_ALT_DO_A	"\033\033[B"
 # define K_ALT_RI_A	"\033\033[C"
 # define K_ALT_LE_A	"\033\033[D"
 
@@ -43,6 +45,7 @@ typedef struct		s_meta
 {
 	struct winsize	ws;
 	char			*prompt;
+	char			*prompt_save;
 	int				fd; // pour les logs, penser a le supprimer
 }					t_meta;
 

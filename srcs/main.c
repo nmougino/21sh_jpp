@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/23 23:52:25 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/25 19:01:54 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ TERMCAPS:::
 
 reste::	copier coller
 		historique
-		up et down pour l'edition de cmdl multiligne
-		gestion des quotes... (gestion au main ??)
 
 ------------------
 */
-
 
 /*
 ** penser a remplacer les ansi escape sequences par des termcap
@@ -37,7 +34,7 @@ t_meta	g_meta;
 void	sh_cmdl_init(t_cmdl *cmdl)
 {
 	if (cmdl->cmdl)
-		ft_memdel((void**)(&(cmdl->cmdl)));
+		ft_strdel(&(cmdl->cmdl));
 	cmdl->pos = 0;
 }
 
