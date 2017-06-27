@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/25 19:01:54 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/27 02:20:04 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int	main(int ac, char **av, char **env)
 	cmdl.cmdl = NULL;
 	cmdl.pos = 0;
 	metainit();
-	get_cmdl(&cmdl);
-	ft_printf("\n :: %s\n", cmdl.cmdl);
+	while (get_cmdl(&cmdl))
+		sh_cmdl_init(&cmdl);
+	destroy_history();
 	close(g_meta.fd);
-	sh_cmdl_init(&cmdl);
 	return (0);
 }

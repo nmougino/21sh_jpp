@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/25 18:37:52 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/26 22:13:31 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,20 @@
 typedef struct		termios
 					t_termios;
 
+typedef struct		s_history
+{
+	t_dlist			*lst;
+	int				is_in;
+	int				max;
+	t_dlist			*cur;
+}					t_history;
+
 typedef struct		s_meta
 {
 	struct winsize	ws;
 	char			*prompt;
 	char			*prompt_save;
+	t_history		history;
 	int				fd; // pour les logs, penser a le supprimer
 }					t_meta;
 
@@ -58,13 +67,17 @@ typedef struct		s_cmdl
 extern t_meta		g_meta;
 
 void				sh_cmdl_init(t_cmdl *cmdl);
-void				get_cmdl(t_cmdl *cmdl);
+int					get_cmdl(t_cmdl *cmdl);
 
 int					handle_arrows(t_cmdl *cmdl, char *buf);
 int					handle_del(char *buf, t_cmdl *cmdl);
 int					handle_home(t_cmdl *cmdl);
 int					handle_end(t_cmdl *cmdl);
 int					handle_alt_arrows(t_cmdl *cmdl, char *buf);
+
+void				history_add(char *new);
+int					history_move(t_cmdl *cmdl, char *buf);
+
 
 void				print_cmdl(t_cmdl *cmdl);
 void				sh_restaure_cursor(int i, t_cmdl *cmdl);
@@ -75,6 +88,8 @@ int					sh_putc(int c);
 void				terminit(t_termios *tcap, t_termios *save);
 
 int					tc_err_print(int ierr, int e);
+
+void				destroy_history(void);
 
 void				metainit(void);
 

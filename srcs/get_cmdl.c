@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/25 19:32:45 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/26 21:59:14 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ extern t_meta	g_meta;
 ** renvoie 0 si l'input doit etre imprime
 */
 
-static int	handle_action(t_cmdl *cmdl, char *buf)
+static int		handle_action(t_cmdl *cmdl, char *buf)
 {
-	// if (ft_strequ(buf, K_UP_A) || ft_strequ(buf, K_DO_A))
-	// 	return (history_move(cmdl, buf));
-	if (ft_strequ(buf, K_RI_A) || ft_strequ(buf, K_LE_A))
+	if (ft_strequ(buf, K_UP_A) || ft_strequ(buf, K_DO_A))
+		return (history_move(cmdl, buf));
+	else if (ft_strequ(buf, K_RI_A) || ft_strequ(buf, K_LE_A))
 		return (handle_arrows(cmdl, buf));
-	else if (ft_strequ(buf, K_BCKSP) || ft_strequ(buf, K_DEL))
+	else
+		g_meta.history.is_in = 0;
+	if (ft_strequ(buf, K_BCKSP) || ft_strequ(buf, K_DEL))
 		return (handle_del(buf, cmdl));
 	else if (ft_strequ(buf, K_HOME))
 		return (handle_home(cmdl));
@@ -38,7 +40,7 @@ static int	handle_action(t_cmdl *cmdl, char *buf)
 	return (0);
 }
 
-static void	sh_putprompt(void)
+static void		sh_putprompt(void)
 {
 	char	*str;
 	int		pos;
@@ -56,20 +58,23 @@ static void	sh_putprompt(void)
 	}
 }
 
-static void	merge_cmdl(t_cmdl *tmp, t_cmdl *cmdl)
+static void		merge_cmdl(t_cmdl *tmp, t_cmdl *cmdl)
 {
-	if (!cmdl->cmdl)
-		cmdl->cmdl = ft_strdup(tmp->cmdl);
-	else
+	if (tmp->cmdl)
 	{
-		ft_stradd(&(cmdl->cmdl), "\n");
-		ft_stradd(&(cmdl->cmdl), tmp->cmdl);
+		if (!cmdl->cmdl)
+			cmdl->cmdl = ft_strdup(tmp->cmdl);
+		else
+		{
+			ft_stradd(&(cmdl->cmdl), "\n");
+			ft_stradd(&(cmdl->cmdl), tmp->cmdl);
+		}
+		ft_strdel(&(tmp->cmdl));
+		tmp->pos = 0;
 	}
-	ft_strdel(&(tmp->cmdl));
-	tmp->pos = 0;
 }
 
-static int	quotes_scan(t_cmdl *cmdl)
+static int		quotes_scan(t_cmdl *cmdl)
 {
 	int	q;
 	int	i;
@@ -98,11 +103,10 @@ static int	quotes_scan(t_cmdl *cmdl)
 	return (q);
 }
 
-static void	get_cmdl_loop(t_cmdl *cmdl)
+static int		get_cmdl_loop(t_cmdl *cmdl)
 {
 	char		buf[6];
 
-	tputs(tgetstr("RA", NULL), 1, sh_putc);
 	ft_bzero(buf, 6);
 	sh_putprompt();
 	cmdl->cmdl = ft_strdup("");
@@ -124,10 +128,10 @@ static void	get_cmdl_loop(t_cmdl *cmdl)
 		ft_bzero(buf, 6);
 	}
 	tputs(tgetstr("sf", NULL), 1, sh_putc);
-	tputs(tgetstr("SA", NULL), 1, sh_putc);
+	return (cmdl->cmdl ? 1 : 0);
 }
 
-void		get_cmdl(t_cmdl *cmdl)
+int				get_cmdl(t_cmdl *cmdl)
 {
 	t_termios	tcap;
 	t_termios	save;
@@ -136,14 +140,23 @@ void		get_cmdl(t_cmdl *cmdl)
 	tmp.cmdl = NULL;
 	tmp.pos = 0;
 	terminit(&tcap, &save);
-	get_cmdl_loop(&tmp);
-	merge_cmdl(&tmp, cmdl);
-	while (quotes_scan(cmdl))
-	{
-		get_cmdl_loop(&tmp);
-		merge_cmdl(&tmp, cmdl);
-		g_meta.prompt = g_meta.prompt_save;
-	}
+	get_cmdl_loop(cmdl); // recuperation du bidule
+	if (cmdl->cmdl)
+		while (quotes_scan(cmdl))
+		{
+			get_cmdl_loop(&tmp); // recuperation du bidule
+			g_meta.prompt = g_meta.prompt_save;
+			if (!tmp.cmdl)
+			{
+				sh_cmdl_init(cmdl);
+				break;
+			}
+			merge_cmdl(&tmp, cmdl);
+		}
 	if (tcsetattr(0, TCSADRAIN, &save) == -1)
 		exit (tc_err_print(ERR_TCSETATTR_FAIL, 0));
+	if (!cmdl->cmdl)
+		return (0);
+	history_add(cmdl->cmdl);
+	return (1);
 }
