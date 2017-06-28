@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/26 22:13:31 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/27 22:10:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,19 @@
 typedef struct		termios
 					t_termios;
 
+typedef struct		s_cmdl
+{
+	char			*cmdl;
+	int				pos;
+}					t_cmdl;
+
 typedef struct		s_history
 {
 	t_dlist			*lst;
 	int				is_in;
 	int				max;
 	t_dlist			*cur;
+	t_cmdl			*save;
 }					t_history;
 
 typedef struct		s_meta
@@ -58,11 +65,6 @@ typedef struct		s_meta
 	int				fd; // pour les logs, penser a le supprimer
 }					t_meta;
 
-typedef struct		s_cmdl
-{
-	char			*cmdl;
-	int				pos;
-}					t_cmdl;
 
 extern t_meta		g_meta;
 

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 16:11:56 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/26 19:27:45 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/27 03:50:30 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ void	metainit(void)
 	g_meta.history.cur = NULL;
 	g_meta.history.is_in = 0;
 	g_meta.history.max = 10;
+	g_meta.history.save = NULL;
 }

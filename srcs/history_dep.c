@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/25 20:58:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/26 20:46:48 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/06/27 22:10:09 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void		impose_history(t_dlist *cur, t_cmdl *cmdl)
 {
 	erase_cmdl(cmdl);
 	(void)cur;
+	g_meta.history.save = ft_memcpy(g_meta.history.save, cmdl, )
 }
 
 static void			history_do(t_cmdl *cmdl)
@@ -50,7 +51,8 @@ static void			history_up(t_cmdl *cmdl)
 	else
 	{
 		g_meta.history.is_in = 1;
-		g_meta.history.cur = g_meta.history.cur->next;
+		g_meta.history.cur = g_meta.history.lst;
+
 		impose_history(g_meta.history.cur, cmdl);
 	}
 }
