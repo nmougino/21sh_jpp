@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/26 21:59:14 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/03 21:06:06 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ static int		handle_action(t_cmdl *cmdl, char *buf)
 		return (history_move(cmdl, buf));
 	else if (ft_strequ(buf, K_RI_A) || ft_strequ(buf, K_LE_A))
 		return (handle_arrows(cmdl, buf));
-	else
-		g_meta.history.is_in = 0;
+	else if (HISTO.is_in)
+		history_exit(cmdl);
+	ft_dprintf(FD, "PROUT :: %d\n", HISTO.is_in);
 	if (ft_strequ(buf, K_BCKSP) || ft_strequ(buf, K_DEL))
 		return (handle_del(buf, cmdl));
 	else if (ft_strequ(buf, K_HOME))
@@ -103,6 +104,22 @@ static int		quotes_scan(t_cmdl *cmdl)
 	return (q);
 }
 
+static void		go_out(t_cmdl *cmdl)
+{
+	int	i;
+
+	if (cmdl && cmdl->cmdl)
+	{
+		i = ((int)ft_strlen(cmdl->cmdl) + (int)ft_strlen(g_meta.prompt)) / g_meta.ws.ws_col;
+		handle_home(cmdl);
+		while (i + 1)
+		{
+			tputs(tgetstr("sf", NULL), 1, sh_putc);
+			--i;
+		}
+	}
+}
+
 static int		get_cmdl_loop(t_cmdl *cmdl)
 {
 	char		buf[6];
@@ -127,7 +144,7 @@ static int		get_cmdl_loop(t_cmdl *cmdl)
 		}
 		ft_bzero(buf, 6);
 	}
-	tputs(tgetstr("sf", NULL), 1, sh_putc);
+	go_out(cmdl);
 	return (cmdl->cmdl ? 1 : 0);
 }
 
@@ -158,5 +175,7 @@ int				get_cmdl(t_cmdl *cmdl)
 	if (!cmdl->cmdl)
 		return (0);
 	history_add(cmdl->cmdl);
+	if (HISTO.is_in)
+		history_exit(cmdl);
 	return (1);
 }

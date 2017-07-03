@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/27 02:20:04 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/03 20:55:44 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int ac, char **av, char **env)
 	metainit();
 	while (get_cmdl(&cmdl))
 		sh_cmdl_init(&cmdl);
+	ft_dprintf(FD, "wesh\n");
 	destroy_history();
 	close(g_meta.fd);
 	return (0);

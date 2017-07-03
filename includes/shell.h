@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/27 22:10:25 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/03 21:30:29 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define K_ALT_RI_A	"\033\033[C"
 # define K_ALT_LE_A	"\033\033[D"
 
+# define FD g_meta.fd
+# define HISTO g_meta.history
 
 typedef struct		termios
 					t_termios;
@@ -51,7 +53,7 @@ typedef struct		s_history
 {
 	t_dlist			*lst;
 	int				is_in;
-	int				max;
+	size_t			max;
 	t_dlist			*cur;
 	t_cmdl			*save;
 }					t_history;
@@ -79,7 +81,11 @@ int					handle_alt_arrows(t_cmdl *cmdl, char *buf);
 
 void				history_add(char *new);
 int					history_move(t_cmdl *cmdl, char *buf);
+void				history_exit(t_cmdl *cmdl);
+void				histo_display(int fd);
 
+void				sh_go_do(t_cmdl *cmdl, int pos);
+void				sh_go_up(t_cmdl *cmdl, int pos);
 
 void				print_cmdl(t_cmdl *cmdl);
 void				sh_restaure_cursor(int i, t_cmdl *cmdl);
@@ -91,6 +97,7 @@ void				terminit(t_termios *tcap, t_termios *save);
 
 int					tc_err_print(int ierr, int e);
 
+void				del_histo(void *p, size_t s);
 void				destroy_history(void);
 
 void				metainit(void);

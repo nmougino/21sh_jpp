@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/06/26 22:14:28 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/01 10:11:15 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC =		err_dep.c \
 			history_dep.c \
 			main.c \
 			metainit.c \
+			sh_go_doup.c \
 			print_cmdl.c \
 			tc_putc.c \
 			terminit.c

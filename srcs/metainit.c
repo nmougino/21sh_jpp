@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 16:11:56 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/27 03:50:30 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/03 21:06:07 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	metainit(void)
 	g_meta.prompt = "prompt >> ";
 	g_meta.prompt_save = "prompt >> ";
 	g_meta.fd = open("./log.txt", O_WRONLY | O_TRUNC | O_CREAT);
-	g_meta.history.lst = NULL;
-	g_meta.history.cur = NULL;
-	g_meta.history.is_in = 0;
-	g_meta.history.max = 10;
-	g_meta.history.save = NULL;
+	HISTO.lst = NULL;
+	HISTO.cur = NULL;
+	HISTO.is_in = 0;
+	HISTO.max = 10;
+	HISTO.save = NULL;
 }

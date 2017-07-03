@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:36:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/23 23:36:30 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/03 20:41:51 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	sh_putstr(t_cmdl *cmdl)
 	str = cmdl->cmdl + (pos ? pos - 1 : 0);
 	while (*str)
 	{
-		write(1, str, 1);
-		++str;
-		// ICI
-		if (!((pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
+		write(1, str++, 1);
+		if (!((*(str - 1) != '\n') && ((pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))))
 			tputs(tgetstr("sf", NULL), 1, sh_putc);
 		++pos;
 		tputs(tgetstr("ce", NULL), 1, sh_putc);
@@ -39,14 +37,7 @@ void	sh_restaure_cursor(int i, t_cmdl *cmdl)
 {
 	while (i)
 	{
-		// ICI
-		if (!((i + cmdl->pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col)))
-		{
-			tputs(tgetstr("up", NULL), 1, sh_putc);
-			ft_printf("\033[%dC", g_meta.ws.ws_col - 1);
-		}
-		else
-			tputs(tgetstr("le", NULL), 1, sh_putc);
+		sh_go_up(cmdl, cmdl->pos + i);
 		--i;
 	}
 }
