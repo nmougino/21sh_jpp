@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/25 20:58:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/03 21:29:21 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/04 15:14:57 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static void		histo_impose(t_cmdl *cmdl)
 	erase_cmdl(cmdl);
 	cmdl->cmdl = (char *)(HISTO.cur->content);
 	ft_dprintf(g_meta.fd, "Here cmdl = |%s|\n", cmdl->cmdl);
-	cmdl->pos = 0;
+	cmdl->pos = 1;
+	// tputs(tgetstr("le", NULL), 1, sh_putc); // ????
 	print_cmdl(cmdl);
 	handle_end(cmdl);
 }

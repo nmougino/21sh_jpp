@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/03 21:06:06 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/04 15:21:16 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int		handle_action(t_cmdl *cmdl, char *buf)
 		return (handle_arrows(cmdl, buf));
 	else if (HISTO.is_in)
 		history_exit(cmdl);
-	ft_dprintf(FD, "PROUT :: %d\n", HISTO.is_in);
 	if (ft_strequ(buf, K_BCKSP) || ft_strequ(buf, K_DEL))
 		return (handle_del(buf, cmdl));
 	else if (ft_strequ(buf, K_HOME))
@@ -106,17 +105,11 @@ static int		quotes_scan(t_cmdl *cmdl)
 
 static void		go_out(t_cmdl *cmdl)
 {
-	int	i;
-
+	ft_dprintf(FD, "GET ME OUTTA HERE! %d\n", cmdl && cmdl->cmdl);
 	if (cmdl && cmdl->cmdl)
 	{
-		i = ((int)ft_strlen(cmdl->cmdl) + (int)ft_strlen(g_meta.prompt)) / g_meta.ws.ws_col;
-		handle_home(cmdl);
-		while (i + 1)
-		{
-			tputs(tgetstr("sf", NULL), 1, sh_putc);
-			--i;
-		}
+		handle_end(cmdl);
+		tputs(tgetstr("sf", NULL), 1, sh_putc);
 	}
 }
 
