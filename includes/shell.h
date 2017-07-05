@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/03 21:30:29 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/05 06:15:47 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@
 # define K_ALT_RI_A	"\033\033[C"
 # define K_ALT_LE_A	"\033\033[D"
 
+# define K_ALT_K	-102
+# define K_ALT_U	-88
+# define K_ALT_W	-120
+# define K_ALT_Y	-91
+
 # define FD g_meta.fd
 # define HISTO g_meta.history
 
@@ -64,6 +69,7 @@ typedef struct		s_meta
 	char			*prompt;
 	char			*prompt_save;
 	t_history		history;
+	char			*save;
 	int				fd; // pour les logs, penser a le supprimer
 }					t_meta;
 
@@ -78,6 +84,7 @@ int					handle_del(char *buf, t_cmdl *cmdl);
 int					handle_home(t_cmdl *cmdl);
 int					handle_end(t_cmdl *cmdl);
 int					handle_alt_arrows(t_cmdl *cmdl, char *buf);
+int					handle_alt_key(int k, t_cmdl *cmdl);
 
 void				history_add(char *new);
 int					history_move(t_cmdl *cmdl, char *buf);

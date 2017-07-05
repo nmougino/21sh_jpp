@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/04 15:21:16 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/05 06:31:15 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,19 @@ extern t_meta	g_meta;
 ** renvoie 0 si l'input doit etre imprime
 */
 
+static int		detect_alt_keys(char *buf)
+{
+	if (buf[1] == -102)
+		return ((int)buf[1]);
+	else if (buf[1] == -88)
+		return ((int)buf[1]);
+	else if (buf[1] == -120)
+		return ((int)buf[1]);
+	else if (buf[1] == -90)
+		return ((int)buf[1]);
+	return (0);
+}
+
 static int		handle_action(t_cmdl *cmdl, char *buf)
 {
 	if (ft_strequ(buf, K_UP_A) || ft_strequ(buf, K_DO_A))
@@ -28,7 +41,9 @@ static int		handle_action(t_cmdl *cmdl, char *buf)
 		return (handle_arrows(cmdl, buf));
 	else if (HISTO.is_in)
 		history_exit(cmdl);
-	if (ft_strequ(buf, K_BCKSP) || ft_strequ(buf, K_DEL))
+	if (detect_alt_keys(buf))
+		return (handle_alt_key(detect_alt_keys(buf), cmdl));
+	else if (ft_strequ(buf, K_BCKSP) || ft_strequ(buf, K_DEL))
 		return (handle_del(buf, cmdl));
 	else if (ft_strequ(buf, K_HOME))
 		return (handle_home(cmdl));
@@ -122,6 +137,7 @@ static int		get_cmdl_loop(t_cmdl *cmdl)
 	cmdl->cmdl = ft_strdup("");
 	while (read(0, buf, 6))
 	{
+		ft_dprintf(FD, "%d %d %d %d %d %d\n", (int)buf[0], (int)buf[1], (int)buf[2], (int)buf[3], (int)buf[4], (int)buf[5]);
 		if (buf[0] == 4)
 		{
 			sh_cmdl_init(cmdl);
