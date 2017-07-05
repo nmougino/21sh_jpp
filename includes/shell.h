@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/05 06:15:47 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/05 07:18:48 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ extern t_meta		g_meta;
 
 void				sh_cmdl_init(t_cmdl *cmdl);
 int					get_cmdl(t_cmdl *cmdl);
+
+void				erase_cmdl(t_cmdl *cmdl);
 
 int					handle_arrows(t_cmdl *cmdl, char *buf);
 int					handle_del(char *buf, t_cmdl *cmdl);

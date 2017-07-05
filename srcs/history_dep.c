@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/25 20:58:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/04 15:14:57 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/05 07:18:34 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			history_add(char *new)
 	ft_dlstadd(&(HISTO.lst), ft_dlstnew(new, ft_strlen(new) + 1));
 }
 
-static void		erase_cmdl(t_cmdl *cmdl)
+void			erase_cmdl(t_cmdl *cmdl)
 {
 	while (cmdl->cmdl[cmdl->pos])
 		handle_arrows(cmdl, K_RI_A);

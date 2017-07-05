@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:36:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/04 15:16:49 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/05 08:14:09 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	sh_putstr(t_cmdl *cmdl)
 
 void	sh_restaure_cursor(int i, t_cmdl *cmdl)
 {
+	if (!i)
+		tputs(tgetstr("ce", NULL), 1, sh_putc);
 	while (i)
 	{
 		sh_go_up(cmdl, cmdl->pos + i);
@@ -48,7 +50,5 @@ void	print_cmdl(t_cmdl *cmdl)
 
 	i = (int)(ft_strlen(cmdl->cmdl + cmdl->pos));
 	sh_putstr(cmdl);
-	if (!i)
-		tputs(tgetstr("ce", NULL), 1, sh_putc);
 	sh_restaure_cursor(i, cmdl);
 }

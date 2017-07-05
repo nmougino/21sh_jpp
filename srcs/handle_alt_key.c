@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/05 00:12:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/05 07:07:42 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/05 08:22:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,24 @@
 
 extern t_meta	g_meta;
 
+static void	sh_erase_shit(t_cmdl *cmdl)
+{
+	int	tmp;
+
+	tmp = cmdl->pos;
+	handle_end(cmdl);
+	while (tmp != cmdl->pos)
+		handle_del(K_BCKSP, cmdl);
+	sh_go_up(cmdl, cmdl->pos);
+}
+
 static void	handle_alt_k(t_cmdl *cmdl)
 {
 	if (g_meta.save)
 		free(g_meta.save);
 	g_meta.save = ft_strdup(cmdl->cmdl + cmdl->pos);
-	ft_dprintf(FD, "save = %s\n", g_meta.save);
-	ft_bzero(cmdl->cmdl + cmdl->pos, ft_strlen(cmdl->cmdl) - (size_t)cmdl->pos);
 	sh_go_up(cmdl, cmdl->pos);
+	sh_erase_shit(cmdl);
 	print_cmdl(cmdl);
 }
 
