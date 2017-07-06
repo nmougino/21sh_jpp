@@ -6,20 +6,14 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 10:27:02 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/06 11:31:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 /*
-------------------
-
-TERMCAPS:::
-
-reste::	copier coller
-
-------------------
+	toujours un probleme dans le retour historique d'une commande sur plusieurs lignes
 */
 
 /*
@@ -37,13 +31,13 @@ void	sh_cmdl_init(t_cmdl *cmdl)
 	cmdl->pos = 0;
 }
 
-int	main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env)
 {
 	t_cmdl		cmdl;
+
 	(void)ac;
 	(void)av;
 	(void)env;
-
 	cmdl.cmdl = NULL;
 	cmdl.pos = 0;
 	metainit();

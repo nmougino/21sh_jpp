@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   metainit.c                                         :+:      :+:    :+:   */
+/*   history_add.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/16 16:11:56 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 11:25:45 by nmougino         ###   ########.fr       */
+/*   Created: 2017/07/06 10:42:55 by nmougino          #+#    #+#             */
+/*   Updated: 2017/07/06 10:43:27 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	metainit(void)
+static void		history_add_forceps(void)
 {
-	ioctl(0, TIOCGWINSZ, &(g_meta.ws));
-	g_meta.prompt = "prompt >> ";
-	g_meta.prompt_save = "prompt >> ";
-	g_meta.fd = open("./log.txt", O_WRONLY | O_TRUNC | O_CREAT);
-	HISTO.lst = NULL;
-	HISTO.cur = NULL;
-	HISTO.is_in = 0;
-	HISTO.max = 10;
-	HISTO.save = NULL;
-	g_meta.clipbo = NULL;
+	t_dlist	*cur;
+
+	cur = HISTO.lst;
+	while (cur->next)
+		cur = cur->next;
+	if (cur->prev)
+		cur->prev->next = NULL;
+	ft_dlstdel(&cur, del_histo, TO_END);
+}
+
+void			history_add(char *new)
+{
+	if (!(new && *new))
+		return ;
+	if (ft_dlstlen(HISTO.lst) == HISTO.max)
+		history_add_forceps();
+	ft_dlstadd(&(HISTO.lst), ft_dlstnew(new, ft_strlen(new) + 1));
 }

@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/05 00:14:58 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/06 11:35:58 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,16 @@ OBJDIR =	objs
 SRC =		err_dep.c \
 			destroy_history.c \
 			get_cmdl.c \
+			handle_actions.c \
 			handle_alt_arrows.c \
 			handle_alt_key.c \
 			handle_arrows.c \
 			handle_del.c \
 			handle_home_end.c \
+			handle_quotes.c \
+			history_add.c \
 			history_dep.c \
+			history_misc.c \
 			main.c \
 			metainit.c \
 			sh_go_doup.c \

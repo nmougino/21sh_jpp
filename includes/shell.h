@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 10:27:08 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/06 11:36:54 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@
 # define FD			g_meta.fd
 # define HISTO		g_meta.history
 
-typedef struct		termios
-					t_termios;
+typedef struct termios	t_termios;
 
 typedef struct		s_cmdl
 {
@@ -70,15 +69,19 @@ typedef struct		s_meta
 	char			*prompt_save;
 	t_history		history;
 	char			*clipbo;
-	int				fd; // pour les logs, penser a le supprimer
+	int				fd;
 }					t_meta;
 
 extern t_meta		g_meta;
 
 void				sh_cmdl_init(t_cmdl *cmdl);
 int					get_cmdl(t_cmdl *cmdl);
+void				handle_quotes(t_cmdl *cmdl);
+int					get_cmdl_loop(t_cmdl *cmdl);
 
 void				erase_cmdl(t_cmdl *cmdl);
+
+int					handle_action(t_cmdl *cmdl, char *buf);
 
 int					handle_arrows(t_cmdl *cmdl, char *buf);
 int					handle_del(char *buf, t_cmdl *cmdl);
@@ -91,6 +94,11 @@ void				history_add(char *new);
 int					history_move(t_cmdl *cmdl, char *buf);
 void				history_exit(t_cmdl *cmdl);
 void				histo_display(int fd);
+
+void				erase_cmdl(t_cmdl *cmdl);
+void				histo_display(int fd);
+void				histo_impose(t_cmdl *cmdl);
+void				histo_save(t_cmdl *cmdl);
 
 void				sh_go_do(t_cmdl *cmdl, int pos);
 void				sh_go_up(t_cmdl *cmdl, int pos);

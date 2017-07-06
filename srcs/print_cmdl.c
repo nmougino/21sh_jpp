@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:36:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/05 08:14:09 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/06 10:55:48 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	sh_putstr(t_cmdl *cmdl)
 	while (*str)
 	{
 		write(1, str++, 1);
-		if (!((*(str - 1) != '\n') && ((pos + (int)ft_strlen(g_meta.prompt)) % (g_meta.ws.ws_col))))
+		if (!((*(str - 1) != '\n') && ((pos + (int)ft_strlen(g_meta.prompt))
+			% (g_meta.ws.ws_col))))
 			tputs(tgetstr("sf", NULL), 1, sh_putc);
 		++pos;
 		tputs(tgetstr("ce", NULL), 1, sh_putc);
