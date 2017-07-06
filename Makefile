@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/06 11:35:58 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/06 12:04:27 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,27 +25,28 @@ DEFRULE =	all
 SRCDIR =	srcs
 INCDIR =	includes
 OBJDIR =	objs
+DETDIR =	get_cmdl history tc_misc
 
 #	Liste des sources
-SRC =		err_dep.c \
-			destroy_history.c \
-			get_cmdl.c \
-			handle_actions.c \
-			handle_alt_arrows.c \
-			handle_alt_key.c \
-			handle_arrows.c \
-			handle_del.c \
-			handle_home_end.c \
-			handle_quotes.c \
-			history_add.c \
-			history_dep.c \
-			history_misc.c \
+SRC =		get_cmdl/get_cmdl.c \
+			get_cmdl/handle_actions.c \
+			get_cmdl/handle_alt_arrows.c \
+			get_cmdl/handle_alt_key.c \
+			get_cmdl/handle_arrows.c \
+			get_cmdl/handle_del.c \
+			get_cmdl/handle_home_end.c \
+			get_cmdl/handle_quotes.c \
+			get_cmdl/print_cmdl.c \
+			history/destroy_history.c \
+			history/history_add.c \
+			history/history_dep.c \
+			history/history_misc.c \
 			main.c \
 			metainit.c \
-			sh_go_doup.c \
-			print_cmdl.c \
-			tc_putc.c \
-			terminit.c
+			tc_misc/err_dep.c \
+			tc_misc/sh_go_doup.c \
+			tc_misc/tc_putc.c \
+			tc_misc/terminit.c
 LIB =		ft
 OBJ =		$(SRC:.c=.o)
 
@@ -102,6 +103,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
+	@mkdir -p $(addprefix "$(OBJDIR)/", $(DETDIR))
 	@echo "$(GRA)$(CYA)@ ++ Objects compilation$(DEF)"
 
 $(NAME): $(OBJP)
