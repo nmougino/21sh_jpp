@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/05 07:18:48 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/06 10:27:08 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@
 # define K_ALT_LE_A	"\033\033[D"
 
 # define K_ALT_K	-102
-# define K_ALT_U	-88
+# define K_ALT_J	-122
 # define K_ALT_W	-120
 # define K_ALT_Y	-91
 
-# define FD g_meta.fd
-# define HISTO g_meta.history
+# define FD			g_meta.fd
+# define HISTO		g_meta.history
 
 typedef struct		termios
 					t_termios;
@@ -69,10 +69,9 @@ typedef struct		s_meta
 	char			*prompt;
 	char			*prompt_save;
 	t_history		history;
-	char			*save;
+	char			*clipbo;
 	int				fd; // pour les logs, penser a le supprimer
 }					t_meta;
-
 
 extern t_meta		g_meta;
 

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/05 06:31:15 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/06 10:29:47 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@ extern t_meta	g_meta;
 
 static int		detect_alt_keys(char *buf)
 {
-	if (buf[1] == -102)
-		return ((int)buf[1]);
-	else if (buf[1] == -88)
-		return ((int)buf[1]);
-	else if (buf[1] == -120)
-		return ((int)buf[1]);
-	else if (buf[1] == -90)
-		return ((int)buf[1]);
+	if (buf[0] == -53 && buf[1] == -102)
+		return ((int)'k');
+	else if (buf[0] == -30 && buf[1] == -120 && buf[2] == -122)
+		return ((int)'j');
+	else if (buf[0] == -62 && buf[1] == -91)
+		return ((int)'y');
 	return (0);
 }
 
@@ -52,6 +50,8 @@ static int		handle_action(t_cmdl *cmdl, char *buf)
 	else if (ft_strequ(buf, K_ALT_LE_A) || ft_strequ(buf, K_ALT_RI_A) ||
 		ft_strequ(buf, K_ALT_UP_A) || ft_strequ(buf, K_ALT_DO_A))
 		return (handle_alt_arrows(cmdl, buf));
+	else if (!ft_isprint(buf[0]) || buf[0] == '\t')
+		return (1);
 	return (0);
 }
 

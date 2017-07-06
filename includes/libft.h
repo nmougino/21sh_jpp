@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 16:46:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/03 21:25:22 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/06 01:58:32 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ int							ft_strequ(char const *s1, char const *s2);
 int							ft_strinc(char **ptr, int size, char c);
 char						*ft_strdup(const char *s1);
 void						ft_strinschar(char **src, size_t pos, char c);
+void						ft_strinsstr(char **src, char *cut, size_t pos);
 void						ft_striter(char *s, void(*f)(char *));
 void						ft_striteri(char *s,
 								void (*f)(unsigned int, char *));
@@ -159,6 +160,7 @@ char						*ft_strncat(char *s1, const char *s2, size_t n);
 char						*ft_strncpy(char *dst, const char *src, size_t n);
 int							ft_strncmp(const char *s1, const char *s2,
 								size_t n);
+char						*ft_strndup(const char *s1, size_t n);
 int							ft_strnequ(char const *s1, char const *s2,
 								size_t n);
 char						*ft_strnew(size_t size);
