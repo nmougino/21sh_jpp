@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 11:31:10 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/06 15:23:29 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ int		main(int ac, char **av, char **env)
 		sh_cmdl_init(&cmdl);
 	destroy_history();
 	close(g_meta.fd);
-	free(g_meta.clipbo);
+	if (g_meta.clipbo)
+		free(g_meta.clipbo);
+	int i = 1;
+	while (i == 1);
 	return (0);
 }

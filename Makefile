@@ -6,14 +6,13 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/06 12:04:27 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/06 12:06:36 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	Compilator - clang est plus sur que gcc
 CC =		clang
 CFLAGS =	-Wall -Wextra -Werror -Weverything -Wno-padded
-#-Wno-padded
 
 #	Binary
 NAME =		21sh

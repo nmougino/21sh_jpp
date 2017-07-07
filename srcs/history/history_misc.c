@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 10:47:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 10:55:12 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/06 15:12:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	histo_display(int fd)
 void	histo_impose(t_cmdl *cmdl)
 {
 	erase_cmdl(cmdl);
+	if (cmdl->cmdl && !HISTO.is_in)
+		ft_strdel(&cmdl->cmdl);
 	cmdl->cmdl = (char *)(HISTO.cur->content);
 	cmdl->pos = 1;
 	print_cmdl(cmdl);
@@ -49,4 +51,5 @@ void	histo_save(t_cmdl *cmdl)
 {
 	HISTO.save = malloc(sizeof(t_cmdl));
 	ft_memcpy(HISTO.save, cmdl, sizeof(t_cmdl));
+	HISTO.save->cmdl = ft_strdup(HISTO.save->cmdl);
 }
