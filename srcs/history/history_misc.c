@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 10:47:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/08 22:53:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/08 23:23:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	histo_display(int fd)
 	cur = HISTO.lst;
 	while (cur)
 	{
-		ft_dprintf(fd, "%s :: %p\n", cur->content, cur->content);
-		// ft_putendl_fd(cur->content, fd);
+		ft_putendl_fd(cur->content, fd);
 		cur = cur->next;
 	}
 }

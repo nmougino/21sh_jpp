@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/08 23:21:19 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/08 23:26:05 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,17 @@ int				get_cmdl_loop(t_cmdl *cmdl)
 	cmdl->cmdl = ft_strdup("");
 	while (read(0, buf, 6))
 	{
-		if (buf[0] == 4)
+		if (buf[0] == 4 || buf[0] == 10)
 		{
-			if (!HISTO.is_in)
+			if (!HISTO.is_in && buf[0] == 4)
 				ft_strdel(&(cmdl->cmdl));
-			else
+			else if (buf[0] == 4)
 				cmdl->cmdl = NULL;
 			break ;
 		}
-		else if (buf[0] == 10)
-			break ;
 		else if (!handle_action(cmdl, buf))
 		{
-			ft_strinschar(&(cmdl->cmdl), (size_t)(cmdl->pos), buf[0]);
-			(cmdl->pos)++;
+			ft_strinschar(&(cmdl->cmdl), (size_t)(cmdl->pos++), buf[0]);
 			print_cmdl(cmdl);
 		}
 		ft_bzero(buf, 6);
