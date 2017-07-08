@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/25 20:58:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 15:19:35 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/08 22:19:01 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ static void	histo_up_out(t_cmdl *cmdl)
 	{
 		HISTO.cur = HISTO.lst;
 		histo_save(cmdl);
-		histo_impose(cmdl);
 		HISTO.is_in = 1;
+		erase_cmdl(cmdl);
+		free(cmdl->cmdl);
+		cmdl->cmdl = (char *)(HISTO.cur->content);
+		cmdl->pos = 1;
+		print_cmdl(cmdl);
+		handle_end(cmdl);
 	}
 }
 
@@ -34,7 +39,7 @@ static void	histo_up_in(t_cmdl *cmdl)
 
 static void	histo_do_in(t_cmdl *cmdl)
 {
-	int	tmp;
+	// int	tmp;
 
 	if (HISTO.cur->prev)
 	{
@@ -43,19 +48,29 @@ static void	histo_do_in(t_cmdl *cmdl)
 	}
 	else
 	{
+		// HISTO.cur = NULL;
+		// HISTO.is_in = 0;
+		// erase_cmdl(cmdl);
+		// ft_memcpy(cmdl, HISTO.save, sizeof(t_cmdl));
+		// cmdl->cmdl = ft_strdup(cmdl->cmdl);
+		// tmp = cmdl->pos;
+		// cmdl->pos = 0;
+		// print_cmdl(cmdl);
+		// while (cmdl->pos != tmp)
+		// 	handle_arrows(cmdl, K_RI_A);
+		// if (HISTO.save)
+		// 	sh_cmdl_init(HISTO.save);
+		// if (HISTO.save)
+		// 	ft_memdel((void **)(&(HISTO.save)));
+
+
 		HISTO.cur = NULL;
 		HISTO.is_in = 0;
 		erase_cmdl(cmdl);
-		ft_memcpy(cmdl, HISTO.save, sizeof(t_cmdl));
-		tmp = cmdl->pos;
+		cmdl->cmdl = HISTO.save;
 		cmdl->pos = 0;
 		print_cmdl(cmdl);
-		while (cmdl->pos != tmp)
-			handle_arrows(cmdl, K_RI_A);
-		if (HISTO.save)
-			sh_cmdl_init(HISTO.save);
-		if (HISTO.save)
-			ft_memdel((void **)(&(HISTO.save)));
+		handle_end(cmdl);
 	}
 }
 
@@ -72,12 +87,14 @@ int			history_move(t_cmdl *cmdl, char *buf)
 
 void		history_exit(t_cmdl *cmdl)
 {
-	HISTO.is_in = 0;
+	ft_dprintf(FD, "History exit session\n");
 	HISTO.cur = NULL;
 	if (cmdl->cmdl)
 		cmdl->cmdl = ft_strdup(cmdl->cmdl);
 	if (HISTO.save)
-		sh_cmdl_init(HISTO.save);
-	if (HISTO.save)
-		ft_memdel((void **)(&(HISTO.save)));
+	{
+		LOG("Destruction de save\n");
+		ft_strdel(&(HISTO.save));
+	}
+	HISTO.is_in = 0;
 }

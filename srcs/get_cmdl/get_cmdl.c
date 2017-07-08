@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 15:19:29 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/08 23:21:19 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int				get_cmdl_loop(t_cmdl *cmdl)
 	{
 		if (buf[0] == 4)
 		{
-			sh_cmdl_init(cmdl);
+			if (!HISTO.is_in)
+				ft_strdel(&(cmdl->cmdl));
+			else
+				cmdl->cmdl = NULL;
 			break ;
 		}
 		else if (buf[0] == 10)
@@ -86,7 +89,7 @@ int				get_cmdl(t_cmdl *cmdl)
 		exit(tc_err_print(ERR_TCSETATTR_FAIL, 0));
 	if (HISTO.is_in)
 		history_exit(cmdl);
-	else
+	else if (cmdl->cmdl)
 		history_add(cmdl->cmdl);
 	if (!cmdl->cmdl)
 		return (0);

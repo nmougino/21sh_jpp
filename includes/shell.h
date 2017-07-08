@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 11:36:54 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/08 22:14:26 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 
 # define FD			g_meta.fd
 # define HISTO		g_meta.history
+# define LOG(X)		ft_dprintf(g_meta.fd, X);
+# define LOGS(X, Y)		ft_dprintf(g_meta.fd, X, Y);
 
 typedef struct termios	t_termios;
 
@@ -59,7 +61,7 @@ typedef struct		s_history
 	int				is_in;
 	size_t			max;
 	t_dlist			*cur;
-	t_cmdl			*save;
+	char			*save;
 }					t_history;
 
 typedef struct		s_meta

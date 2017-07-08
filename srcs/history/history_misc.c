@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 10:47:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 15:12:10 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/08 22:53:13 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	erase_cmdl(t_cmdl *cmdl)
 {
-	while (cmdl->cmdl[cmdl->pos])
-		handle_arrows(cmdl, K_RI_A);
+	handle_end(cmdl);
 	while (cmdl->pos)
 	{
 		tputs(tgetstr("ce", NULL), 1, sh_putc);
@@ -31,7 +30,8 @@ void	histo_display(int fd)
 	cur = HISTO.lst;
 	while (cur)
 	{
-		ft_putendl_fd(cur->content, fd);
+		ft_dprintf(fd, "%s :: %p\n", cur->content, cur->content);
+		// ft_putendl_fd(cur->content, fd);
 		cur = cur->next;
 	}
 }
@@ -39,8 +39,6 @@ void	histo_display(int fd)
 void	histo_impose(t_cmdl *cmdl)
 {
 	erase_cmdl(cmdl);
-	if (cmdl->cmdl && !HISTO.is_in)
-		ft_strdel(&cmdl->cmdl);
 	cmdl->cmdl = (char *)(HISTO.cur->content);
 	cmdl->pos = 1;
 	print_cmdl(cmdl);
@@ -49,7 +47,6 @@ void	histo_impose(t_cmdl *cmdl)
 
 void	histo_save(t_cmdl *cmdl)
 {
-	HISTO.save = malloc(sizeof(t_cmdl));
-	ft_memcpy(HISTO.save, cmdl, sizeof(t_cmdl));
-	HISTO.save->cmdl = ft_strdup(HISTO.save->cmdl);
+	HISTO.save = ft_strdup(cmdl->cmdl);
+	LOGS("save = |%s|", HISTO.save);
 }

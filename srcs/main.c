@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 15:23:29 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/08 23:15:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*
 	toujours un probleme dans le retour historique d'une commande sur plusieurs lignes
+	Ajouter la verification termcaps
 */
 
 /*
@@ -22,11 +23,15 @@
 ** creer un mode de get_cmdl minishell
 */
 
+/*
+	double free en CTRL D en parcours d'historique
+*/
+
 t_meta	g_meta;
 
 void	sh_cmdl_init(t_cmdl *cmdl)
 {
-	if (cmdl->cmdl)
+	if (cmdl->cmdl && !HISTO.is_in)
 		ft_strdel(&(cmdl->cmdl));
 	cmdl->pos = 0;
 }
@@ -41,13 +46,22 @@ int		main(int ac, char **av, char **env)
 	cmdl.cmdl = NULL;
 	cmdl.pos = 0;
 	metainit();
-	while (get_cmdl(&cmdl))
+	int i;
+	while (true)
+	{
+		if (!(i = get_cmdl(&cmdl)))
+			break;
+		ft_dprintf(FD, "retrofusees i = %d\n", i);
 		sh_cmdl_init(&cmdl);
+	}
+	ft_dprintf(FD, "pastrami\n");
 	destroy_history();
+	ft_dprintf(FD, "POULET\n");
 	close(g_meta.fd);
 	if (g_meta.clipbo)
 		free(g_meta.clipbo);
-	int i = 1;
-	while (i == 1);
+	// int i = 1;
+	// while (i == 1);
+	ft_printf("PROUT\n");
 	return (0);
 }
