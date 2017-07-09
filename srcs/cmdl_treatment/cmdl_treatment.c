@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_history.c                                  :+:      :+:    :+:   */
+/*   cmdl_treatment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/26 22:11:38 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/09 15:27:46 by nmougino         ###   ########.fr       */
+/*   Created: 2017/07/09 16:19:44 by nmougino          #+#    #+#             */
+/*   Updated: 2017/07/09 22:28:56 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-extern t_meta	g_meta;
-
-void		del_histo(void *p, size_t s)
+static void	ct_destroy(void *p, size_t s)
 {
+	free(p);
 	(void)s;
-	free((char *)p);
 }
 
-void		destroy_history(void)
+char		**cmdl_treatment(t_cmdl *cmdl)
 {
-	ft_dlstdel(&HISTO.lst, del_histo, TO_END);
+	char	**ans;
+	t_list	*lst;
+
+	lst = sh_lexer(cmdl->cmdl);
+	ans = ft_lststrtotab(lst);
+	ft_lstdel(&lst, ct_destroy);
+	return (ans);
 }

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/08 22:14:26 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/09 20:15:03 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <termios.h>
 # include <term.h>
 # include <curses.h>
+# include "sh_lexer.h"
 
 # define ERR_NO_NAME 0
 # define ERR_TGETENT_FAIL 1
@@ -119,5 +120,7 @@ void				del_histo(void *p, size_t s);
 void				destroy_history(void);
 
 void				metainit(void);
+
+char				**cmdl_treatment(t_cmdl *cmdl);
 
 #endif

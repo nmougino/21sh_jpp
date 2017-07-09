@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 10:47:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/08 23:23:43 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/09 15:27:52 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,4 @@ void	histo_impose(t_cmdl *cmdl)
 void	histo_save(t_cmdl *cmdl)
 {
 	HISTO.save = ft_strdup(cmdl->cmdl);
-	LOGS("save = |%s|", HISTO.save);
 }

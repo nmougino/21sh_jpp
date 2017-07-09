@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/08 23:15:10 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/09 22:35:15 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	sh_cmdl_init(t_cmdl *cmdl)
 
 int		main(int ac, char **av, char **env)
 {
-	t_cmdl		cmdl;
+	t_cmdl	cmdl;
+	char	**tokens;
 
 	(void)ac;
 	(void)av;
@@ -46,22 +47,20 @@ int		main(int ac, char **av, char **env)
 	cmdl.cmdl = NULL;
 	cmdl.pos = 0;
 	metainit();
-	int i;
 	while (true)
 	{
-		if (!(i = get_cmdl(&cmdl)))
+		if (!get_cmdl(&cmdl))
 			break;
-		ft_dprintf(FD, "retrofusees i = %d\n", i);
+		tokens = cmdl_treatment(&cmdl);
+		ft_putstrarr(tokens);
+		ft_arrdel((void **)tokens);
 		sh_cmdl_init(&cmdl);
 	}
-	ft_dprintf(FD, "pastrami\n");
 	destroy_history();
-	ft_dprintf(FD, "POULET\n");
 	close(g_meta.fd);
 	if (g_meta.clipbo)
 		free(g_meta.clipbo);
 	// int i = 1;
 	// while (i == 1);
-	ft_printf("PROUT\n");
 	return (0);
 }
