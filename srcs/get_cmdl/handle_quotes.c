@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 11:32:08 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/09 22:51:28 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/10 06:02:23 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ static void		merge_cmdl(t_cmdl *tmp, t_cmdl *cmdl)
 	}
 }
 
+static void		quote_act(char *cmdl, int i, int *q)
+{
+	if (!*q && cmdl[i] == '\'')
+		*q = 1;
+	else if (!*q && cmdl[i] == '"')
+		*q = 2;
+	else if (!*q && cmdl[i] == '|' && !(cmdl[i + 1]))
+		*q = 3;
+	else if (cmdl[i] == '\'' && *q == 1)
+		*q = 0;
+	else if (cmdl[i] == '"' && *q == 2)
+		*q = 0;
+}
+
 static int		quotes_scan(t_cmdl *cmdl)
 {
 	int	q;
@@ -39,16 +53,8 @@ static int		quotes_scan(t_cmdl *cmdl)
 	{
 		if (i && ft_strchr("\'\"|", cmdl->cmdl[i]) && cmdl->cmdl[i - 1] == '\\')
 			continue ;
-		else if (!q && cmdl->cmdl[i] == '\'')
-			q = 1;
-		else if (!q && cmdl->cmdl[i] == '"')
-			q = 2;
-		else if (!q && cmdl->cmdl[i] == '|' && !(cmdl->cmdl[i + 1]))
-			q = 3;
-		else if (cmdl->cmdl[i] == '\'' && q == 1)
-			q = 0;
-		else if (cmdl->cmdl[i] == '"' && q == 2)
-			q = 0;
+		else
+			quote_act(cmdl->cmdl, i, &q);
 	}
 	if (q == 1)
 		g_meta.prompt = "quote > ";

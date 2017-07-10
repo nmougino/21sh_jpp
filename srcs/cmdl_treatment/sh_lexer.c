@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/09 18:33:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/10 02:09:23 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/10 02:16:19 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	lex_wheel(t_lex *lex, char *cmdl)
 			lex_gen_seco(lex, cmdl);
 		else if (lex->ct == CT_ESCAPESEQ && (lex->j += 2))
 			++(lex->i);
-		else if	(lex->ct == CT_WHITESPACE)
+		else if (lex->ct == CT_WHITESPACE)
 			lex_gen_blank(lex, cmdl);
 		else
 			++(lex->j);
