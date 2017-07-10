@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 11:32:08 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/06 11:33:39 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/09 22:51:28 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ static int		quotes_scan(t_cmdl *cmdl)
 	q = 0;
 	while (cmdl->cmdl[++i])
 	{
-		if (!q && cmdl->cmdl[i] == '\'')
+		if (i && ft_strchr("\'\"|", cmdl->cmdl[i]) && cmdl->cmdl[i - 1] == '\\')
+			continue ;
+		else if (!q && cmdl->cmdl[i] == '\'')
 			q = 1;
 		else if (!q && cmdl->cmdl[i] == '"')
 			q = 2;

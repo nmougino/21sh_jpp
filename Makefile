@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/09 22:29:13 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/10 01:47:34 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ DETDIR =	cmdl_treatment get_cmdl history tc_misc
 
 #	Liste des sources
 SRC =		cmdl_treatment/cmdl_treatment.c \
+			cmdl_treatment/sh_lex_act.c \
 			cmdl_treatment/sh_lexer.c \
 			get_cmdl/get_cmdl.c \
 			get_cmdl/handle_actions.c \

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/09 18:33:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/09 22:44:51 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/10 02:09:23 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 static int	get_char_type(char c)
 {
-	if (!c || ft_strchr(" |&\\\'\"\t\n><", (int)c))
+	if (!c || ft_strchr(" |&\\\'\"\t\n><;", (int)c))
 		return (c);
 	return (CT_GENERAL);
 }
 
-static void	define_token(t_list **lst, int j, char *cmdl)
+void		define_token(t_list **lst, int j, char *cmdl)
 {
 	char	*tmp;
 
@@ -35,80 +35,43 @@ static void	define_token(t_list **lst, int j, char *cmdl)
 	}
 }
 
+static void	lex_wheel(t_lex *lex, char *cmdl)
+{
+	while (cmdl[lex->i])
+	{
+		lex->ct = get_char_type(cmdl[lex->i]);
+		if (lex->state == STATE_DQUOTE || lex->state == STATE_QUOTE)
+			lex_quotes(lex);
+		else if (lex->state == STATE_SEP)
+			lex_sep(lex, cmdl);
+		else if (lex->ct == CT_PIPE || lex->ct == CT_ASAND ||
+			lex->ct == CT_GREATER || lex->ct == CT_LESSER)
+			lex_gen_sep(lex, cmdl);
+		else if ((lex->ct == CT_QUOTE || lex->ct == CT_DQUOTE) && ++(lex->j))
+			lex->state = lex->ct == CT_QUOTE ? STATE_QUOTE : STATE_DQUOTE;
+		else if (lex->ct == CT_SEMICOLON)
+			lex_gen_seco(lex, cmdl);
+		else if (lex->ct == CT_ESCAPESEQ && (lex->j += 2))
+			++(lex->i);
+		else if	(lex->ct == CT_WHITESPACE)
+			lex_gen_blank(lex, cmdl);
+		else
+			++(lex->j);
+		if (cmdl[lex->i])
+			++(lex->i);
+	}
+}
+
 t_list		*sh_lexer(char *cmdl)
 {
-	t_list	*lst;
-	int		ct;
-	int		state;
-	int		i;
-	int		j;
+	t_lex	lex;
 
-	lst = NULL;
-	i = 0;
-	j = 0;
-	state = STATE_GENERAL;
-	while (cmdl[i])
-	{
-		ct = get_char_type(cmdl[i]);
-		if (state == STATE_DQUOTE || state == STATE_QUOTE)
-		{
-			++j;
-			if ((ct == CT_DQUOTE && state == STATE_DQUOTE) ||
-				(ct == CT_QUOTE && state == STATE_QUOTE))
-				state = STATE_GENERAL;
-		}
-		else if (state == STATE_SEP)
-		{
-			if (cmdl[i] == cmdl[i - 1] && j < 2)
-				++j;
-			else
-			{
-				ft_printf("fleur: |%s|\n", cmdl + i - j);
-				DEF_TOK;
-				--i;
-				state = STATE_GENERAL;
-				j = 0;
-			}
-		}
-		else if (state == STATE_ESCSEQ)
-			++j;
-		else
-		{
-			if (ct == CT_PIPE || ct == CT_AMPERSAND || ct == CT_GREATER ||
-				ct == CT_LESSER)
-			{
-				ft_printf("SEPARATOR DETECTED %d\n", j);
-				if (j)
-					DEF_TOK;
-				j = 1;
-				state = STATE_SEP;
-			}
-			else if (ct == CT_QUOTE && ++j)
-				state = STATE_QUOTE;
-			else if (ct == CT_DQUOTE && ++j)
-				state = STATE_DQUOTE;
-			else if (ct == CT_SEMICOLON)
-			{
-				if (j)
-					DEF_TOK;
-				define_token(&lst, 1, cmdl + i);
-				j = 0;
-			}
-			else if (ct == CT_ESCAPESEQ && ++j)
-				state = STATE_ESCSEQ;
-			else if	(ct == CT_WHITESPACE)
-			{
-				ft_printf("WHITESPACE DETECTED %d\n", j);
-				if (j)
-					DEF_TOK;
-				j = 0;
-			}
-			else
-				++j;
-		}
-		++i;
-	}
-	if (j)
-		DEF_TOK;
-	return (lst);
+	lex.lst = NULL;
+	lex.i = 0;
+	lex.j = 0;
+	lex.state = STATE_GENERAL;
+	lex_wheel(&lex, cmdl);
+	if (lex.j)
+		define_token(&(lex.lst), lex.j, cmdl + lex.i - lex.j);
+	return (lex.lst);
 }
