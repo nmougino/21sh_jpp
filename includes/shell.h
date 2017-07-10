@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/09 20:15:03 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 00:36:35 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ typedef struct		s_history
 	char			*save;
 }					t_history;
 
+typedef struct		s_shenv
+{
+	char			*name;
+	char			*cont;
+}					t_shenv;
+
 typedef struct		s_meta
 {
 	struct winsize	ws;
@@ -73,6 +79,7 @@ typedef struct		s_meta
 	t_history		history;
 	char			*clipbo;
 	int				fd;
+	t_list			*shenv;
 }					t_meta;
 
 extern t_meta		g_meta;
@@ -122,5 +129,10 @@ void				destroy_history(void);
 void				metainit(void);
 
 char				**cmdl_treatment(t_cmdl *cmdl);
+void				sh_quotes_aliases(t_list *lst);
+
+void				env_init(t_list **shenv, char **env);
+void				env_del(void *shenv, size_t s);
+void				env_display(t_list *e);
 
 #endif

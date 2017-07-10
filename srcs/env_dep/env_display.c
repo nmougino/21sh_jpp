@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmdl_treatment.c                                   :+:      :+:    :+:   */
+/*   env_display.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/09 16:19:44 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 00:36:20 by nmougino         ###   ########.fr       */
+/*   Created: 2017/07/10 20:47:47 by nmougino          #+#    #+#             */
+/*   Updated: 2017/07/10 20:49:46 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	ct_destroy(void *p, size_t s)
+void	env_display(t_list *e)
 {
-	free(p);
-	(void)s;
-}
+	t_shenv	*c;
 
-char		**cmdl_treatment(t_cmdl *cmdl)
-{
-	char	**ans;
-	t_list	*lst;
-
-	lst = sh_lexer(cmdl->cmdl);
-	ft_lstiter(lst, sh_quotes_aliases);
-	ans = ft_lststrtotab(lst);
-	ft_lstdel(&lst, ct_destroy);
-	return (ans);
+	c = (t_shenv *)e->content;
+	ft_printf("%s=%s\n", c->name, c->cont);
 }

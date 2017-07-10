@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/10 05:19:26 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 00:37:04 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int		main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	(void)env;
 	cmdl.cmdl = NULL;
 	cmdl.pos = 0;
 	metainit();
+	env_init(&(g_meta.shenv), env);
 	while (true)
 	{
 		if (!get_cmdl(&cmdl))
@@ -56,6 +56,7 @@ int		main(int ac, char **av, char **env)
 		ft_arrdel((void **)tokens);
 		sh_cmdl_init(&cmdl);
 	}
+	ft_lstdel(&(g_meta.shenv), env_del);
 	destroy_history();
 	close(g_meta.fd);
 	if (g_meta.clipbo)

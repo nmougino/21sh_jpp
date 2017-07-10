@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/10 01:47:34 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/11 00:37:39 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,16 @@ DEFRULE =	all
 SRCDIR =	srcs
 INCDIR =	includes
 OBJDIR =	objs
-DETDIR =	cmdl_treatment get_cmdl history tc_misc
+DETDIR =	cmdl_treatment env_dep get_cmdl history tc_misc
 
 #	Liste des sources
 SRC =		cmdl_treatment/cmdl_treatment.c \
+			cmdl_treatment/sh_quotes_aliases.c \
 			cmdl_treatment/sh_lex_act.c \
 			cmdl_treatment/sh_lexer.c \
+			env_dep/env_del.c \
+			env_dep/env_display.c \
+			env_dep/env_init.c \
 			get_cmdl/get_cmdl.c \
 			get_cmdl/handle_actions.c \
 			get_cmdl/handle_alt_arrows.c \

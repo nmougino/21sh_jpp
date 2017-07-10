@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmdl_treatment.c                                   :+:      :+:    :+:   */
+/*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/09 16:19:44 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 00:36:20 by nmougino         ###   ########.fr       */
+/*   Created: 2017/07/10 20:23:01 by nmougino          #+#    #+#             */
+/*   Updated: 2017/07/10 21:28:19 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	ct_destroy(void *p, size_t s)
+void	env_init(t_list **shenv, char **env)
 {
-	free(p);
-	(void)s;
-}
+	t_shenv	new;
+	size_t	i;
 
-char		**cmdl_treatment(t_cmdl *cmdl)
-{
-	char	**ans;
-	t_list	*lst;
-
-	lst = sh_lexer(cmdl->cmdl);
-	ft_lstiter(lst, sh_quotes_aliases);
-	ans = ft_lststrtotab(lst);
-	ft_lstdel(&lst, ct_destroy);
-	return (ans);
+	*shenv = NULL;
+	if (!env || !*env)
+		return ;
+	while (*env)
+	{
+		i = (size_t)ft_strcloc('=', *env);
+		new.name = ft_strnew(i);
+		ft_strncpy(new.name, *env, i);
+		new.cont = ft_strdup((*env) + i + 1);
+		ft_lstadd_end(shenv, ft_lstnew(&new, sizeof(t_shenv)));
+		++env;
+	}
 }
