@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/11 00:37:39 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/11 18:49:30 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC =		cmdl_treatment/cmdl_treatment.c \
 			env_dep/env_display.c \
 			env_dep/env_init.c \
 			get_cmdl/get_cmdl.c \
+			get_cmdl/get_cmdl_notc.c \
 			get_cmdl/handle_actions.c \
 			get_cmdl/handle_alt_arrows.c \
 			get_cmdl/handle_alt_key.c \
@@ -52,7 +53,8 @@ SRC =		cmdl_treatment/cmdl_treatment.c \
 			tc_misc/err_dep.c \
 			tc_misc/sh_go_doup.c \
 			tc_misc/tc_putc.c \
-			tc_misc/terminit.c
+			tc_misc/terminit.c \
+			term_check.c
 LIB =		ft
 OBJ =		$(SRC:.c=.o)
 

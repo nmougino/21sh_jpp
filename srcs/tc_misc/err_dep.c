@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:52:50 by nmougino          #+#    #+#             */
-/*   Updated: 2017/06/16 12:52:52 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 18:39:21 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	tc_err_print(int ierr, int e)
 		ft_putendl_fd("ERR_TCGETATTR_FAIL", 2);
 	else if (ierr == ERR_TCSETATTR_FAIL)
 		ft_putendl_fd("ERR_TCSETATTR_FAIL", 2);
-	return (-1);
+	return (0);
 }

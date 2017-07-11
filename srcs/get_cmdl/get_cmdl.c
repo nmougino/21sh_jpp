@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/08 23:26:05 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 18:44:47 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		go_out(t_cmdl *cmdl)
 	}
 }
 
-int				get_cmdl_loop(t_cmdl *cmdl)
+void			get_cmdl_loop(t_cmdl *cmdl)
 {
 	char		buf[6];
 
@@ -70,7 +70,6 @@ int				get_cmdl_loop(t_cmdl *cmdl)
 		ft_bzero(buf, 6);
 	}
 	go_out(cmdl);
-	return (cmdl->cmdl ? 1 : 0);
 }
 
 int				get_cmdl(t_cmdl *cmdl)
@@ -78,11 +77,12 @@ int				get_cmdl(t_cmdl *cmdl)
 	t_termios	tcap;
 	t_termios	save;
 
-	terminit(&tcap, &save);
-	get_cmdl_loop(cmdl);
+	g_meta.gcmdl_f = (g_meta.edmod = terminit(&tcap, &save)) ? get_cmdl_loop :
+		get_cmdl_notc;
+	g_meta.gcmdl_f(cmdl);
 	if (cmdl->cmdl)
 		handle_quotes(cmdl);
-	if (tcsetattr(0, TCSADRAIN, &save) == -1)
+	if (g_meta.edmod && tcsetattr(0, TCSADRAIN, &save) == -1)
 		exit(tc_err_print(ERR_TCSETATTR_FAIL, 0));
 	if (HISTO.is_in)
 		history_exit(cmdl);

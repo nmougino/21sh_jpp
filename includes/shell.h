@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 00:36:35 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 18:50:06 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ typedef struct		s_meta
 	t_history		history;
 	char			*clipbo;
 	int				fd;
+	int				edmod;
 	t_list			*shenv;
+	void			(*gcmdl_f)(t_cmdl *cmdl);
 }					t_meta;
 
 extern t_meta		g_meta;
@@ -87,7 +89,8 @@ extern t_meta		g_meta;
 void				sh_cmdl_init(t_cmdl *cmdl);
 int					get_cmdl(t_cmdl *cmdl);
 void				handle_quotes(t_cmdl *cmdl);
-int					get_cmdl_loop(t_cmdl *cmdl);
+void				get_cmdl_loop(t_cmdl *cmdl);
+void				get_cmdl_notc(t_cmdl *cmdl);
 
 void				erase_cmdl(t_cmdl *cmdl);
 
@@ -119,14 +122,14 @@ void				sh_putstr(t_cmdl *cmdl);
 
 int					sh_putc(int c);
 
-void				terminit(t_termios *tcap, t_termios *save);
+int					terminit(t_termios *tcap, t_termios *save);
 
 int					tc_err_print(int ierr, int e);
 
 void				del_histo(void *p, size_t s);
 void				destroy_history(void);
 
-void				metainit(void);
+void				metainit(char **env);
 
 char				**cmdl_treatment(t_cmdl *cmdl);
 void				sh_quotes_aliases(t_list *lst);
@@ -134,5 +137,7 @@ void				sh_quotes_aliases(t_list *lst);
 void				env_init(t_list **shenv, char **env);
 void				env_del(void *shenv, size_t s);
 void				env_display(t_list *e);
+
+int					term_check(void);
 
 #endif

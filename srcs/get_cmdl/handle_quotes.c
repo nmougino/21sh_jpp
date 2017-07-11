@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 11:32:08 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/10 06:02:23 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 18:43:57 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			handle_quotes(t_cmdl *cmdl)
 	tmp.pos = 0;
 	while (quotes_scan(cmdl))
 	{
-		get_cmdl_loop(&tmp);
+		g_meta.gcmdl_f(&tmp);
 		g_meta.prompt = g_meta.prompt_save;
 		if (!tmp.cmdl)
 		{
