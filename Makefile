@@ -6,13 +6,13 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/11 18:49:30 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/11 19:17:11 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	Compilator - clang est plus sur que gcc
 CC =		clang
-CFLAGS =	-Wall -Wextra -Werror -Weverything -Wno-padded
+CFLAGS =	-Wall -Wextra -Werror -Weverything -Wno-padded #-fsanitize=address
 
 #	Binary
 NAME =		21sh
@@ -101,6 +101,8 @@ all: libcomp $(OBJDIR) $(NAME)
 
 re: fclean all
 
+reloc: fcleanloc all
+
 #	Compilation rules
 libcomp:
 	make all -C lib$(LIB)
@@ -119,11 +121,18 @@ $(NAME): $(OBJP)
 	@$(CC) $(CFLAGS) $(ADDFLAGS)	-o $@ $^ -I $(INCDIR) -ltermcap -L lib$(LIB) -l$(LIB)
 
 #	MrProper's legacy
-clean:
+cleanloc:
 	@echo "$(RED)@ Objects deletion$(DEF)"
 	@rm -rf $(OBJDIR)
+
+
+clean: cleanloc
 	@echo "$(RED)@ Library deletion$(DEF)"
 	@make fclean -C libft/
+
+fcleanloc: cleanloc
+	@echo "$(RED)@ Binary deletion$(DEF)"
+	@rm -f $(NAME)
 
 fclean: clean
 	@echo "$(RED)@ Binary deletion$(DEF)"

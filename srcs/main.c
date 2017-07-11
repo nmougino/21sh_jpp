@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 18:53:11 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 19:19:45 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	sh_cmdl_init(t_cmdl *cmdl)
 {
 	if (cmdl->cmdl && !HISTO.is_in)
 		ft_strdel(&(cmdl->cmdl));
+	ft_printf("ici bordel\n");
 	cmdl->pos = 0;
 }
 
@@ -43,6 +44,7 @@ int		main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	env = NULL;
 	cmdl.cmdl = NULL;
 	cmdl.pos = 0;
 	metainit(env);
@@ -60,7 +62,6 @@ int		main(int ac, char **av, char **env)
 	close(g_meta.fd);
 	if (g_meta.clipbo)
 		free(g_meta.clipbo);
-	// int i = 1;
-	// while (i == 1);
+	// ft_printf((char*)2);
 	return (0);
 }
