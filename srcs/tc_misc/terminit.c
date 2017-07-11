@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:44:14 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 18:40:21 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 19:07:54 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	terminit(t_termios *tcap, t_termios *save)
 	char	*name;
 	int		e;
 
+	if (!term_check())
+		return (0);
 	if (!(name = getenv("TERM")))
 		return(tc_err_print(ERR_NO_NAME, 0));
 	if ((e = tgetent(NULL, name)) != 1)
@@ -30,5 +32,5 @@ int	terminit(t_termios *tcap, t_termios *save)
 	tcap->c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, tcap) == -1)
 		return(tc_err_print(ERR_TCSETATTR_FAIL, 0));
-	return (term_check());
+	return (1);
 }
