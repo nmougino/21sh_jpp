@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 18:50:06 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 21:23:16 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ extern t_meta		g_meta;
 void				sh_cmdl_init(t_cmdl *cmdl);
 int					get_cmdl(t_cmdl *cmdl);
 void				handle_quotes(t_cmdl *cmdl);
+void				handle_back_slash(t_cmdl *cmdl);
 void				get_cmdl_loop(t_cmdl *cmdl);
 void				get_cmdl_notc(t_cmdl *cmdl);
 
@@ -132,7 +133,7 @@ void				destroy_history(void);
 void				metainit(char **env);
 
 char				**cmdl_treatment(t_cmdl *cmdl);
-void				sh_quotes_aliases(t_list *lst);
+void				sh_inhib_exp(t_list *lst);
 
 void				env_init(t_list **shenv, char **env);
 void				env_del(void *shenv, size_t s);

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/09 16:19:44 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 00:36:20 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 21:05:20 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		**cmdl_treatment(t_cmdl *cmdl)
 	t_list	*lst;
 
 	lst = sh_lexer(cmdl->cmdl);
-	ft_lstiter(lst, sh_quotes_aliases);
+	ft_lstiter(lst, sh_inhib_exp);
 	ans = ft_lststrtotab(lst);
 	ft_lstdel(&lst, ct_destroy);
 	return (ans);

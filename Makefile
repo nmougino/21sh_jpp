@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/11 19:17:11 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/11 21:23:33 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ DETDIR =	cmdl_treatment env_dep get_cmdl history tc_misc
 
 #	Liste des sources
 SRC =		cmdl_treatment/cmdl_treatment.c \
-			cmdl_treatment/sh_quotes_aliases.c \
+			cmdl_treatment/sh_inhib_exp.c \
 			cmdl_treatment/sh_lex_act.c \
 			cmdl_treatment/sh_lexer.c \
 			env_dep/env_del.c \
@@ -40,6 +40,7 @@ SRC =		cmdl_treatment/cmdl_treatment.c \
 			get_cmdl/handle_alt_arrows.c \
 			get_cmdl/handle_alt_key.c \
 			get_cmdl/handle_arrows.c \
+			get_cmdl/handle_back_slash.c \
 			get_cmdl/handle_del.c \
 			get_cmdl/handle_home_end.c \
 			get_cmdl/handle_quotes.c \

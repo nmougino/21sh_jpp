@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 18:44:47 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 21:43:50 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void			get_cmdl_loop(t_cmdl *cmdl)
 {
 	char		buf[6];
 
+	LOG("ICI\n");
 	ft_bzero(buf, 6);
 	sh_putprompt();
 	cmdl->cmdl = ft_strdup("");
@@ -79,9 +80,12 @@ int				get_cmdl(t_cmdl *cmdl)
 
 	g_meta.gcmdl_f = (g_meta.edmod = terminit(&tcap, &save)) ? get_cmdl_loop :
 		get_cmdl_notc;
+	LOGS("Resultat : %d\n", g_meta.edmod);
 	g_meta.gcmdl_f(cmdl);
 	if (cmdl->cmdl)
 		handle_quotes(cmdl);
+	if (cmdl->cmdl)
+		handle_back_slash(cmdl);
 	if (g_meta.edmod && tcsetattr(0, TCSADRAIN, &save) == -1)
 		exit(tc_err_print(ERR_TCSETATTR_FAIL, 0));
 	if (HISTO.is_in)

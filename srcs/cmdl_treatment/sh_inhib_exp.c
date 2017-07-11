@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_quotes_aliases.c                                :+:      :+:    :+:   */
+/*   sh_inhib_exp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 06:18:46 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 00:39:44 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/11 21:06:26 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 /*
-** QACD
-** Quotes and Aliases Conversion Departement
+** IECD
+** Inhibitors and Expansion Conversion Departement
 */
 
 static void		quote_act(char c, int *q)
@@ -29,7 +29,7 @@ static void		quote_act(char c, int *q)
 		*q = 0;
 }
 
-void	sh_quotes_aliases(t_list *lst)
+void	sh_inhib_exp(t_list *lst)
 {
 	char	*str;
 	int		q;
