@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:44:14 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/12 05:27:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/12 05:33:49 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	terminit(t_termios *tcap, t_termios *save)
 
 	if (!g_meta.shenv)
 		return (ft_printf("sh: ENVIRONEMENT HAS NOT BEEN LOADED\n") ? 0 : 0);
-	if (!(name = getenv("TERM")))
+	if (!(name = get_env("TERM")))
 		return (tc_err_print(ERR_NO_NAME, 0));
 	if ((e = tgetent(NULL, name)) != 1)
 		return (tc_err_print(ERR_TGETENT_FAIL, e));

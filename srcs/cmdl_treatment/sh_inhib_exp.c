@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 06:18:46 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/12 05:24:39 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/12 21:50:11 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,54 +17,47 @@
 ** Inhibitors and Expansion Conversion Departement
 */
 
-static void		replace_expansion(char **str, char *cont, int *i, char *name)
+static void		replace_expansion(char **str, char *cont, size_t *i, char *name)
 {
 	char	*tmp;
 
-	tmp = ft_strnew((size_t)*i + ft_strlen(cont) +
-		ft_strlen(*str + (size_t)*i + ft_strlen(cont)));
-	ft_strncpy(tmp, *str, (size_t)*i);
-	ft_strcat(tmp, cont);
-	ft_strcat(tmp, *str + (size_t)*i + 1 + ft_strlen(name));
+	tmp = ft_strndup(*str, *i);
+	ft_stradd(&tmp, cont);
+	ft_stradd(&tmp, *str + *i + 1 +ft_strlen(name));
 	ft_strdel(str);
 	*str = tmp;
-	*i += (int)ft_strlen(cont);
+	*i += ft_strlen(cont);
 }
 
-static void		handle_tilde(char **str, int *i)
+static void		handle_tilde(char **str, size_t *i)
 {
 	char	*env;
 
-	if ((env = getenv("HOME")))
+	if ((env = get_env("HOME")))
 		replace_expansion(str, env, i, "~");
 }
 
-static void		handle_expansion(char **str, int *i)
+static void		handle_expansion(char **str, size_t *i)
 {
-	t_list	*tmp;
+	char	*tmp;
 	size_t	len;
 	char	*name;
 
-	len = ft_wordlen(*str + *i + 1);
+	len = ft_wordlen(*str + *i + 1, "\n\t \"'$");
 	name = ft_strndup(*str + *i + 1, len);
-	tmp = g_meta.shenv;
-	while (tmp)
+	if ((tmp = get_env(name)))
+		replace_expansion(str, tmp, i, name);
+	else
 	{
-		if (!ft_strcmp(name, ((t_shenv *)(tmp->content))->name))
-		{
-			replace_expansion(str, ((t_shenv *)(tmp->content))->cont, i, name);
-			break ;
-		}
-		tmp = tmp->next;
+		++len;
+		while (!tmp && len--)
+			ft_move_left(*str + *i);
 	}
 	free(name);
-	++len;
-	while (!tmp && len--)
-		ft_move_left(*str + *i);
 	(*i)--;
 }
 
-static void		quote_act(char c, int *q)
+static int		quote_act(char c, int *q)
 {
 	if (!*q && c == '\'')
 		*q = 1;
@@ -74,29 +67,28 @@ static void		quote_act(char c, int *q)
 		*q = 0;
 	else if (c == '"' && *q == 2)
 		*q = 0;
+	else
+		return (0);
+	return (1);
 }
 
 void			sh_inhib_exp(t_list *lst)
 {
 	char	**str;
 	int		q;
-	int		i;
+	size_t	i;
 
 	str = (char **)(&lst->content);
 	q = 0;
 	i = 0;
 	while ((*str)[i])
 	{
-		if (ft_strchr("'\"", (*str)[i]))
-		{
-			ft_printf("prout\n");
-			quote_act((*str)[i], &q);
+		if (ft_strchr("'\"", (*str)[i]) && quote_act((*str)[i], &q))
 			ft_move_left(*str + i--);
-		}
 		else if ((*str)[i] == '\\')
 			ft_move_left(*str + i);
 		else if ((!q || q == 2) && (*str)[i] == '$' && (*str)[i + 1] &&
-			!ft_strchr(" \n\t", (*str)[i + 1]))
+			!ft_strchr(" \n\t\"'$", (*str)[i + 1]))
 			handle_expansion(str, &i);
 		else if (!q && (*str)[i] == '~')
 			handle_tilde(str, &i);
