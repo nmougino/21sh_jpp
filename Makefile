@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/11 21:23:33 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/12 05:28:01 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRC =		cmdl_treatment/cmdl_treatment.c \
 			tc_misc/sh_go_doup.c \
 			tc_misc/tc_putc.c \
 			tc_misc/terminit.c \
-			term_check.c
+			tc_misc/term_check.c
 LIB =		ft
 OBJ =		$(SRC:.c=.o)
 

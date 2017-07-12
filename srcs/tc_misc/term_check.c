@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 17:19:30 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 21:53:22 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/12 05:27:44 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	term_check(void)
 {
-	if(!tgetstr("sf", NULL))
+	if (!tgetstr("sf", NULL))
 		return (0);
-	else if(!tgetstr("ce", NULL))
+	else if (!tgetstr("ce", NULL))
 		return (0);
-	else if(!tgetstr("le", NULL))
+	else if (!tgetstr("le", NULL))
 		return (0);
-	else if(!tgetstr("up", NULL))
+	else if (!tgetstr("up", NULL))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 21:43:50 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/12 05:23:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,8 @@ int				get_cmdl(t_cmdl *cmdl)
 	t_termios	tcap;
 	t_termios	save;
 
-	g_meta.gcmdl_f = (g_meta.edmod = terminit(&tcap, &save)) ? get_cmdl_loop :
-		get_cmdl_notc;
-	LOGS("Resultat : %d\n", g_meta.edmod);
+	g_meta.edmod = terminit(&tcap, &save);
+	g_meta.gcmdl_f = g_meta.edmod ? get_cmdl_loop : get_cmdl_notc;
 	g_meta.gcmdl_f(cmdl);
 	if (cmdl->cmdl)
 		handle_quotes(cmdl);

@@ -6,24 +6,23 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/09 20:14:37 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/10 02:09:33 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/12 05:29:01 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef SH_LEXER_H
 # define SH_LEXER_H
 
 # include "shell.h"
 
-enum		e_lexer_sate {
+enum			e_lexer_sate {
 	STATE_GENERAL,
-	STATE_SEP, // > >> < << | || & &&
+	STATE_SEP,
 	STATE_QUOTE,
 	STATE_DQUOTE
 };
 
-enum		e_char_types {
+enum			e_char_types {
 	CT_GENERAL = 1,
 	CT_PIPE = '|',
 	CT_ASAND = '&',
@@ -47,15 +46,14 @@ typedef struct	s_lex
 	int			j;
 }				t_lex;
 
-t_list		*sh_lexer(char *cmdl);
+t_list			*sh_lexer(char *cmdl);
 
-void		define_token(t_list **lst, int j, char *cmdl);
+void			define_token(t_list **lst, int j, char *cmdl);
 
-void		lex_quotes(t_lex *lex);
-void		lex_sep(t_lex *lex, char *cmdl);
-void		lex_gen_sep(t_lex *lex, char *cmdl);
-void		lex_gen_seco(t_lex *lex, char *cmdl);
-void		lex_gen_blank(t_lex *lex, char *cmdl);
-
+void			lex_quotes(t_lex *lex);
+void			lex_sep(t_lex *lex, char *cmdl);
+void			lex_gen_sep(t_lex *lex, char *cmdl);
+void			lex_gen_seco(t_lex *lex, char *cmdl);
+void			lex_gen_blank(t_lex *lex, char *cmdl);
 
 #endif
