@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 06:18:46 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/12 04:54:53 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/12 05:11:58 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ static void		replace_expansion(char **str, char *cont, int *i, char *name)
 	ft_strdel(str);
 	*str = tmp;
 	*i += (int)ft_strlen(cont);
+}
+
+static void		handle_tilde(char **str, int *i)
+{
+	char	*env;
+
+	if ((env = getenv("HOME")))
+		replace_expansion(str, env, i, "~");
 }
 
 static void		handle_expansion(char **str, int *i)
@@ -90,6 +98,8 @@ void	sh_inhib_exp(t_list *lst)
 		else if ((!q || q == 2 ) && (*str)[i] == '$' && (*str)[i + 1] &&
 			!ft_strchr(" \n\t", (*str)[i + 1]))
 			handle_expansion(str, &i);
+		else if (!q && (*str)[i] == '~')
+			handle_tilde(str, &i);
 		++i;
 	}
 }
