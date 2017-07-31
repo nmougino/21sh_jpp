@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/12 05:23:10 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/18 03:41:30 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void			get_cmdl_loop(t_cmdl *cmdl)
 {
 	char		buf[6];
 
-	LOG("ICI\n");
 	ft_bzero(buf, 6);
 	sh_putprompt();
 	cmdl->cmdl = ft_strdup("");

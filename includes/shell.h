@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/12 05:34:05 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/31 16:36:30 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <termios.h>
 # include <term.h>
 # include <curses.h>
-# include "sh_lexer.h"
+// # include "sh_lexer.h"
+# include "sh_lexer_2.h"
 
 # define ERR_NO_NAME 0
 # define ERR_TGETENT_FAIL 1
@@ -46,7 +47,7 @@
 # define FD			g_meta.fd
 # define HISTO		g_meta.history
 # define LOG(X)		ft_dprintf(g_meta.fd, X);
-# define LOGS(X, Y)		ft_dprintf(g_meta.fd, X, Y);
+# define LOGS(X, Y)	ft_dprintf(g_meta.fd, X, Y);
 
 typedef struct termios	t_termios;
 
@@ -132,7 +133,7 @@ void				destroy_history(void);
 
 void				metainit(char **env);
 
-char				**cmdl_treatment(t_cmdl *cmdl);
+t_list				*cmdl_treatment(t_cmdl *cmdl);
 void				sh_inhib_exp(t_list *lst);
 
 void				env_init(t_list **shenv, char **env);

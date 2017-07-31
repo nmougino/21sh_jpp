@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:44:14 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/12 05:33:49 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/31 20:45:27 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	terminit(t_termios *tcap, t_termios *save)
 		return (tc_err_print(ERR_NO_NAME, 0));
 	if ((e = tgetent(NULL, name)) != 1)
 		return (tc_err_print(ERR_TGETENT_FAIL, e));
-	if (tcgetattr(0, tcap) == -1)
-		return (tc_err_print(ERR_TCGETATTR_FAIL, 0));
-	if (tcgetattr(0, save) == -1)
+	if (tcgetattr(0, tcap) == -1 || tcgetattr(0, save) == -1)
 		return (tc_err_print(ERR_TCGETATTR_FAIL, 0));
 	tcap->c_lflag &= ~((unsigned long)(ECHO | ECHOE | ECHOK | ECHONL | ICANON));
 	tcap->c_cc[VMIN] = 1;

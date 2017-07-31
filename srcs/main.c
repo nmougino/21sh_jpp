@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 21:44:14 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/31 16:49:18 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,25 @@ void	sh_cmdl_init(t_cmdl *cmdl)
 	cmdl->pos = 0;
 }
 
+// static void	put_someshit(t_list *lst)
+// {
+// 	ft_printf(" |%s|\n", lst->content);
+// }
+
+static void	del_someshit(void *elem, size_t s)
+{
+	t_token	*tok;
+
+	tok = (t_token*)elem;
+	free(tok->content);
+	free(tok);
+	(void)s;
+}
+
 int		main(int ac, char **av, char **env)
 {
 	t_cmdl	cmdl;
-	char	**tokens;
+	t_list	*tokens;
 
 	(void)ac;
 	(void)av;
@@ -51,8 +66,8 @@ int		main(int ac, char **av, char **env)
 		if (!get_cmdl(&cmdl))
 			break;
 		tokens = cmdl_treatment(&cmdl);
-		ft_putstrarr(tokens);
-		ft_arrdel((void **)tokens);
+		// ft_lstiter(tokens, put_someshit);
+		ft_lstdel(&tokens, del_someshit);
 		sh_cmdl_init(&cmdl);
 	}
 	ft_lstdel(&(g_meta.shenv), env_del);
