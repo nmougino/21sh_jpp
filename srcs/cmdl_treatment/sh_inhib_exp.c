@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 06:18:46 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/12 21:50:11 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/31 22:18:03 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		replace_expansion(char **str, char *cont, size_t *i, char *name)
 
 	tmp = ft_strndup(*str, *i);
 	ft_stradd(&tmp, cont);
-	ft_stradd(&tmp, *str + *i + 1 +ft_strlen(name));
+	ft_stradd(&tmp, *str + *i + ft_strlen(name));
 	ft_strdel(str);
 	*str = tmp;
 	*i += ft_strlen(cont);
@@ -78,9 +78,11 @@ void			sh_inhib_exp(t_list *lst)
 	int		q;
 	size_t	i;
 
-	str = (char **)(&lst->content);
+	if (((t_token *)(lst->content))->type != WORD)
+		return ;
 	q = 0;
 	i = 0;
+	str = &(((t_token *)(lst->content))->content);
 	while ((*str)[i])
 	{
 		if (ft_strchr("'\"", (*str)[i]) && quote_act((*str)[i], &q))
