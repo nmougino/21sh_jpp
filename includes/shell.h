@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/31 16:36:30 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/07/31 22:02:40 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 # include <termios.h>
 # include <term.h>
 # include <curses.h>
-// # include "sh_lexer.h"
-# include "sh_lexer_2.h"
+# include "sh_lexer.h"
 
 # define ERR_NO_NAME 0
 # define ERR_TGETENT_FAIL 1

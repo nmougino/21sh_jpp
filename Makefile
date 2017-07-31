@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/31 16:37:28 by nmougino         ###   ########.fr        #
+#    Updated: 2017/07/31 22:02:05 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ DETDIR =	cmdl_treatment env_dep get_cmdl history tc_misc
 # cmdl_treatment/sh_lex_act.c
 SRC =		cmdl_treatment/cmdl_treatment.c \
 			cmdl_treatment/sh_inhib_exp.c \
-			cmdl_treatment/sh_lexer_2.c \
+			cmdl_treatment/sh_lexer.c \
 			env_dep/env_del.c \
 			env_dep/env_display.c \
 			env_dep/env_init.c \

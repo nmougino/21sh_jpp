@@ -1,77 +1,153 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_lexer.c                                         :+:      :+:    :+:   */
+/*   sh_lexer_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/09 18:33:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/10 02:16:19 by nmougino         ###   ########.fr       */
+/*   Created: 2017/07/24 20:03:12 by nmougino          #+#    #+#             */
+/*   Updated: 2017/07/31 21:55:35 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 /*
-** Analyse sytaxique de la ligne de commande et divisions en tokens via
-** la methode de l'automate a pile.
+** Le lexer va diviser la chaine.
+** puis attribuer a chacun des maillons un type.
+** Le contenu et le type formeront un token.
+** La liste retournee par le lexer ira directement au departement
+** "inhibiteurs et exapansions"
+** Bisous.
 */
 
-static int	get_char_type(char c)
+/*
+	Soit on split, puis on attribue. Ce qui semble plus simple.
+	Soit on fait les deux.. Ce qui semble obligatoire.
+*/
+
+static char	*which_operator(char *cmdl)
 {
-	if (!c || ft_strchr(" |&\\\'\"\t\n><;", (int)c))
-		return (c);
-	return (CT_GENERAL);
+	if (ft_strnequ(DLESS, cmdl, ft_strlen(DLESS)))
+		return (DLESS);
+	else if (ft_strnequ(DGREAT, cmdl, ft_strlen(DGREAT)))
+		return (DGREAT);
+	else if (ft_strnequ(LESSAND, cmdl, ft_strlen(LESSAND)))
+		return (LESSAND);
+	else if (ft_strnequ(GREATAND, cmdl, ft_strlen(GREATAND)))
+		return (GREATAND);
+	else if (ft_strnequ(AND_IF, cmdl, ft_strlen(AND_IF)))
+		return (AND_IF);
+	else if (ft_strnequ(OR_IF, cmdl, ft_strlen(OR_IF)))
+		return (OR_IF);
+	else if (ft_strnequ(PIPE, cmdl, ft_strlen(PIPE)))
+		return (PIPE);
+	else if (ft_strnequ(AMPERSAND, cmdl, ft_strlen(AMPERSAND)))
+		return (AMPERSAND);
+	else if (ft_strnequ(SEMI, cmdl, ft_strlen(SEMI)))
+		return (SEMI);
+	else if (ft_strnequ(LESS, cmdl, ft_strlen(LESS)))
+		return (LESS);
+	else if (ft_strnequ(GREAT, cmdl, ft_strlen(GREAT)))
+		return (GREAT);
+	return (NO_OP);
 }
 
-void		define_token(t_list **lst, int j, char *cmdl)
+static enum e_token_type	is_operator(char *cmdl)
 {
-	char	*tmp;
-
-	if ((tmp = ft_strsub(cmdl, 0, (size_t)j)))
-	{
-		ft_lstadd_end(lst, ft_lstnew(tmp, (size_t)j + 1));
-		free(tmp);
-	}
+	if (ft_strnequ(DLESS, cmdl, ft_strlen(DLESS)) ||
+		ft_strnequ(DGREAT, cmdl, ft_strlen(DGREAT)) ||
+		ft_strnequ(LESSAND, cmdl, ft_strlen(LESSAND)) ||
+		ft_strnequ(GREATAND, cmdl, ft_strlen(GREATAND)) ||
+		ft_strnequ(LESS, cmdl, ft_strlen(LESS)) ||
+		ft_strnequ(GREAT, cmdl, ft_strlen(GREAT)))
+		return (OP_REDIRECT);
+	else if (ft_strnequ(AND_IF, cmdl, ft_strlen(AND_IF)) ||
+		ft_strnequ(OR_IF, cmdl, ft_strlen(OR_IF)) ||
+		ft_strnequ(PIPE, cmdl, ft_strlen(PIPE)) ||
+		ft_strnequ(AMPERSAND, cmdl, ft_strlen(AMPERSAND)) ||
+		ft_strnequ(SEMI, cmdl, ft_strlen(SEMI)))
+		return (OP_CONTROL);
+	return (WORD);
 }
 
-static void	lex_wheel(t_lex *lex, char *cmdl)
+static int	lex_handle_quotes(char *cmdl)
 {
-	while (cmdl[lex->i])
+	int		i;
+	char	q;
+
+	i = 1;
+	q = *cmdl;
+	while (cmdl[i])
 	{
-		lex->ct = get_char_type(cmdl[lex->i]);
-		if (lex->state == STATE_DQUOTE || lex->state == STATE_QUOTE)
-			lex_quotes(lex);
-		else if (lex->state == STATE_SEP)
-			lex_sep(lex, cmdl);
-		else if (lex->ct == CT_PIPE || lex->ct == CT_ASAND ||
-			lex->ct == CT_GREATER || lex->ct == CT_LESSER)
-			lex_gen_sep(lex, cmdl);
-		else if ((lex->ct == CT_QUOTE || lex->ct == CT_DQUOTE) && ++(lex->j))
-			lex->state = lex->ct == CT_QUOTE ? STATE_QUOTE : STATE_DQUOTE;
-		else if (lex->ct == CT_SEMICOLON)
-			lex_gen_seco(lex, cmdl);
-		else if (lex->ct == CT_ESCAPESEQ && (lex->j += 2))
-			++(lex->i);
-		else if (lex->ct == CT_WHITESPACE)
-			lex_gen_blank(lex, cmdl);
-		else
-			++(lex->j);
-		if (cmdl[lex->i])
-			++(lex->i);
+		if (cmdl[i] == q && cmdl[i - 1] != '\\')
+		{
+			++i;
+			break ;
+		}
+		++i;
 	}
+	return (i);
+}
+
+static void	lex_define_prev_token(char **cmdl, int *j, t_list **lst)
+{
+	t_token	tok;
+
+	tok.content = ft_strndup(*cmdl, (size_t)*j);
+	tok.type = WORD;
+	ft_lstadd_end(lst, ft_lstnew(&tok, sizeof(t_token)));
+	*cmdl += *j;
+	*j = 0;
+}
+
+static void	lex_define_ionum_token(char **cmdl, t_list **lst)
+{
+	t_token	tok;
+
+	tok.content = ft_strndup(*cmdl, 1);
+	tok.type = IO_NUMBER;
+	ft_lstadd_end(lst, ft_lstnew(&tok, sizeof(t_token)));
+	*cmdl += 1;
+}
+
+static void	lex_define_op_token(char **cmdl, t_list **lst)
+{
+	t_token	tok;
+
+	tok.content = ft_strdup(which_operator(*cmdl));
+	tok.type = is_operator(*cmdl);
+	ft_lstadd_end(lst, ft_lstnew(&tok, sizeof(t_token)));
+	*cmdl += ft_strlen(which_operator(*cmdl));
 }
 
 t_list		*sh_lexer(char *cmdl)
 {
-	t_lex	lex;
+	t_list	*lst;
+	int		j;
 
-	lex.lst = NULL;
-	lex.i = 0;
-	lex.j = 0;
-	lex.state = STATE_GENERAL;
-	lex_wheel(&lex, cmdl);
-	if (lex.j)
-		define_token(&(lex.lst), lex.j, cmdl + lex.i - lex.j);
-	return (lex.lst);
+	j = 0;
+	lst = NULL;
+	while (cmdl[j])
+	{
+		if (ft_strchr(" \t", cmdl[j]) && !j) // si c'est un blanc, on avance
+			++cmdl;
+		else if (ft_strchr(" \t", cmdl[j]) && j) // si c'est un blanc, on select le token
+			lex_define_prev_token(&cmdl, &j, &lst);
+		else if (ft_strchr("\"'", cmdl[j])) // si c'est une quote on gere
+			j += lex_handle_quotes(cmdl + j);
+		else if (j && ft_isdigit(cmdl[j]) && ft_strchr("<>", cmdl[j + 1])) // si c'est un io number on gere le precedent
+			lex_define_prev_token(&cmdl, &j, &lst);
+		else if (!j && ft_isdigit(cmdl[j]) && ft_strchr("<>", cmdl[j + 1])) // si c'est un io nombur on le passe en token
+			lex_define_ionum_token(&cmdl, &lst);
+		else if (j && is_operator(cmdl + j))
+			lex_define_prev_token(&cmdl, &j, &lst);
+		else if (!j && is_operator(cmdl + j))
+			lex_define_op_token(&cmdl, &lst);
+		else
+			++j;
+	}
+	if (j)
+		lex_define_prev_token(&cmdl, &j, &lst);
+	return (lst);
 }
