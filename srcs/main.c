@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/31 16:49:18 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/01 22:29:11 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		main(int ac, char **av, char **env)
 {
 	t_cmdl	cmdl;
 	t_list	*tokens;
+	t_btree	*ast;
 
 	(void)ac;
 	(void)av;
@@ -67,6 +68,7 @@ int		main(int ac, char **av, char **env)
 			break;
 		tokens = cmdl_treatment(&cmdl);
 		// ft_lstiter(tokens, put_someshit);
+		ast = ast_parser(token);
 		ft_lstdel(&tokens, del_someshit);
 		sh_cmdl_init(&cmdl);
 	}
