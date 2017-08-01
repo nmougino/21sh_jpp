@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 11:32:08 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 18:43:57 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/01 21:25:52 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,24 @@ static void		merge_cmdl(t_cmdl *tmp, t_cmdl *cmdl)
 	}
 }
 
+static int		is_the_rest_empty(char *cmdl)
+{
+	while (*cmdl)
+	{
+		if (!ft_strchr(" \n\t", *cmdl))
+			return (0);
+		++cmdl;
+	}
+	return (1);
+}
+
 static void		quote_act(char *cmdl, int i, int *q)
 {
 	if (!*q && cmdl[i] == '\'')
 		*q = 1;
 	else if (!*q && cmdl[i] == '"')
 		*q = 2;
-	else if (!*q && cmdl[i] == '|' && !(cmdl[i + 1]))
+	else if (!*q && cmdl[i] == '|' && is_the_rest_empty(cmdl + i + 1))
 		*q = 3;
 	else if (cmdl[i] == '\'' && *q == 1)
 		*q = 0;

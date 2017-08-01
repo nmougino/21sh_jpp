@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_lexer_2.c                                       :+:      :+:    :+:   */
+/*   sh_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 20:03:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/31 21:55:35 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/01 21:27:46 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ t_list		*sh_lexer(char *cmdl)
 	lst = NULL;
 	while (cmdl[j])
 	{
-		if (ft_strchr(" \t", cmdl[j]) && !j) // si c'est un blanc, on avance
+		if (ft_strchr(" \t\n", cmdl[j]) && !j) // si c'est un blanc, on avance
 			++cmdl;
 		else if (ft_strchr(" \t", cmdl[j]) && j) // si c'est un blanc, on select le token
 			lex_define_prev_token(&cmdl, &j, &lst);
