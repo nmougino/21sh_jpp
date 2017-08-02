@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/01 22:29:11 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/02 17:00:47 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,41 @@ void	sh_cmdl_init(t_cmdl *cmdl)
 // 	ft_printf(" |%s|\n", lst->content);
 // }
 
-static void	del_someshit(void *elem, size_t s)
-{
-	t_token	*tok;
+// static void	del_someshit(void *elem, size_t s)
+// {
+// 	t_token	*tok;
+//
+// 	tok = (t_token*)elem;
+// 	free(tok->content);
+// 	free(tok);
+// 	(void)s;
+// }
 
-	tok = (t_token*)elem;
-	free(tok->content);
-	free(tok);
-	(void)s;
+static void	sh_putast(t_btree *r, int l)
+{
+	t_list	*lst;
+	if (r)
+	{
+		lst = ((t_list *)(r->data));
+		ft_putstr("|");
+		while (lst)
+		{
+			ft_putstr(((t_token *)(lst->content))->content);
+			ft_putstr(" ");
+			lst = lst->next;
+		}
+		ft_putendl("|");
+		if (r->left)
+		{
+			ft_printf("%*c|-left--: ", (l + 1) * 2, ' ');
+			sh_putast(r->left, l + 1);
+		}
+		if (r->right)
+		{
+			ft_printf("%*c|-right-: ", (l + 1) * 2, ' ');
+			sh_putast(r->right, l + 1);
+		}
+	}
 }
 
 int		main(int ac, char **av, char **env)
@@ -68,8 +95,9 @@ int		main(int ac, char **av, char **env)
 			break;
 		tokens = cmdl_treatment(&cmdl);
 		// ft_lstiter(tokens, put_someshit);
-		ast = ast_parser(token);
-		ft_lstdel(&tokens, del_someshit);
+		ast = ast_parser(tokens);
+		sh_putast(ast, 0);
+		// ft_lstdel(&tokens, del_someshit);
 		sh_cmdl_init(&cmdl);
 	}
 	ft_lstdel(&(g_meta.shenv), env_del);

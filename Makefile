@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/07/31 22:02:05 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/02 16:36:56 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ DEFRULE =	all
 SRCDIR =	srcs
 INCDIR =	includes
 OBJDIR =	objs
-DETDIR =	cmdl_treatment env_dep get_cmdl history tc_misc
+DETDIR =	cmdl_treatment env_dep get_cmdl history parser tc_misc
 
 #	Liste des sources
 # cmdl_treatment/sh_lex_act.c
@@ -52,6 +52,7 @@ SRC =		cmdl_treatment/cmdl_treatment.c \
 			history/history_misc.c \
 			main.c \
 			metainit.c \
+			parser/ast_parser.c \
 			tc_misc/err_dep.c \
 			tc_misc/sh_go_doup.c \
 			tc_misc/tc_putc.c \
