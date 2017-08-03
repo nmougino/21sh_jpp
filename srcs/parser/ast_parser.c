@@ -6,11 +6,39 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/01 22:56:49 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/02 16:58:48 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/03 17:17:39 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+
+
+/*
+
+Lorsque le parser tombe sur un operateur de controle, il doit decider de le
+placer sur une branche du noeud courant, ou d'en faire un noeud dont la branche
+de gauche sera le noeud courant.
+
+test - d 2> /dev/null && cat $FIC | wc -l || echo "/sw inexistant"
+
+						 || (pri2 - pos2)
+					   /    \
+		(pri2 - pos1) &&     echo "/sw inexistant"
+					/    \
+test - d 2> /dev/null     | (pri1)
+						/   \
+				cat $FIC	 wc -l
+
+echo "prout" | cat -e | lolcat
+
+						|
+					|		lolcat
+	echo "prout"		cat -e
+*/
+
+
+
 
 /*
 ** Ajoute les commandes precedentes a l'ast.
