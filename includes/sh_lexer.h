@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 19:57:01 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/31 22:02:18 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/06 21:16:19 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ typedef struct			s_token
 	enum e_token_type	type;
 	char				*content;
 }						t_token;
+
+void					lex_define_prev_token(char **cmdl, int *j,
+							t_list **lst);
+void					lex_define_ionum_token(char **cmdl, t_list **lst);
+void					lex_define_op_token(char **cmdl, t_list **lst);
+
+char					*which_operator(char *cmdl);
+enum e_token_type		is_operator(char *cmdl);
 
 t_list					*sh_lexer(char *cmdl);
 

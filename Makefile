@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/08/06 18:56:16 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/06 21:15:41 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ DETDIR =	cmdl_treatment env_dep get_cmdl history parser tc_misc
 #	Liste des sources
 # cmdl_treatment/sh_lex_act.c
 SRC =		cmdl_treatment/cmdl_treatment.c \
+			cmdl_treatment/lex_define_token.c \
+			cmdl_treatment/lex_misc.c \
 			cmdl_treatment/sh_inhib_exp.c \
 			cmdl_treatment/sh_lexer.c \
 			cmdl_treatment/syntax_check.c \
