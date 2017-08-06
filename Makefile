@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/08/06 16:19:55 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/06 17:20:37 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC =		cmdl_treatment/cmdl_treatment.c \
 			history/history_misc.c \
 			main.c \
 			metainit.c \
+			parser/add_to_ast.c \
 			parser/ast_parser.c \
 			tc_misc/err_dep.c \
 			tc_misc/sh_go_doup.c \
