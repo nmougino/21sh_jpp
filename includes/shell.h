@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/06 17:19:52 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/06 18:53:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void				middle_add_ast(t_btree **cur, t_btree **root,
 void				add_ast(t_btree **cur, int i, t_list **tok);
 void				add_simple_ast(t_btree **cur, int i, t_list **tok);
 
+int					syntax_check(t_list *lst);
 
 // a suppeimer
 void	sh_putast(t_btree *r, int l);

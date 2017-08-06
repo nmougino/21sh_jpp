@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/05 16:43:52 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/06 18:55:56 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ void	sh_cmdl_init(t_cmdl *cmdl)
 // 	ft_printf(" |%s|\n", lst->content);
 // }
 
-// static void	del_someshit(void *elem, size_t s)
-// {
-// 	t_token	*tok;
-//
-// 	tok = (t_token*)elem;
-// 	free(tok->content);
-// 	free(tok);
-// 	(void)s;
-// }
+static void	del_tokens(void *elem, size_t s)
+{
+	t_token	*tok;
+
+	tok = (t_token*)elem;
+	free(tok->content);
+	free(tok);
+	(void)s;
+}
 
 void	sh_putast(t_btree *r, int l)
 {
@@ -94,11 +94,13 @@ int		main(int ac, char **av, char **env)
 	{
 		if (!get_cmdl(&cmdl))
 			break;
-		tokens = cmdl_treatment(&cmdl);
+		if (syntax_check((tokens = cmdl_treatment(&cmdl))))
+		{
+			ast = ast_parser(tokens);
+			sh_putast(ast, 0);
+		}
 		// ft_lstiter(tokens, put_someshit);
-		ast = ast_parser(tokens);
-		sh_putast(ast, 0);
-		// ft_lstdel(&tokens, del_someshit);
+		ft_lstdel(&tokens, del_tokens);
 		sh_cmdl_init(&cmdl);
 	}
 	ft_lstdel(&(g_meta.shenv), env_del);

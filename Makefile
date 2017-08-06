@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/08/06 17:20:37 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/06 18:56:16 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ DETDIR =	cmdl_treatment env_dep get_cmdl history parser tc_misc
 SRC =		cmdl_treatment/cmdl_treatment.c \
 			cmdl_treatment/sh_inhib_exp.c \
 			cmdl_treatment/sh_lexer.c \
+			cmdl_treatment/syntax_check.c \
 			env_dep/env_del.c \
 			env_dep/env_display.c \
 			env_dep/env_init.c \
