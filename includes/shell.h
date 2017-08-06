@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/01 23:07:16 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/05 16:44:09 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,8 @@ int					term_check(void);
 char				*get_env(char *tar);
 
 t_btree				*ast_parser(t_list *tok);
+
+// a suppeimer
+void	sh_putast(t_btree *r, int l);
 
 #endif

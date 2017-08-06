@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/02 17:00:47 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/05 16:43:52 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	sh_cmdl_init(t_cmdl *cmdl)
 // 	(void)s;
 // }
 
-static void	sh_putast(t_btree *r, int l)
+void	sh_putast(t_btree *r, int l)
 {
 	t_list	*lst;
 	if (r)
@@ -61,7 +61,8 @@ static void	sh_putast(t_btree *r, int l)
 		while (lst)
 		{
 			ft_putstr(((t_token *)(lst->content))->content);
-			ft_putstr(" ");
+			if (lst->next)
+				ft_putstr(" ");
 			lst = lst->next;
 		}
 		ft_putendl("|");

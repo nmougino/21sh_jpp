@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/08/03 18:10:13 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/06 16:19:55 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,7 @@ ifneq ($(wildcard /Users/nmougino/.brew/bin/lolcat), "")
 endif
 
 
-UNICORN = "\n \t     \\ \n \t      \\ \n \t       \\\\ \n \t        \\\\ \n \t         >\\/7 \n \t     _.-(6\'  \\          Unicorns make the shit done\n \t    (=___._/\` \\ \n \t         )  \ | \n \t        /   / | \n \t       /    > / \n \t      j    < _\ \n \t  _.-\' :      \`\`. \n \t  \\ r=._\\        \`. \n \t <\`\\\\_  \\         .\`-. \n \t  \\ r-7  \`-. ._  \' .  \`\\ \n \t   \\\`,      \`-.\`7  7)   ) \n \t    \\/         \\|  \\\'  / \`-._ \n \t               ||    .\'                   Be more unicorn.\n \t                \\  ( \n \t                 >\\  > \n \t             ,.-\' >.\' \n \t            <.\'_.\'\' \n \t              <\' \n"
+UNICORN = "\n \t     \\ \n \t      \\ \n \t       \\\\ \n \t        \\\\ \n \t         >\\/7 \n \t     _.-(6\'  \\          Unicorns get the shit done\n \t    (=___._/\` \\ \n \t         )  \ | \n \t        /   / | \n \t       /    > / \n \t      j    < _\ \n \t  _.-\' :      \`\`. \n \t  \\ r=._\\        \`. \n \t <\`\\\\_  \\         .\`-. \n \t  \\ r-7  \`-. ._  \' .  \`\\ \n \t   \\\`,      \`-.\`7  7)   ) \n \t    \\/         \\|  \\\'  / \`-._ \n \t               ||    .\'                   Be more unicorn.\n \t                \\  ( \n \t                 >\\  > \n \t             ,.-\' >.\' \n \t            <.\'_.\'\' \n \t              <\' \n"
 
 #	Main rules
 default:
