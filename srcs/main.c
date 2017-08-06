@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/06 18:55:56 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/06 20:58:17 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ static void	del_tokens(void *elem, size_t s)
 	(void)s;
 }
 
-void	sh_putast(t_btree *r, int l)
+static void	del_ast(void *d)
+{
+	ft_lstdel((t_list **)&d, del_tokens);
+}
+
+void		sh_putast(t_btree *r, int l)
 {
 	t_list	*lst;
 	if (r)
@@ -99,8 +104,7 @@ int		main(int ac, char **av, char **env)
 			ast = ast_parser(tokens);
 			sh_putast(ast, 0);
 		}
-		// ft_lstiter(tokens, put_someshit);
-		ft_lstdel(&tokens, del_tokens);
+		ft_btreedel(&ast, del_ast);
 		sh_cmdl_init(&cmdl);
 	}
 	ft_lstdel(&(g_meta.shenv), env_del);
