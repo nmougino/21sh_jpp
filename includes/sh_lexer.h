@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 19:57:01 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/06 21:16:19 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/12 18:18:20 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ enum					e_token_type {
 	OP_CONTROL
 };
 
-// REDIRECTION
 # define NO_OP NULL
+
+// REDIRECTION
 # define LESS "<"
 # define GREAT ">"
 # define DLESS "<<"

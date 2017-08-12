@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 20:03:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/06 21:14:59 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/12 20:33:45 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_list						*sh_lexer(char *cmdl)
 			lex_define_prev_token(&cmdl, &j, &lst);
 		else if (ft_strchr("\"'", cmdl[j]))
 			j += lex_handle_quotes(cmdl + j);
-		else if (ft_isdigit(cmdl[j]) && ft_strchr("<>", cmdl[j + 1]))
+		else if (ft_strchr("012", cmdl[j]) && ft_strchr("<>", cmdl[j + 1]))
 			lex_handle_ionum(&cmdl, &j, &lst);
 		else if (is_operator(cmdl + j))
 			lex_handle_operator(&cmdl, &j, &lst);
