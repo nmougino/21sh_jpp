@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/06 18:53:43 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/12 21:12:34 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ typedef struct		s_meta
 	void			(*gcmdl_f)(t_cmdl *cmdl);
 }					t_meta;
 
+typedef struct		s_com
+{
+	int				fd[3];
+	int				to_close[3];
+}					t_com;
+
 extern t_meta		g_meta;
 
 void				sh_cmdl_init(t_cmdl *cmdl);
@@ -150,6 +156,8 @@ void				add_ast(t_btree **cur, int i, t_list **tok);
 void				add_simple_ast(t_btree **cur, int i, t_list **tok);
 
 int					syntax_check(t_list *lst);
+
+void				exec_simple(t_list *lst);
 
 // a suppeimer
 void	sh_putast(t_btree *r, int l);
