@@ -6,12 +6,14 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:23:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:25:15 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/14 15:42:07 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+# include "shell.h"
 
 /*
 ** add_to_ast.c

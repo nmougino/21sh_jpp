@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/06 21:01:20 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/14 16:09:01 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,12 @@ int		main(int ac, char **av, char **env)
 		if (syntax_check((tokens = cmdl_treatment(&cmdl))))
 		{
 			ast = ast_parser(tokens);
-			sh_putast(ast, 0);
+			// sh_putast(ast, 0);
+			if (!fork())
+				exec_simple(ast->data);
+			wait(NULL);
+			ft_btreedel(&ast, del_ast);
 		}
-		ft_btreedel(&ast, del_ast);
 		sh_cmdl_init(&cmdl);
 	}
 	ft_lstdel(&(g_meta.shenv), env_del);

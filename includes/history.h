@@ -6,12 +6,14 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:19:10 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:26:18 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/14 15:42:02 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HISTORY_H
 # define HISTORY_H
+
+# include "shell.h"
 
 typedef struct		s_history
 {

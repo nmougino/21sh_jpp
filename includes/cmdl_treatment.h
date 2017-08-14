@@ -6,12 +6,14 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:28:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:35:27 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/14 15:41:51 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CMDL_TREATMENT_H
 # define CMDL_TREATMENT_H
+
+# include "shell.h"
 
 enum					e_token_type {
 	WORD,

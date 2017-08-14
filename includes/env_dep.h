@@ -6,12 +6,14 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:36:45 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:39:09 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/14 15:41:50 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_DEP_H
 # define ENV_DEP_H
+
+# include "shell.h"
 
 typedef struct	s_shenv
 {

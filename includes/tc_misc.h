@@ -6,12 +6,14 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:25:28 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:28:21 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/14 15:42:12 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TC_MISC_H
 # define TC_MISC_H
+
+# include "shell.h"
 
 /*
 ** err_dep.c

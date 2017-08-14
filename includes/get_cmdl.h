@@ -6,12 +6,14 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:09:26 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:18:22 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/14 15:42:00 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_CMDL_H
 # define GET_CMDL_H
+
+# include "shell.h"
 
 # include <sys/ioctl.h>
 # include <termios.h>

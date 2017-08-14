@@ -6,19 +6,20 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:39:24 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/14 15:45:12 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 
-# include "cmdl_treatment.h"
+# include "libft.h"
+
+# include "get_cmdl.h"
 # include "env_dep.h"
 # include "exec.h"
-# include "get_cmdl.h"
+# include "cmdl_treatment.h"
 # include "history.h"
-# include "libft.h"
 # include "parser.h"
 # include "tc_misc.h"
 
