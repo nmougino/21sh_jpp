@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 16:09:01 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/15 00:09:06 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,13 @@ int		main(int ac, char **av, char **env)
 			break;
 		if (syntax_check((tokens = cmdl_treatment(&cmdl))))
 		{
-			ast = ast_parser(tokens);
-			// sh_putast(ast, 0);
-			if (!fork())
-				exec_simple(ast->data);
-			wait(NULL);
-			ft_btreedel(&ast, del_ast);
+			if ((ast = ast_parser(tokens)))
+			{
+				t_com	com;
+				create_simple(&com, ast->data);
+				ft_btreedel(&ast, del_ast);
+			}
+			//destroy token ? are they converted into the ast?
 		}
 		sh_cmdl_init(&cmdl);
 	}
