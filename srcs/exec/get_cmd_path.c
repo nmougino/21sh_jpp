@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 17:01:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 16:14:23 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/18 16:54:52 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int		find_file(char *com_name, t_com *com)
 ** est introuvable.
 **
 ** retour	| com_path	| interpretation
-**   1		| NULL		| commande introuvable
+**   -1		| NULL		| commande introuvable
 **   -1		| NULL		| fichier introuvable
 **   0		| NULL		| aucune commande specifiee
 **   1		| !NULL		| commande localisee et retournee
@@ -96,5 +96,8 @@ int				get_cmd_path(t_list *lst, t_com *com)
 		return (find_file(com_name, com) ? -1 : 1);
 	else if ((path = get_env("PATH")))
 		com->cmd_path = find_com_path(path, com_name);
+	if (!com->cmd_path)
+		return ((ft_dprintf(2, "sh: commande not found: %s\n", com_name) && 0)
+			- 1);
 	return (1);
 }

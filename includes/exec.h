@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 18:55:34 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/18 16:13:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				create_simple(t_com *com, t_list *lst);
 ** exec_simple.c
 */
 
-void			exec_simple(t_list *lst) __attribute__ ((noreturn));
+void			exec_simple(t_com *com) __attribute__ ((noreturn));
 
 /*
 ** get_cmd_path.c

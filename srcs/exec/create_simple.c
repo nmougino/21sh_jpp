@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:15:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/15 00:10:12 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/18 16:54:13 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,14 @@ static char	**get_cmd_args(t_list *lst)
 	return (create_args_tab(lst, len));
 }
 
-static void	prout(char **str)
-{
-	ft_putendl(*str);
-}
-
 int			create_simple(t_com *com, t_list *lst)
 {
+	int	i;
+
 	com_init(com);
-	// parse_redir(lst, com);
-	if (get_cmd_path(lst, com) == -1)
-		return (-1);
+	parse_redir(lst, com);
+	if ((i = get_cmd_path(lst, com)) != 1)
+		return (i);
 	com->cmd_args = get_cmd_args(lst);
-	ft_arriter_str(com->cmd_args, prout);
 	return (1);
 }
