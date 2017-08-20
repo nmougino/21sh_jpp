@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 17:01:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/19 17:21:01 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/20 19:45:55 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int		find_file(char *com_name, t_com *com)
 	struct stat	buf;
 
 	if (lstat(com_name, &buf))
-		return (ft_dprintf(2, "sh: no such file or directory: %s\n", com_name));
+		return (-1);
 	else
 		com->cmd_path = ft_strdup(com_name);
 	return (0);
@@ -88,14 +88,13 @@ static int		find_file(char *com_name, t_com *com)
 int				get_cmd_path(t_list *lst, t_com *com)
 {
 	char	*path;
-	char	*com_name;
 
-	if (!(com_name = find_com_name(lst)))
+	if (!(com->com_name = find_com_name(lst)))
 		return (0);
-	if (ft_strchr(com_name, '/'))
-		return (find_file(com_name, com) ? -2 : 1);
+	if (ft_strchr(com->com_name, '/'))
+		return (find_file(com->com_name, com) ? -2 : 1);
 	else if ((path = get_env("PATH")))
-		com->cmd_path = find_com_path(path, com_name);
+		com->cmd_path = find_com_path(path, com->com_name);
 	if (!com->cmd_path)
 		return (-1);
 	return (1);

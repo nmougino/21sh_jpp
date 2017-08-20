@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/18 16:36:59 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/20 18:21:22 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,6 @@ void		sh_putast(t_btree *r, int l)
 	}
 }
 
-static void	sh_putcom(t_com *com)
-{
-	ft_printf("cmd_path :: |%s|\n", com->cmd_path);
-	ft_printf("cmd_args >>\n");
-	ft_putstrarr(com->cmd_args);
-}
-
 int		main(int ac, char **av, char **env)
 {
 	t_cmdl	cmdl;
@@ -110,14 +103,7 @@ int		main(int ac, char **av, char **env)
 		{
 			if ((ast = ast_parser(tokens)))
 			{
-				t_com	com;
-				create_simple(&com, ast->data);
-				sh_putcom(&com);
-				// sh_delcom(&com);
-				// if (!fork())
-				// 	exec_simple(&com);
-				// else
-				// 	wait(NULL);
+				exec_simple(ast->data);
 				ft_btreedel(&ast, del_ast);
 			}
 			//destroy token ? are they converted into the ast?

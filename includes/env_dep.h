@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:36:45 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:41:50 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/20 17:55:19 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ typedef struct	s_shenv
 	char		*name;
 	char		*cont;
 }				t_shenv;
+
+/*
+** env_conv.c
+*/
+
+char			**env_conv(void);
 
 /*
 ** env_del.c

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:15:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/19 15:00:44 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/20 18:13:27 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	com_init(t_com *com)
 {
+	com->com_name = NULL;
 	com->cmd_path = NULL;
 	com->cmd_args = NULL;
 	ft_bzero(&(com->fd), sizeof(int) * 3);
