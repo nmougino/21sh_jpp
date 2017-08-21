@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/20 18:21:22 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/21 18:53:32 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		main(int ac, char **av, char **env)
 		{
 			if ((ast = ast_parser(tokens)))
 			{
-				exec_simple(ast->data);
+				waitpid(exec_simple(ast->data), NULL, 0);
 				ft_btreedel(&ast, del_ast);
 			}
 			//destroy token ? are they converted into the ast?

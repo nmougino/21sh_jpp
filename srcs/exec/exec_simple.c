@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 17:16:09 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/21 18:38:55 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/21 18:57:07 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,14 @@ static int	cmd_err(int i, char *com_name)
 	return (-1);
 }
 
-int			exec_simple(t_list *lst)
+/*
+** La fonction va ici parser la simple command, forker, et executer le processus
+** ce n'est pas de son ressort de verrifier le retour de la fonction, mais a la
+** fonction parente, c'est pourquoi elle renvoie le pid de l'enfant.
+** attention. La gestion des builts in est censee ce faire ici.
+*/
+
+pid_t		exec_simple(t_list *lst)
 {
 	pid_t	pid;
 	t_com	com;
@@ -53,7 +60,6 @@ int			exec_simple(t_list *lst)
 	env = env_conv();
 	if (!(pid = fork()))
 	{
-		ft_putstrarr(com.cmd_args);
 		handle_redir(&com);
 		if (!i)
 			exit(0);
@@ -65,6 +71,6 @@ int			exec_simple(t_list *lst)
 			execve_error());
 		exit(-1);
 	}
-	waitpid(pid, &i, 0);
-	return (i);
+	com_del(&com);
+	return (pid);
 }

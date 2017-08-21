@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/21 18:28:48 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/21 18:53:14 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ typedef struct	s_com
 }				t_com;
 
 /*
+** com_del.c
+*/
+
+void			com_del(t_com *com);
+
+/*
 ** parse_redir.c
 */
 
@@ -42,7 +48,7 @@ int				create_simple(t_com *com, t_list *lst);
 ** exec_simple.c
 */
 
-int				exec_simple(t_list *lst);
+pid_t			exec_simple(t_list *lst);
 
 /*
 ** get_cmd_path.c
