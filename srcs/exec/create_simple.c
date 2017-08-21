@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:15:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/20 18:13:27 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/21 18:27:50 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,29 @@ static t_list	*go_to_after_name(t_list *lst)
 	return (lst);
 }
 
-static char	**create_args_tab(t_list *lst, size_t len)
+static char	**create_args_tab(char *com_name, t_list *lst, size_t len)
 {
 	char	**ans;
 
-
-	ans = malloc(sizeof(char*) * (len + 1));
-	ans[len] = NULL;
-	len = 0;
-	while (lst)
+	ans = malloc(sizeof(char*) * (len + 2));
+	ans[0] = ft_strdup(com_name);
+	ans[len + 1] = NULL;
+	if (len)
 	{
-		if ((((t_token*)(lst->content))->type) == WORD)
-			ans[len++] = ft_strdup(((t_token*)(lst->content))->content);
-		else if ((((t_token*)(lst->content))->type) > IO_NUMBER)
+		len = 1;
+		while (lst)
+		{
+			if ((((t_token*)(lst->content))->type) == WORD)
+				ans[len++] = ft_strdup(((t_token*)(lst->content))->content);
+			else if ((((t_token*)(lst->content))->type) > IO_NUMBER)
+				lst = lst->next;
 			lst = lst->next;
-		lst = lst->next;
+		}
 	}
 	return (ans);
 }
 
-static char	**get_cmd_args(t_list *lst)
+static char	**get_cmd_args(t_com *com, t_list *lst)
 {
 	size_t	len;
 	t_list	*cur;
@@ -69,7 +72,7 @@ static char	**get_cmd_args(t_list *lst)
 			cur = cur->next;
 		cur = cur->next;
 	}
-	return (create_args_tab(lst, len));
+	return (create_args_tab(com->com_name, lst, len));
 }
 
 int			create_simple(t_com *com, t_list *lst)
@@ -80,6 +83,6 @@ int			create_simple(t_com *com, t_list *lst)
 	parse_redir(lst, com);
 	if ((i = get_cmd_path(lst, com)) != 1)
 		return (i);
-	com->cmd_args = get_cmd_args(lst);
+	com->cmd_args = get_cmd_args(com, lst);
 	return (1);
 }
