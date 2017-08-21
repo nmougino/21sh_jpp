@@ -6,13 +6,13 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:15:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/21 18:27:50 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/21 18:39:57 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	com_init(t_com *com)
+static void		com_init(t_com *com)
 {
 	com->com_name = NULL;
 	com->cmd_path = NULL;
@@ -34,7 +34,7 @@ static t_list	*go_to_after_name(t_list *lst)
 	return (lst);
 }
 
-static char	**create_args_tab(char *com_name, t_list *lst, size_t len)
+static char		**create_args_tab(char *com_name, t_list *lst, size_t len)
 {
 	char	**ans;
 
@@ -56,7 +56,7 @@ static char	**create_args_tab(char *com_name, t_list *lst, size_t len)
 	return (ans);
 }
 
-static char	**get_cmd_args(t_com *com, t_list *lst)
+static char		**get_cmd_args(t_com *com, t_list *lst)
 {
 	size_t	len;
 	t_list	*cur;
@@ -75,7 +75,7 @@ static char	**get_cmd_args(t_com *com, t_list *lst)
 	return (create_args_tab(com->com_name, lst, len));
 }
 
-int			create_simple(t_com *com, t_list *lst)
+int				create_simple(t_com *com, t_list *lst)
 {
 	int	i;
 

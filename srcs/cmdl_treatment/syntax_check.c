@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/06 18:37:28 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/13 17:29:28 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/21 18:37:07 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ int			syntax_check(t_list *lst)
 	cur = lst;
 	while (cur)
 	{
-		// if (((t_token*)(cur->content))->type > NEWLINE && cur == lst)
-		// 	return (ft_printf("sh : syntax error near '%s'\n",
-		// 	((t_token*)(cur->content))->content) && 0);
 		if (((t_token*)(cur->content))->type > IO_NUMBER && !(cur->next))
 			return (ft_printf("sh : syntax error near '%s'\n",
 			((t_token*)(cur->content))->content) && 0);

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 17:01:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/20 19:45:55 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/21 18:39:36 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static size_t	path_cpy(char *path, char *com_name, char **ans)
 	return (len);
 }
 
-static char	 	*find_com_path(char *path, char *com_name)
+static char		*find_com_path(char *path, char *com_name)
 {
 	char		*ans;
 	size_t		len;
@@ -82,7 +82,6 @@ static int		find_file(char *com_name, t_com *com)
 **   -2		| NULL		| fichier introuvable
 **   0		| NULL		| aucune commande specifiee
 **   1		| !NULL		| commande localisee et retournee
-**
 */
 
 int				get_cmd_path(t_list *lst, t_com *com)

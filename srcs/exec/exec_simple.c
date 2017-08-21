@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 17:16:09 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/21 18:28:14 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/21 18:38:55 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	cmd_err(int i, char *com_name)
 	return (-1);
 }
 
-int		exec_simple(t_list *lst)
+int			exec_simple(t_list *lst)
 {
 	pid_t	pid;
 	t_com	com;
@@ -58,7 +58,7 @@ int		exec_simple(t_list *lst)
 		if (!i)
 			exit(0);
 		else if (i != 1)
-			exit (cmd_err(i, com.com_name));
+			exit(cmd_err(i, com.com_name));
 		else
 			i = execve(com.cmd_path, com.cmd_args, env);
 		ft_dprintf(2, "sh: permission denied: %s\n(%s)\n", com.com_name,
@@ -68,15 +68,3 @@ int		exec_simple(t_list *lst)
 	waitpid(pid, &i, 0);
 	return (i);
 }
-
-/*
-
-1 - parser les redirection
-2 - parser les arguments, et les commandes.
-
-forker.
-	executer les redirections.
-	gerer les erreurs
-	executer la commande
-
-*/

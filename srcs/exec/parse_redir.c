@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:20:07 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 18:20:18 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/21 18:38:36 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@ static void	do_it_han_red(char *tok, int io, t_com *com, char *next)
 {
 	int	tmp;
 
-	if (!ft_strcmp(tok, LESS)) // "<"
+	if (!ft_strcmp(tok, LESS))
 	{
 		if ((tmp = ft_open(next, O_CREAT | O_RDONLY, "sh")) != -1)
 			com->fd[io == -1 ? 0 : io] = tmp;
 	}
-	else if (!ft_strcmp(tok, GREAT)) // ">"
+	else if (!ft_strcmp(tok, GREAT))
 	{
 		if ((tmp = ft_open(next, O_CREAT | O_WRONLY | O_TRUNC, "sh")) != -1)
 			com->fd[io == -1 ? 1 : io] = tmp;
 	}
-	else if (!ft_strcmp(tok, DGREAT)) // ">>"
+	else if (!ft_strcmp(tok, DGREAT))
 	{
 		if ((tmp = ft_open(next, O_CREAT | O_WRONLY, "sh")) != -1)
 			com->fd[io == -1 ? 1 : io] = tmp;
 	}
-	else if (!ft_strcmp(tok, LESSAND)) // "<&"
+	else if (!ft_strcmp(tok, LESSAND))
 		com->fd[io == -1 ? 1 : -1] = ft_atoi(next);
-	else if (!ft_strcmp(tok, GREATAND)) // ">&"
+	else if (!ft_strcmp(tok, GREATAND))
 		com->fd[io == -1 ? 0 : -1] = ft_atoi(next);
 }
 
