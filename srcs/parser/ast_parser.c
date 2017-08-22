@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/01 22:56:49 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/06 17:17:06 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/22 18:58:07 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,18 @@
 ** 	echo "prout"		cat -e
 */
 
+
+/*
+** Cette fonction definit la priorite de l'operateur courant par rapport a celui
+** selectionne.
+*/
+
 static int		priority_cmp(char *cur, char *tok)
 {
 	int	p_cur;
 	int	p_tok;
 
-	if (ft_strequ(tok, AMPERSAND) || ft_strequ(tok, SEMI))
+	if (ft_strequ(tok, SEMI))
 		p_tok = 2;
 	else if (ft_strequ(tok, AND_IF) || ft_strequ(tok, OR_IF))
 		p_tok = 1;
@@ -47,7 +53,7 @@ static int		priority_cmp(char *cur, char *tok)
 		p_tok = 0;
 	else
 		p_tok = -1;
-	if (ft_strequ(cur, AMPERSAND) || ft_strequ(cur, SEMI))
+	if (ft_strequ(cur, SEMI))
 		p_cur = 2;
 	else if (ft_strequ(cur, AND_IF) || ft_strequ(cur, OR_IF))
 		p_cur = 1;

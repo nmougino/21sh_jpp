@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 17:16:09 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/21 18:57:07 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/22 18:55:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,15 @@ static int	cmd_err(int i, char *com_name)
 ** ce n'est pas de son ressort de verrifier le retour de la fonction, mais a la
 ** fonction parente, c'est pourquoi elle renvoie le pid de l'enfant.
 ** attention. La gestion des builts in est censee ce faire ici.
+**
+** PROBLEME POUR LE FREE DE L'ENV
+** Generation d'un env compile en amont et a chaque fois que l'env est modifie
+** UPDATE : La reconnaissance d'une commande de fond a ete desactivee. Son
+** implementation n'etant pas obligatoire ni utile, et me faisant trop chier a
+** ce stade du developpement.
 */
 
-pid_t		exec_simple(t_list *lst)
+int			exec_simple(t_list *lst)
 {
 	pid_t	pid;
 	t_com	com;
@@ -71,6 +77,8 @@ pid_t		exec_simple(t_list *lst)
 			execve_error());
 		exit(-1);
 	}
+	waitpid(pid, &i, 0);
 	com_del(&com);
-	return (pid);
+	ft_arrdel((void**)env);
+	return (i);
 }

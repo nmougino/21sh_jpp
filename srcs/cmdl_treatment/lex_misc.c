@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/06 21:15:07 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/06 21:17:21 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/22 18:58:27 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ char				*which_operator(char *cmdl)
 		return (OR_IF);
 	else if (ft_strnequ(PIPE, cmdl, ft_strlen(PIPE)))
 		return (PIPE);
-	else if (ft_strnequ(AMPERSAND, cmdl, ft_strlen(AMPERSAND)))
-		return (AMPERSAND);
 	else if (ft_strnequ(SEMI, cmdl, ft_strlen(SEMI)))
 		return (SEMI);
 	else if (ft_strnequ(LESS, cmdl, ft_strlen(LESS)))
@@ -51,7 +49,6 @@ enum e_token_type	is_operator(char *cmdl)
 	else if (ft_strnequ(AND_IF, cmdl, ft_strlen(AND_IF)) ||
 		ft_strnequ(OR_IF, cmdl, ft_strlen(OR_IF)) ||
 		ft_strnequ(PIPE, cmdl, ft_strlen(PIPE)) ||
-		ft_strnequ(AMPERSAND, cmdl, ft_strlen(AMPERSAND)) ||
 		ft_strnequ(SEMI, cmdl, ft_strlen(SEMI)))
 		return (OP_CONTROL);
 	return (WORD);
