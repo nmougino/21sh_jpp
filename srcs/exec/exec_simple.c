@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 17:16:09 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/22 18:55:25 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/22 20:40:03 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,48 @@ static int	cmd_err(int i, char *com_name)
 ** ce stade du developpement.
 */
 
-int			exec_simple(t_list *lst)
-{
-	pid_t	pid;
-	t_com	com;
-	int		i;
-	char	**env;
+// int			exec_simple(t_list *lst, int *to_dup)
+// {
+// 	pid_t	pid;
+// 	t_com	com;
+// 	int		i;
+// 	char	**env;
+//
+// 	i = create_simple(&com, lst);
+// 	env = env_conv();
+// 	if (!(pid = fork()))
+// 	{
+// 		if (to_dup && to_dup[0] != -1)
+// 			dup2(to_dup[0], 0);
+// 		if (to_dup && to_dup[1] != -1)
+// 			dup2(to_dup[1], 1);
+// 		handle_redir(&com);
+// 		if (!i)
+// 			exit(0);
+// 		else if (i != 1)
+// 			exit(cmd_err(i, com.com_name));
+// 		else
+// 			i = execve(com.cmd_path, com.cmd_args, env);
+// 		ft_dprintf(2, "sh: permission denied: %s\n(%s)\n", com.com_name,
+// 			execve_error());
+// 		exit(-1);
+// 	}
+// 	waitpid(pid, &i, 0);
+// 	com_del(&com);
+// 	ft_arrdel((void**)env);
+// 	return (i);
+// }
 
-	i = create_simple(&com, lst);
-	env = env_conv();
-	if (!(pid = fork()))
-	{
-		handle_redir(&com);
-		if (!i)
-			exit(0);
-		else if (i != 1)
-			exit(cmd_err(i, com.com_name));
-		else
-			i = execve(com.cmd_path, com.cmd_args, env);
-		ft_dprintf(2, "sh: permission denied: %s\n(%s)\n", com.com_name,
-			execve_error());
-		exit(-1);
-	}
-	waitpid(pid, &i, 0);
-	com_del(&com);
-	ft_arrdel((void**)env);
-	return (i);
+int			exec_simple(int i, t_com *com, char **env)
+{
+	handle_redir(com);
+	if (!i)
+		exit(0);
+	else if (i != 1)
+		exit(cmd_err(i, com->com_name));
+	else
+		i = execve(com->cmd_path, com->cmd_args, env);
+	ft_dprintf(2, "sh: permission denied: %s\n(%s)\n", com->com_name,
+		execve_error());
+	exit(-1);
 }

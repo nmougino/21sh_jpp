@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/21 18:53:14 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/22 20:33:45 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,16 @@ void			parse_redir(t_list *cmdl, t_com *com);
 int				create_simple(t_com *com, t_list *lst);
 
 /*
+** exec_ast.c
+*/
+
+int				exec_ast(t_btree *r);
+
+/*
 ** exec_simple.c
 */
 
-pid_t			exec_simple(t_list *lst);
+int				exec_simple(int i, t_com *com, char **env);
 
 /*
 ** get_cmd_path.c
