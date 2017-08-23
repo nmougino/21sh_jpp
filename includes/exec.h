@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/22 20:33:45 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/23 15:46:47 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ typedef struct	s_com
 	int			fd[3];
 	int			to_close[3];
 }				t_com;
+
+# define CMD_SUCCESS 0
+# define CMD_FAIL 1
 
 /*
 ** com_del.c
