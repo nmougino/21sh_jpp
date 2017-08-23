@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 17:25:13 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/23 16:18:25 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/23 19:04:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ static int	apply_op(t_btree *r)
 		return (apply_or_if(r));
 	else if (ft_strequ(tok, SEMI))
 		return (apply_semi(r));
+	else if (ft_strequ(tok, PIPE))
+		return (apply_pipe(r, NULL));
 	return (CMD_FAIL);
 }
 

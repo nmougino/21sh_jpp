@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/08/22 20:34:21 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/23 19:04:06 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC =		cmdl_treatment/cmdl_treatment.c \
 			env_dep/env_display.c \
 			env_dep/env_init.c \
 			env_dep/get_env.c \
+			exec/apply_pipe.c \
 			exec/com_del.c \
 			exec/create_simple.c \
 			exec/exec_ast.c \
