@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 18:48:03 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/21 18:51:08 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/24 19:00:44 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 void	com_del(t_com *com)
 {
+	if (com->fd[0] != 0)
+		close(com->fd[0]);
+	if (com->fd[1] != 1)
+		close(com->fd[1]);
+	if (com->fd[2] != 2)
+		close(com->fd[2]);
 	ft_strdel(&(com->cmd_path));
 	ft_arrdel((void**)(com->cmd_args));
 }
