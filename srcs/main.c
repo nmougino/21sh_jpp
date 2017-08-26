@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/23 16:34:11 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/26 21:21:15 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,23 @@ int		main(int ac, char **av, char **env)
 			break;
 		if (syntax_check((tokens = cmdl_treatment(&cmdl))))
 		{
-			if ((ast = ast_parser(tokens)))
+			if (ft_strequ(((t_token*)(tokens->content))->content, "exit")) //a supprimer
+			{
+				ft_printf("sh: exit: 'AU REVOIR CONNARD'\n");
+				ft_lstdel(&tokens, del_tokens);
+				break ;
+			}
+			else if ((ast = ast_parser(tokens)))
 			{
 				exec_ast(ast);
 				ft_btreedel(&ast, del_ast);
 			}
-			//destroy token ? are they converted into the ast?
+			else
+				ft_lstdel(&tokens, del_tokens);
 		}
 		sh_cmdl_init(&cmdl);
 	}
+	// bi_exit ?
 	ft_lstdel(&(g_meta.shenv), env_del);
 	destroy_history();
 	close(g_meta.fd);

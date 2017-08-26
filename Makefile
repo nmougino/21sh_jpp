@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/08/23 19:04:06 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/26 21:43:16 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,12 @@ DEFRULE =	all
 SRCDIR =	srcs
 INCDIR =	includes
 OBJDIR =	objs
-DETDIR =	cmdl_treatment env_dep exec get_cmdl history parser tc_misc
+DETDIR =	builtins cmdl_treatment env_dep exec get_cmdl history parser tc_misc
 
 #	Liste des sources
-# cmdl_treatment/sh_lex_act.c
-SRC =		cmdl_treatment/cmdl_treatment.c \
+SRC =		builtins/exec_builtin.c \
+			builtins/is_builtin.c \
+			cmdl_treatment/cmdl_treatment.c \
 			cmdl_treatment/lex_define_token.c \
 			cmdl_treatment/lex_misc.c \
 			cmdl_treatment/sh_inhib_exp.c \
@@ -38,7 +39,9 @@ SRC =		cmdl_treatment/cmdl_treatment.c \
 			env_dep/env_del.c \
 			env_dep/env_display.c \
 			env_dep/env_init.c \
+			env_dep/env_set.c \
 			env_dep/get_env.c \
+			env_dep/is_env.c \
 			exec/apply_pipe.c \
 			exec/com_del.c \
 			exec/create_simple.c \

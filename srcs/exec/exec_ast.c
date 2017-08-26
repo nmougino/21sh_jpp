@@ -6,78 +6,11 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 17:25:13 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/23 19:04:25 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/26 20:52:03 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-//
-// static void	exec_pipe_left(t_btree *r, int *fd)
-// {
-// 	if (((t_token *)(((t_list *)(r->data))->content))->type == OP_CONTROL)
-// 		exec_pipe(r);
-// 	else
-//
-// }
-//
-// static int	exec_pipe(t_btree *r)
-// {
-// 	int		fd[2];
-// 	t_com	com;
-// 	char	**env;
-// 	int		i;
-// 	pid_t	pid;
-//
-// 	i = create_simple(&com, (t_list *)(r->right->data));
-// 	env = env_conv();
-// 	pipe(fd);
-// 	if ((pid = fork()))
-// 	{
-// 		dup2(fd[0], 0);
-// 		close(fd[1]);
-// 		exec_simple(i, &com, env);
-// 	}
-// 	exec_pipe_left(r->left, fd);
-// 	waitpid(pid, &i, 0);
-// 	com_del(&com);
-// 	ft_arrdel((void**)env);
-// 	close(fd[0]);
-// 	close(fd[1]);
-// 	return (i);
-// }
-//
-// static int	exec_op(t_btree *r)
-// {
-// 	if (ft_strequ(((t_token *)(((t_list *)(r->data))->content))->content,
-// 		PIPE))
-// 		return(exec_pipe(r));
-// 	return (-1);
-// }
-//
-// int			exec_ast(t_btree *r)
-// {
-// 	int		i;
-// 	pid_t	pid;
-// 	t_com	com;
-// 	char	**env;
-//
-// 	i = ((t_token *)(((t_list *)(r->data))->content))->type;
-// 	if (i == OP_CONTROL)
-// 		return (exec_op(r));
-// 	else
-// 	{
-// 		env = env_conv();
-// 		i = create_simple(&com, (t_list *)(r->data));
-// 		if (!(pid = fork()))
-// 			exec_simple(i, &com, env);
-// 		waitpid(pid, &i, 0);
-// 		com_del(&com);
-// 		ft_arrdel((void**)env);
-// 		return (i);
-// 	}
-// }
-
-// ------------------------
 
 static int	apply_and_if(t_btree *r)
 {
@@ -130,8 +63,10 @@ static int	launch_simple(t_btree *r)
 
 	env = env_conv();
 	i = create_simple(&com, (t_list *)(r->data));
+	if ((pid = is_builtin(com.com_name)))
+		return (exec_builtin(&com, pid - 1, env));
 	if ((pid = fork()) == -1)
-		return (-1);
+		return (CMD_FAIL);
 	else if (pid)
 	{
 		waitpid(pid, &i, 0);

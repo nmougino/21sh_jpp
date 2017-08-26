@@ -6,13 +6,23 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 16:11:56 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/11 21:45:32 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/26 21:02:50 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	metainit(char **env)
+static void	bi_init(void)
+{
+	g_meta.bi_tab[0] = bi_echo;
+	g_meta.bi_tab[1] = bi_cd;
+	g_meta.bi_tab[2] = bi_setenv;
+	g_meta.bi_tab[3] = bi_unsetenv;
+	g_meta.bi_tab[4] = bi_env;
+	g_meta.bi_tab[5] = bi_exit;
+}
+
+void		metainit(char **env)
 {
 	ioctl(0, TIOCGWINSZ, &(g_meta.ws));
 	g_meta.prompt = "prompt >> ";
@@ -25,4 +35,5 @@ void	metainit(char **env)
 	HISTO.save = NULL;
 	g_meta.clipbo = NULL;
 	env_init(&(g_meta.shenv), env);
+	bi_init();
 }

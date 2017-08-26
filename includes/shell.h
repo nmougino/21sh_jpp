@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:45:12 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/26 21:03:11 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "history.h"
 # include "parser.h"
 # include "tc_misc.h"
+# include "builtins.h"
 
 # define ERR_NO_NAME 0
 # define ERR_TGETENT_FAIL 1
@@ -51,6 +52,8 @@
 # define LOG(X)		ft_dprintf(g_meta.fd, X);
 # define LOGS(X, Y)	ft_dprintf(g_meta.fd, X, Y);
 
+typedef int			(*t_bi)(t_com *, char **);
+
 typedef struct		s_meta
 {
 	struct winsize	ws;
@@ -62,6 +65,7 @@ typedef struct		s_meta
 	int				edmod;
 	t_list			*shenv;
 	void			(*gcmdl_f)(t_cmdl *cmdl);
+	t_bi			bi_tab[BI_NBR];
 }					t_meta;
 
 extern t_meta		g_meta;
