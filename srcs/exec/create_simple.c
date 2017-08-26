@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:15:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/24 18:59:48 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/26 18:18:55 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void		com_init(t_com *com)
 	com->com_name = NULL;
 	com->cmd_path = NULL;
 	com->cmd_args = NULL;
-	com->fd[0] = 0;
-	com->fd[1] = 1;
-	com->fd[2] = 2;
+	com->fd[0] = STDIN_FILENO;
+	com->fd[1] = STDOUT_FILENO;
+	com->fd[2] = STDERR_FILENO;
 	ft_bzero(&(com->to_close), sizeof(int) * 3);
 }
 
