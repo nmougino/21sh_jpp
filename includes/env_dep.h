@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:36:45 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/26 21:42:19 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/28 06:23:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ typedef struct	s_shenv
 	char		*name;
 	char		*cont;
 }				t_shenv;
+
+/*
+** env_add.c
+*/
+
+void			env_add(char *name, char *cont);
 
 /*
 ** env_conv.c
@@ -56,12 +62,13 @@ void			env_set(char *name, char *cont);
 */
 
 char			*get_env(char *tar);
+char			*get_env_local(char **env, char *tar);
 
 /*
 ** is_env.c
 */
 
-int				is_env_lst(char *tar);
+int				is_env(char *tar);
 int				is_env_loc(char **env, char *tar);
 
 

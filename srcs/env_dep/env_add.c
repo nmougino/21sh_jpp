@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   env_add.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/11 23:47:21 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/28 06:05:09 by nmougino         ###   ########.fr       */
+/*   Created: 2017/08/28 06:12:24 by nmougino          #+#    #+#             */
+/*   Updated: 2017/08/28 06:16:06 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char	*get_env(char *tar)
+void	env_add(char *name, char *cont)
 {
-	t_list	*tmp;
+	t_shenv	new;
 
-	tmp = g_meta.shenv;
-	while (tmp)
-	{
-		if (ft_strequ(((t_shenv *)(tmp->content))->name, tar))
-			return (((t_shenv *)(tmp->content))->cont);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-char	*get_env_local(char **env, char *tar)
-{
-	while (*env)
-	{
-		if (ft_strnequ(*env, tar, ft_strlen(tar)))
-			return (*env + ft_strlen(tar) + 1);
-		++env;
-	}
-	return (NULL);
+	new.name = ft_strdup(name);
+	new.cont = ft_strdup(cont);
+	ft_lstadd_end(&(g_meta.shenv), ft_lstnew(&new, sizeof(t_shenv)));
 }

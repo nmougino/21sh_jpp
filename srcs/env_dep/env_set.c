@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:38:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/26 21:45:19 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/28 06:13:44 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	env_set(char *tar, char *new_cont)
 		tmp = tmp->next;
 	if (!tmp)
 		return ;
-	free(((t_shenv*)(tmp->content))->cont);
+	ft_strdel(&(((t_shenv*)(tmp->content))->cont));
 	((t_shenv*)(tmp->content))->cont = ft_strdup(new_cont);
 }

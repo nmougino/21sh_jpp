@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/08/26 21:43:16 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/28 06:17:18 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC =		builtins/exec_builtin.c \
 			cmdl_treatment/sh_inhib_exp.c \
 			cmdl_treatment/sh_lexer.c \
 			cmdl_treatment/syntax_check.c \
+			env_dep/env_add.c \
 			env_dep/env_conv.c \
 			env_dep/env_del.c \
 			env_dep/env_display.c \
