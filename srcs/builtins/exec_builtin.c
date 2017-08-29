@@ -6,19 +6,11 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 20:44:16 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/29 14:17:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/29 19:44:17 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-int	bi_echo(char **args, char **env)
-{
-	(void)args;
-	(void)env;
-	ft_printf("sh: builtin active ::: 'echo'\n");
-	return (0);
-}
 
 int	bi_setenv(char **args, char **env)
 {

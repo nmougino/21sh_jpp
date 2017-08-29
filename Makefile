@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/08/29 14:38:55 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/29 19:45:03 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ DETDIR =	builtins cmdl_treatment env_dep exec get_cmdl history parser tc_misc
 #	Liste des sources
 SRC =		builtins/bi_cd_to_canonical.c \
 			builtins/bi_cd.c \
+			builtins/bi_echo.c \
 			builtins/exec_builtin.c \
 			builtins/is_builtin.c \
 			cmdl_treatment/cmdl_treatment.c \
