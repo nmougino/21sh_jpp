@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:09:26 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:42:00 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/29 14:49:44 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,5 @@ void				handle_quotes(t_cmdl *cmdl);
 void				sh_putstr(t_cmdl *cmdl);
 void				sh_restaure_cursor(int i, t_cmdl *cmdl);
 void				print_cmdl(t_cmdl *cmdl);
-
 
 #endif

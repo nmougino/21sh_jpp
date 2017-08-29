@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:28:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:41:51 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/29 14:51:21 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ enum					e_token_type {
 
 # define NO_OP NULL
 
-// REDIRECTION
+/*
+** REDIRECTION
+*/
+
 # define LESS "<"
 # define GREAT ">"
 # define DLESS "<<"
@@ -33,16 +36,15 @@ enum					e_token_type {
 # define LESSAND "<&"
 # define GREATAND ">&"
 
-// CONTROL
+/*
+** CONTROL
+*/
+
 # define AMPERSAND "&"
 # define AND_IF "&&"
 # define OR_IF "||"
 # define PIPE "|"
 # define SEMI ";"
-// # define DSEMI ";;"
-// # define LESSGREAT "<>"
-// # define DLESSDASH "<<-"
-// # define CLOBBER ">|"
 
 typedef struct			s_token
 {
@@ -54,14 +56,14 @@ typedef struct			s_token
 ** cmdl_treatment.c
 */
 
-t_list	*cmdl_treatment(t_cmdl *cmdl);
+t_list					*cmdl_treatment(t_cmdl *cmdl);
 
 /*
 ** lex_define_token.c
 */
 
 void					lex_define_prev_token(char **cmdl, int *j,
-							t_list **lst);
+						t_list **lst);
 void					lex_define_ionum_token(char **cmdl, t_list **lst);
 void					lex_define_op_token(char **cmdl, t_list **lst);
 
