@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:24:32 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/28 06:28:31 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/29 12:31:42 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_env(char *tar)
 ** Meme que la precendente mais dans un env char **
 */
 
-int	is_env_loc(char **env, char *tar)
+int	is_env_local(char **env, char *tar)
 {
 	while (env)
 	{

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:36:45 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/28 06:23:43 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/29 14:47:59 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			env_del(void *shenv, size_t s);
 ** env_display.c
 */
 
-void			env_display(t_list *e);
+void			env_display(void);
 
 /*
 ** env_init.c
@@ -69,7 +69,6 @@ char			*get_env_local(char **env, char *tar);
 */
 
 int				is_env(char *tar);
-int				is_env_loc(char **env, char *tar);
-
+int				is_env_local(char **env, char *tar);
 
 #endif

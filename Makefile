@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/08/28 06:17:18 by nmougino         ###   ########.fr        #
+#    Updated: 2017/08/29 14:38:55 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ OBJDIR =	objs
 DETDIR =	builtins cmdl_treatment env_dep exec get_cmdl history parser tc_misc
 
 #	Liste des sources
-SRC =		builtins/exec_builtin.c \
+SRC =		builtins/bi_cd_to_canonical.c \
+			builtins/bi_cd.c \
+			builtins/exec_builtin.c \
 			builtins/is_builtin.c \
 			cmdl_treatment/cmdl_treatment.c \
 			cmdl_treatment/lex_define_token.c \

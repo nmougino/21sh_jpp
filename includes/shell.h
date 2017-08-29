@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/26 21:03:11 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/08/28 06:46:42 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # define LOG(X)		ft_dprintf(g_meta.fd, X);
 # define LOGS(X, Y)	ft_dprintf(g_meta.fd, X, Y);
 
-typedef int			(*t_bi)(t_com *, char **);
+typedef int			(*t_bi)(char **, char **);
 
 typedef struct		s_meta
 {
