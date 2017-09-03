@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:36:45 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/29 14:47:59 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 21:52:45 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ void			env_del(void *shenv, size_t s);
 */
 
 void			env_display(void);
+void			env_display_local(char **str);
 
 /*
 ** env_init.c
 */
 
+void			misc_env(void);
 void			env_init(t_list **shenv, char **env);
 
 /*

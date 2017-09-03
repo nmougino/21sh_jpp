@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 17:01:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/21 18:39:36 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 22:28:55 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int				get_cmd_path(t_list *lst, t_com *com)
 		return (find_file(com->com_name, com) ? -2 : 1);
 	else if ((path = get_env("PATH")))
 		com->cmd_path = find_com_path(path, com->com_name);
-	if (!com->cmd_path)
+	if (!com->cmd_path && !is_builtin(com->com_name))
 		return (-1);
 	return (1);
 }

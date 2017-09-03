@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 17:25:13 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/26 20:52:03 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 22:29:21 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	launch_simple(t_btree *r)
 	{
 		waitpid(pid, &i, 0);
 		com_del(&com);
-		ft_arrdel((void**)env);
+		ft_arrdel((void***)&env);
 		return (i);
 	}
 	else

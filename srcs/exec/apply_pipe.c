@@ -47,7 +47,7 @@ static int	exec_pipe_left(t_btree *r, int *fd)
 		waitpid(pid, &i, 0);
 		close(fd[1]);
 		com_del(&com);
-		ft_arrdel((void**)env);
+		ft_arrdel((void***)&env);
 		return (i);
 	}
 	return (CMD_FAIL);
@@ -84,7 +84,7 @@ static pid_t	pipe_right(t_btree *prev, t_btree *r, int *fd, int *pfd)
 		if (pfd)
 			close(pfd[1]);
 		com_del(&com);
-		ft_arrdel((void**)env);
+		ft_arrdel((void***)&env);
 		return (i);
 	}
 	return (CMD_FAIL);

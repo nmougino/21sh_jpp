@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/28 06:46:42 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 21:48:12 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct		s_meta
 	int				fd;
 	int				edmod;
 	t_list			*shenv;
+	t_list			*shenv_save;
 	void			(*gcmdl_f)(t_cmdl *cmdl);
 	t_bi			bi_tab[BI_NBR];
 }					t_meta;
@@ -73,6 +74,8 @@ extern t_meta		g_meta;
 void				sh_cmdl_init(t_cmdl *cmdl);
 
 void				metainit(char **env);
+
+int					exec_mother(t_cmdl *cmdl);
 
 // a suppeimer
 void	sh_putast(t_btree *r, int l);

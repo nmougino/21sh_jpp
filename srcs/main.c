@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 18:35:27 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 22:12:45 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,34 @@ void		sh_putast(t_btree *r, int l)
 	}
 }
 
+int		exec_mother(t_cmdl *cmdl)
+{
+	t_list	*tokens;
+	t_btree	*ast;
+
+	if (cmdl->cmdl && cmdl->cmdl[0] &&
+		syntax_check((tokens = cmdl_treatment(cmdl))))
+	{
+		if (ft_strequ(((t_token*)(tokens->content))->content, "exit")) //a supprimer
+		{
+			ft_printf("sh: exit: 'AU REVOIR CONNARD'\n");
+			ft_lstdel(&tokens, del_tokens);
+			return (0);
+		}
+		else if ((ast = ast_parser(tokens)))
+		{
+			exec_ast(ast);
+			ft_btreedel(&ast, del_ast);
+		}
+		else
+			ft_lstdel(&tokens, del_tokens);
+	}
+	return (1);
+}
+
 int		main(int ac, char **av, char **env)
 {
 	t_cmdl	cmdl;
-	t_list	*tokens;
-	t_btree	*ast;
 
 	(void)ac;
 	(void)av;
@@ -99,27 +122,14 @@ int		main(int ac, char **av, char **env)
 	{
 		if (!get_cmdl(&cmdl))
 			break;
-		if (cmdl.cmdl && cmdl.cmdl[0] &&
-			syntax_check((tokens = cmdl_treatment(&cmdl))))
-		{
-			if (ft_strequ(((t_token*)(tokens->content))->content, "exit")) //a supprimer
-			{
-				ft_printf("sh: exit: 'AU REVOIR CONNARD'\n");
-				ft_lstdel(&tokens, del_tokens);
-				break ;
-			}
-			else if ((ast = ast_parser(tokens)))
-			{
-				exec_ast(ast);
-				ft_btreedel(&ast, del_ast);
-			}
-			else
-				ft_lstdel(&tokens, del_tokens);
-		}
+		if (!exec_mother(&cmdl))
+			break;
 		sh_cmdl_init(&cmdl);
 	}
-	// bi_exit ?
-	ft_lstdel(&(g_meta.shenv), env_del);
+	if (g_meta.shenv)
+		ft_lstdel(&(g_meta.shenv), env_del);
+	else
+		ft_lstdel(&(g_meta.shenv_save), env_del);
 	destroy_history();
 	close(g_meta.fd);
 	if (g_meta.clipbo)

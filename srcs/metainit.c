@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 16:11:56 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/26 21:02:50 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 21:52:03 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ void		metainit(char **env)
 	HISTO.save = NULL;
 	g_meta.clipbo = NULL;
 	env_init(&(g_meta.shenv), env);
+	misc_env();
+	g_meta.shenv_save = g_meta.shenv;
 	bi_init();
 }

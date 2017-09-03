@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 14:34:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/29 14:36:48 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 20:43:16 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	to_can_checkpath(char **arr)
 	else
 		ans = 1;
 	ft_strdel(&str);
-	ft_arrdel((void**)arr);
+	ft_arrdel((void***)&arr);
 	return (ans);
 }
 
@@ -60,12 +60,12 @@ int			bi_cd_to_canonical(char **str)
 	arr = ft_strsplit(*str, '/');
 	if (!to_can_loop(arr))
 	{
-		ft_arrdel((void**)arr);
+		ft_arrdel((void***)&arr);
 		return (0);
 	}
 	tmp = *arr ? ft_arrglu(arr, "/", 1) : ft_strdup("");
 	ft_strinschar(&tmp, 0, '/');
-	ft_arrdel((void**)arr);
+	ft_arrdel((void***)&arr);
 	ft_strdel(str);
 	*str = tmp;
 	return (1);

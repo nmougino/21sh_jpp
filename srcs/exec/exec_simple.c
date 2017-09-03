@@ -83,7 +83,7 @@ static int	cmd_err(int i, char *com_name)
 // 	}
 // 	waitpid(pid, &i, 0);
 // 	com_del(&com);
-// 	ft_arrdel((void**)env);
+// 	ft_arrdel((void***)&env);
 // 	return (i);
 // }
 

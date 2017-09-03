@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 06:12:24 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/28 06:16:06 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 21:49:36 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ void	env_add(char *name, char *cont)
 	new.name = ft_strdup(name);
 	new.cont = ft_strdup(cont);
 	ft_lstadd_end(&(g_meta.shenv), ft_lstnew(&new, sizeof(t_shenv)));
+	g_meta.shenv_save = g_meta.shenv;
 }

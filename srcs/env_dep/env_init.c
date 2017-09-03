@@ -6,13 +6,13 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 20:23:01 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/29 14:15:58 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 21:52:22 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	misc_env(void)
+void	misc_env(void)
 {
 	int		i;
 	char	*s;
@@ -28,7 +28,7 @@ static void	misc_env(void)
 	ft_strdel(&s);
 }
 
-void		env_init(t_list **shenv, char **env)
+void	env_init(t_list **shenv, char **env)
 {
 	t_shenv	new;
 	size_t	i;
@@ -45,5 +45,4 @@ void		env_init(t_list **shenv, char **env)
 		ft_lstadd_end(shenv, ft_lstnew(&new, sizeof(t_shenv)));
 		++env;
 	}
-	misc_env();
 }

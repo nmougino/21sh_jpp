@@ -21,5 +21,5 @@ void	com_del(t_com *com)
 	if (com->fd[2] != 2)
 		close(com->fd[2]);
 	ft_strdel(&(com->cmd_path));
-	ft_arrdel((void**)(com->cmd_args));
+	ft_arrdel((void***)&(com->cmd_args));
 }
