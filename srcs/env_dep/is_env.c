@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:24:32 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/29 12:31:42 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 23:33:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ int	is_env(char *tar)
 
 int	is_env_local(char **env, char *tar)
 {
-	while (env)
+	size_t i;
+	while (*env)
 	{
-		if (ft_strnequ(tar, *env, ft_strlen(tar)))
+		i = ft_strlen(tar);
+		if (ft_strnequ(tar, *env, i))
 			return (1);
 		++env;
 	}
