@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/23 19:03:52 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 00:04:14 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ typedef struct	s_com
 
 # define CMD_SUCCESS 0
 # define CMD_FAIL 1
+
+/*
+** apply_op.c
+*/
+
+int				apply_op(t_btree *r);
 
 /*
 ** apply_pipe.c

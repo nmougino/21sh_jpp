@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/26 18:24:35 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 00:01:09 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		clodup(int *fd, int i)
 	}
 }
 
-static int	exec_pipe_left(t_btree *r, int *fd)
+static int		exec_pipe_left(t_btree *r, int *fd)
 {
 	int		i;
 	pid_t	pid;
@@ -53,7 +53,7 @@ static int	exec_pipe_left(t_btree *r, int *fd)
 	return (CMD_FAIL);
 }
 
-static int	pipe_left(t_btree *r, int *fd)
+static int		pipe_left(t_btree *r, int *fd)
 {
 	if (((t_token *)(((t_list *)(r->data))->content))->type == OP_CONTROL)
 		return (apply_pipe(r, fd));
@@ -90,11 +90,11 @@ static pid_t	pipe_right(t_btree *prev, t_btree *r, int *fd, int *pfd)
 	return (CMD_FAIL);
 }
 
-int			apply_pipe(t_btree *r, int *pfd)
+int				apply_pipe(t_btree *r, int *pfd)
 {
-	int		fd[2];
-
+	int	fd[2];
 	int i;
+
 	if (pipe(fd) == -1)
 		return (ft_dprintf(2, "sh: pipe failed\n") ? -1 : -1);
 	i = pipe_right(r, r->right, fd, pfd);

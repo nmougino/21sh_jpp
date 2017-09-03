@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/30 17:25:49 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 22:29:49 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 00:00:18 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	bi_env_check_options(char *str)
 	return (1);
 }
 
-static char **bi_env_cpy_env(char **com, char **env, char ***new_env)
+static char	**bi_env_cpy_env(char **com, char **env, char ***new_env)
 {
 	size_t	i;
 	size_t	l;
@@ -92,17 +92,3 @@ int			bi_env(char **com, char **env)
 	ft_arrdel((void***)&new_env);
 	return (i);
 }
-
-// int		bi_env(char **com, char **env)
-// {
-//  	(void)com;
-// 	(void)env;
-// 	return (0);
-// }
-
-/*
-	env :
-
-	definir si le premier argument est l'option -i
-
-*/
