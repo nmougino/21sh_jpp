@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/26 21:21:15 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/03 18:17:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,13 @@ int		main(int ac, char **av, char **env)
 	metainit(env);
 	while (true)
 	{
+		ft_printf("coucou 1 \n");
 		if (!get_cmdl(&cmdl))
 			break;
-		if (syntax_check((tokens = cmdl_treatment(&cmdl))))
+		if (cmdl.cmdl && cmdl.cmdl[0] &&
+			syntax_check((tokens = cmdl_treatment(&cmdl))))
 		{
+			ft_printf("coucou 2\n");
 			if (ft_strequ(((t_token*)(tokens->content))->content, "exit")) //a supprimer
 			{
 				ft_printf("sh: exit: 'AU REVOIR CONNARD'\n");
@@ -109,7 +112,9 @@ int		main(int ac, char **av, char **env)
 			}
 			else if ((ast = ast_parser(tokens)))
 			{
+				ft_printf("coucou 3\n");
 				exec_ast(ast);
+				ft_printf("coucou 4\n");
 				ft_btreedel(&ast, del_ast);
 			}
 			else
