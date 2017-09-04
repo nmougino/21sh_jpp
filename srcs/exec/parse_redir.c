@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:20:07 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 21:40:26 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 21:47:20 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static void	do_it_han_red(char *tok, int io, t_com *com, char *next)
 			com->fd[io == -1 ? 1 : io] = tmp;
 	}
 	else if (!ft_strcmp(tok, LESSAND))
-		com->fd[io == -1 ? 1 : -1] = ft_atoi(next);
+		com->fd[io == -1 ? 1 : io] = ft_atoi(next);
 	else if (!ft_strcmp(tok, GREATAND))
-		com->fd[io == -1 ? 0 : -1] = ft_atoi(next);
+		com->fd[io == -1 ? 0 : io] = ft_atoi(next);
 }
 
 void		parse_redir(t_list *cmdl, t_com *com)
