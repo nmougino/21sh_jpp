@@ -1,49 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_env.c                                           :+:      :+:    :+:   */
+/*   bi_unsetenv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/26 21:24:32 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 19:47:55 by nmougino         ###   ########.fr       */
+/*   Created: 2017/09/04 19:34:31 by nmougino          #+#    #+#             */
+/*   Updated: 2017/09/04 20:15:28 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-/*
-** Identifie si la cible est dans l'env, en scannant la liste globale
-*/
-
-int	is_env(char *tar)
+static int	bi_unsetenv_iserror(char **com)
 {
-	t_list	*e;
+	int		i;
 
-	e = g_meta.shenv;
-	while (e)
+	i = (!com || !com[1] || !com[1][0]) ? 1 : 0;
+	++com;
+	while (*com)
 	{
-		if (ft_strequ(((t_shenv*)(e->content))->name, tar))
+		if (!is_env(*com))
+		{
+			ft_dprintf(2, "unsetenv: %s: not in environment\n", *com);
 			return (1);
-		e = e->next;
+		}
+		++com;
+	}
+	if (i)
+	{
+		ft_dprintf(2, "unsetenv: usage: unsetenv KEY [KEY ...]\n");
+		return (1);
 	}
 	return (0);
 }
 
-/*
-** Meme que la precendente mais dans un env char **
-*/
-
-int	is_env_local(char **env, char *tar)
+int			bi_unsetenv(char **com, char **env)
 {
-	size_t i;
-
-	while (*env)
+	(void)env;
+	if (bi_unsetenv_iserror(com))
+		return (-1);
+	while (*com)
 	{
-		i = ft_strlen(tar);
-		if (ft_strnequ(tar, *env, i))
-			return (1);
-		++env;
+		env_unset(*com);
+		++com;
 	}
 	return (0);
 }

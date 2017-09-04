@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/09/04 19:10:55 by nmougino         ###   ########.fr        #
+#    Updated: 2017/09/04 20:11:35 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			builtins/bi_echo.c \
 			builtins/bi_env.c \
 			builtins/bi_setenv.c \
+			builtins/bi_unsetenv.c \
 			builtins/exec_builtin.c \
 			builtins/is_builtin.c \
 			cmdl_treatment/cmdl_treatment.c \
@@ -46,6 +47,7 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			env_dep/env_display.c \
 			env_dep/env_init.c \
 			env_dep/env_set.c \
+			env_dep/env_unset.c \
 			env_dep/get_env.c \
 			env_dep/is_env.c \
 			exec/apply_op.c \

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:36:45 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 21:52:45 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 20:11:56 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ void			env_init(t_list **shenv, char **env);
 */
 
 void			env_set(char *name, char *cont);
+
+/*
+** env_set.c
+*/
+
+void			env_unset(char *name);
 
 /*
 ** get_env.c

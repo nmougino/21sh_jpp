@@ -6,19 +6,11 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 20:44:16 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 19:11:03 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 19:41:08 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-int	bi_unsetenv(char **args, char **env)
-{
-	(void)args;
-	(void)env;
-	ft_printf("sh: builtin active ::: 'unsetenv'\n");
-	return (0);
-}
 
 int	bi_exit(char **args, char **env)
 {

@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_set.c                                          :+:      :+:    :+:   */
+/*   env_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/26 21:38:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 19:48:57 by nmougino         ###   ########.fr       */
+/*   Created: 2017/09/04 19:48:58 by nmougino          #+#    #+#             */
+/*   Updated: 2017/09/04 20:15:41 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-/*
-** change la valeur d'un maillon de l'environement, uniquement s'il existe
-*/
+static void	delf(void *e, size_t s)
+{
+	t_shenv *el;
 
-void	env_set(char *tar, char *new_cont)
+	(void)s;
+	el = e;
+	free(el->name);
+	free(el->cont);
+}
+
+void		env_unset(char *tar)
 {
 	int		i;
-	t_list	*tmp;
+	t_list	*tar_el;
 
 	i = g_meta.shenv == g_meta.shenv_save ? 1 : 0;
-	tmp = i ? g_meta.shenv : g_meta.shenv_save;
-	while (tmp && ft_strcmp(((t_shenv*)(tmp->content))->name, tar))
-		tmp = tmp->next;
-	if (!tmp)
-		env_add(tar, new_cont);
-	else
-	{
-		ft_strdel(&(((t_shenv*)(tmp->content))->cont));
-		((t_shenv*)(tmp->content))->cont = ft_strdup(new_cont);
-	}
+	tar_el = g_meta.shenv;
+	while (tar_el && !ft_strequ(((t_shenv*)(tar_el->content))->name, tar))
+		tar_el = tar_el->next;
+	if (!tar_el)
+		return ;
+	ft_lstrem(&(g_meta.shenv), tar_el, delf);
 	if (i)
 		g_meta.shenv_save = g_meta.shenv;
 }
