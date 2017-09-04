@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 19:36:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/29 19:46:05 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 18:43:37 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			bi_echo(char **com, char **env)
 	int	i;
 
 	(void)env;
-	i = bi_echo_setop(com[1]);
+	i = com[1] ? bi_echo_setop(com[1]) : 0;
 	com += i + 1;
 	while (*com)
 	{
