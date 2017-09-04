@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 21:48:12 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 21:07:06 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct		s_meta
 	t_list			*shenv_save;
 	void			(*gcmdl_f)(t_cmdl *cmdl);
 	t_bi			bi_tab[BI_NBR];
+	t_btree			*ast;
+	t_cmdl			cmdl;
 }					t_meta;
 
 extern t_meta		g_meta;

@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/09/04 20:11:35 by nmougino         ###   ########.fr        #
+#    Updated: 2017/09/04 21:13:29 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			builtins/bi_cd.c \
 			builtins/bi_echo.c \
 			builtins/bi_env.c \
+			builtins/bi_exit.c \
 			builtins/bi_setenv.c \
 			builtins/bi_unsetenv.c \
 			builtins/exec_builtin.c \

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 22:12:45 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 21:22:42 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,14 @@ void		sh_putast(t_btree *r, int l)
 int		exec_mother(t_cmdl *cmdl)
 {
 	t_list	*tokens;
-	t_btree	*ast;
 
 	if (cmdl->cmdl && cmdl->cmdl[0] &&
 		syntax_check((tokens = cmdl_treatment(cmdl))))
 	{
-		if (ft_strequ(((t_token*)(tokens->content))->content, "exit")) //a supprimer
+		if ((g_meta.ast = ast_parser(tokens)))
 		{
-			ft_printf("sh: exit: 'AU REVOIR CONNARD'\n");
-			ft_lstdel(&tokens, del_tokens);
-			return (0);
-		}
-		else if ((ast = ast_parser(tokens)))
-		{
-			exec_ast(ast);
-			ft_btreedel(&ast, del_ast);
+			exec_ast(g_meta.ast);
+			ft_btreedel(&g_meta.ast, del_ast);
 		}
 		else
 			ft_lstdel(&tokens, del_tokens);
@@ -111,20 +104,18 @@ int		exec_mother(t_cmdl *cmdl)
 
 int		main(int ac, char **av, char **env)
 {
-	t_cmdl	cmdl;
-
 	(void)ac;
 	(void)av;
-	cmdl.cmdl = NULL;
-	cmdl.pos = 0;
+	g_meta.cmdl.cmdl = NULL;
+	g_meta.cmdl.pos = 0;
 	metainit(env);
 	while (true)
 	{
-		if (!get_cmdl(&cmdl))
+		if (!get_cmdl(&(g_meta.cmdl)))
 			break;
-		if (!exec_mother(&cmdl))
+		if (!exec_mother(&(g_meta.cmdl)))
 			break;
-		sh_cmdl_init(&cmdl);
+		sh_cmdl_init(&(g_meta.cmdl));
 	}
 	if (g_meta.shenv)
 		ft_lstdel(&(g_meta.shenv), env_del);
