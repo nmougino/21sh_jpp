@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 20:42:50 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 21:16:01 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 21:26:34 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		bi_cd(char **args, char **env);
 */
 
 int		exec_builtin(t_com *com, int bi, char **env);
+int		exec_builtin_pipe(t_com *com, int bi, char **env);
 
 int		bi_echo(char **args, char **env);
 int		bi_setenv(char **args, char **env);
@@ -41,6 +42,7 @@ int		bi_unsetenv(char **args, char **env);
 int		bi_env(char **args, char **env);
 
 void	bi_exit(t_com *com, char **env) __attribute__ ((noreturn));
+void	bi_exit_pipe(t_com *com, char **env) __attribute__ ((noreturn));
 
 /*
 ** is_builtin.c

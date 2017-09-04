@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 00:01:09 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 21:25:56 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int		exec_pipe_left(t_btree *r, int *fd)
 	if (!(pid = ft_fork("sh")))
 	{
 		clodup(fd, 1);
+		if ((pid = is_builtin(com.com_name)))
+			exit (exec_builtin_pipe(&com, pid - 1, env));
 		exec_simple(i, &com, env);
 	}
 	else
