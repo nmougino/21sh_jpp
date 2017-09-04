@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:38:17 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 23:52:28 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/04 19:23:11 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ void	env_set(char *tar, char *new_cont)
 		tmp = tmp->next;
 	if (!tmp)
 		env_add(tar, new_cont);
-	ft_strdel(&(((t_shenv*)(tmp->content))->cont));
-	((t_shenv*)(tmp->content))->cont = ft_strdup(new_cont);
+	else
+	{
+		ft_strdel(&(((t_shenv*)(tmp->content))->cont));
+		((t_shenv*)(tmp->content))->cont = ft_strdup(new_cont);
+	}
 	if (i)
 		g_meta.shenv_save = g_meta.shenv;
 }
