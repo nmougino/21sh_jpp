@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 17:25:13 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/05 16:51:25 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/05 18:14:30 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	launch_simple(t_btree *r)
 	i = create_simple(&com, (t_list *)(r->data));
 	handle_redir(&com, save);
 	if ((pid = is_builtin(com.com_name)))
-		return (exec_builtin(&com, pid - 1, env));
+		return (exec_builtin(&com, pid - 1, env, save));
 	if ((pid = fork()) == -1)
 		return (CMD_FAIL);
 	else if (!pid)

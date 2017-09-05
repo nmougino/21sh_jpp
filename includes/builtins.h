@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 20:42:50 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 21:26:34 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/05 18:14:42 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		bi_cd(char **args, char **env);
 ** exec_builtin.c
 */
 
-int		exec_builtin(t_com *com, int bi, char **env);
+int		exec_builtin(t_com *com, int bi, char **env, int *save);
 int		exec_builtin_pipe(t_com *com, int bi, char **env);
 
 int		bi_echo(char **args, char **env);

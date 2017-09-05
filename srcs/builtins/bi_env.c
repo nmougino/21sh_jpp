@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/30 17:25:49 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 00:00:18 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/05 18:34:14 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,10 @@ static int	bi_env_subsh(char **com, char **env)
 
 	env_init(&(g_meta.shenv), env);
 	i = 0;
-	while (*com)
-	{
-		cmdl.cmdl = ft_strdup(*com);
-		cmdl.pos = 0;
-		i = exec_mother(&cmdl);
-		ft_strdel(&(cmdl.cmdl));
-		++com;
-	}
+	cmdl.cmdl = ft_arrglu(com, " ", 1);
+	cmdl.pos = 0;
+	i = exec_mother(&cmdl);
+	ft_strdel(&(cmdl.cmdl));
 	ft_lstdel(&(g_meta.shenv), env_del);
 	g_meta.shenv = g_meta.shenv_save;
 	return (i);

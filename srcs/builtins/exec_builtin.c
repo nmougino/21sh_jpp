@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 20:44:16 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 21:26:19 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/05 18:15:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** memoire reservee en amont de son appel.
 */
 
-int	exec_builtin(t_com *com, int bi, char **env)
+int	exec_builtin(t_com *com, int bi, char **env, int *save)
 {
 	int	i;
 
@@ -26,6 +26,7 @@ int	exec_builtin(t_com *com, int bi, char **env)
 	i = g_meta.bi_tab[bi](com->cmd_args, env);
 	com_del(com);
 	ft_arrdel((void***)&env);
+	restore_redir(save);
 	return (i);
 }
 
