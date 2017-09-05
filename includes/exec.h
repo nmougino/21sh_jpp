@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 00:04:14 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/05 16:47:39 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int				exec_ast(t_btree *r);
 ** exec_simple.c
 */
 
-int				exec_simple(int i, t_com *com, char **env);
+void			exec_simple(int i, t_com *com, char **env)
+					__attribute__ ((noreturn));
 
 /*
 ** get_cmd_path.c
@@ -81,7 +82,8 @@ int				get_cmd_path(t_list *lst, t_com *com);
 ** handle_redir.c
 */
 
-void			handle_redir(t_com *com);
+void			restore_redir(int *save);
+void			handle_redir(t_com *com, int *save);
 
 /*
 ** ERNNO ERROR MESSAGES FOR EXECVE

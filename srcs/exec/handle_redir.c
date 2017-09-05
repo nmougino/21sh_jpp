@@ -6,14 +6,27 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:54:18 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/26 18:17:37 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/05 16:50:09 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		handle_redir(t_com *com)
+void		restore_redir(int *save)
 {
+	dup2(save[0], 0);
+	dup2(save[1], 1);
+	dup2(save[2], 2);
+	close(save[0]);
+	close(save[1]);
+	close(save[2]);
+}
+
+void		handle_redir(t_com *com, int *save)
+{
+	save[0] = dup(0);
+	save[1] = dup(1);
+	save[2] = dup(2);
 	dup2(com->fd[0], 0);
 	dup2(com->fd[1], 1);
 	dup2(com->fd[2], 2);

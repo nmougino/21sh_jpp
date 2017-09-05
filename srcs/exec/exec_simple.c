@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 17:16:09 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 00:01:28 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/05 16:34:32 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,8 @@ static int	cmd_err(int i, char *com_name)
 	return (-1);
 }
 
-/*
-** La fonction va ici parser la simple command, forker, et executer le processus
-** ce n'est pas de son ressort de verrifier le retour de la fonction, mais a la
-** fonction parente, c'est pourquoi elle renvoie le pid de l'enfant.
-** attention. La gestion des builts in est censee ce faire ici.
-**
-** PROBLEME POUR LE FREE DE L'ENV
-** Generation d'un env compile en amont et a chaque fois que l'env est modifie
-** UPDATE : La reconnaissance d'une commande de fond a ete desactivee. Son
-** implementation n'etant pas obligatoire ni utile, et me faisant trop chier a
-** ce stade du developpement.
-*/
-
-int			exec_simple(int i, t_com *com, char **env)
+void		exec_simple(int i, t_com *com, char **env)
 {
-	handle_redir(com);
 	if (!i)
 		exit(0);
 	else if (i != 1)

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 21:25:56 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:00:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static pid_t	pipe_right(t_btree *prev, t_btree *r, int *fd, int *pfd)
 	char	**env;
 
 	env = env_conv();
-	pid = -1;
 	i = create_simple(&com, (t_list *)(r->data));
 	if (!(pid = ft_fork("sh")))
 	{
@@ -79,7 +78,7 @@ static pid_t	pipe_right(t_btree *prev, t_btree *r, int *fd, int *pfd)
 		clodup(pfd, 1);
 		exec_simple(i, &com, env);
 	}
-	else if (pid != 0)
+	else if (pid)
 	{
 		pipe_left(prev->left, fd);
 		waitpid(pid, &i, 0);
