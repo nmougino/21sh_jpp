@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/05 17:00:10 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:43:57 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,17 @@ static int		exec_pipe_left(t_btree *r, int *fd)
 	pid_t	pid;
 	t_com	com;
 	char	**env;
+	int		save[3];
 
 	env = env_conv();
 	i = create_simple(&com, (t_list *)(r->data));
+	handle_redir(NULL, save);
 	if (!(pid = ft_fork("sh")))
 	{
 		clodup(fd, 1);
 		if ((pid = is_builtin(com.com_name)))
 			exit (exec_builtin_pipe(&com, pid - 1, env));
+		handle_redir(&com, NULL);
 		exec_simple(i, &com, env);
 	}
 	else
@@ -50,6 +53,7 @@ static int		exec_pipe_left(t_btree *r, int *fd)
 		close(fd[1]);
 		com_del(&com);
 		ft_arrdel((void***)&env);
+		restore_redir(save);
 		return (i);
 	}
 	return (CMD_FAIL);
@@ -69,13 +73,16 @@ static pid_t	pipe_right(t_btree *prev, t_btree *r, int *fd, int *pfd)
 	pid_t	pid;
 	t_com	com;
 	char	**env;
+	int		save[3];
 
 	env = env_conv();
 	i = create_simple(&com, (t_list *)(r->data));
+	handle_redir(NULL, save);
 	if (!(pid = ft_fork("sh")))
 	{
 		clodup(fd, 0);
 		clodup(pfd, 1);
+		handle_redir(&com, NULL);
 		exec_simple(i, &com, env);
 	}
 	else if (pid)
@@ -86,6 +93,7 @@ static pid_t	pipe_right(t_btree *prev, t_btree *r, int *fd, int *pfd)
 			close(pfd[1]);
 		com_del(&com);
 		ft_arrdel((void***)&env);
+		restore_redir(save);
 		return (i);
 	}
 	return (CMD_FAIL);
