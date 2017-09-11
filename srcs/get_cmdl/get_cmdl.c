@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/31 22:25:43 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/11 18:56:19 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ int				get_cmdl(t_cmdl *cmdl)
 		exit(tc_err_print(ERR_TCSETATTR_FAIL, 0));
 	if (HISTO.is_in)
 		history_exit(cmdl);
-	if (cmdl->cmdl)
+	else if (cmdl->cmdl)
 		history_add(cmdl->cmdl);
-	else
+	if (!cmdl->cmdl)
 		return (0);
 	return (1);
 }

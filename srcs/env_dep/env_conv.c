@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:40:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/23 15:23:17 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/07 17:47:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**env_conv(void)
 	shenv = g_meta.shenv;
 	len = ft_lstlen(shenv);
 	i = 0;
-	ans = malloc(sizeof(char *) * len + 1);
+	ans = malloc(sizeof(char *) * (len + 1));
 	ans[len] = NULL;
 	while (i < len)
 	{

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 21:22:42 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/07 21:02:01 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	del_tokens(void *elem, size_t s)
 	(void)s;
 }
 
-static void	del_ast(void *d)
+void		del_ast(void *d)
 {
 	ft_lstdel((t_list **)&d, del_tokens);
 }

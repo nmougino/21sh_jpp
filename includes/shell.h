@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 21:07:06 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/07 20:45:58 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void				sh_cmdl_init(t_cmdl *cmdl);
 void				metainit(char **env);
 
 int					exec_mother(t_cmdl *cmdl);
+void				del_ast(void *d);
 
 // a suppeimer
 void	sh_putast(t_btree *r, int l);

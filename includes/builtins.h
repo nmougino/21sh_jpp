@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 20:42:50 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/05 18:14:42 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/07 17:52:34 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int		bi_setenv(char **args, char **env);
 int		bi_unsetenv(char **args, char **env);
 int		bi_env(char **args, char **env);
 
-void	bi_exit(t_com *com, char **env) __attribute__ ((noreturn));
-void	bi_exit_pipe(t_com *com, char **env) __attribute__ ((noreturn));
+int		bi_exit(t_com *com, char **env);
 
 /*
 ** is_builtin.c

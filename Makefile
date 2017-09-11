@@ -6,13 +6,13 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/09/04 21:13:29 by nmougino         ###   ########.fr        #
+#    Updated: 2017/09/07 20:41:04 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	Compilator - clang est plus sur que gcc
 CC =		clang
-CFLAGS =	-Wall -Wextra -Werror -Weverything -Wno-padded #-fsanitize=address
+CFLAGS =	-Wall -Wextra -Werror -Weverything -Wno-padded -g #-fsanitize=address
 
 #	Binary
 NAME =		21sh
@@ -156,7 +156,7 @@ $(OBJDIR):
 
 $(NAME): $(OBJP)
 	@echo "$(GRA)$(CYA)@ ++ $@ compilation$(DEF)"
-	@$(CC) $(CFLAGS) $(ADDFLAGS)	-o $@ $^ -I $(INCDIR) -ltermcap -L lib$(LIB) -l$(LIB)
+	@$(CC) $(CFLAGS) $(ADDFLAGS) -o $@ $^ -I $(INCDIR) -ltermcap -L lib$(LIB) -l$(LIB)
 
 #	MrProper's legacy
 cleanloc:

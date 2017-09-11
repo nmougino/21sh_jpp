@@ -6,13 +6,13 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 20:52:54 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 21:27:01 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/11 19:37:33 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	bi_exit(t_com *com, char **env)
+int	bi_exit(t_com *com, char **env)
 {
 	int	i;
 
@@ -20,7 +20,8 @@ void	bi_exit(t_com *com, char **env)
 		: ft_atoi((com->cmd_args)[1]);
 	com_del(com);
 	ft_arrdel((void***)&env);
-	sh_cmdl_init(&(g_meta.cmdl));
+	ft_strdel(&(g_meta.cmdl.cmdl));
+	ft_btreedel(&g_meta.ast, del_ast);
 	if (g_meta.shenv)
 		ft_lstdel(&(g_meta.shenv), env_del);
 	else
@@ -29,16 +30,16 @@ void	bi_exit(t_com *com, char **env)
 	close(g_meta.fd);
 	if (g_meta.clipbo)
 		free(g_meta.clipbo);
-	exit (i);
+	return (i);
 }
 
-void	bi_exit_pipe(t_com *com, char **env)
-{
-	int	i;
-
-	i = !(com->cmd_args) || !(com->cmd_args)[1] ? 0
-		: ft_atoi((com->cmd_args)[1]);
-	com_del(com);
-	ft_arrdel((void***)&env);
-	exit (i);
-}
+// void	bi_exit_pipe(t_com *com, char **env)
+// {
+// 	int	i;
+//
+// 	i = !(com->cmd_args) || !(com->cmd_args)[1] ? 0
+// 		: ft_atoi((com->cmd_args)[1]);
+// 	com_del(com);
+// 	ft_arrdel((void***)&env);
+// 	exit (i);
+// }
