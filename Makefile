@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/09/07 20:41:04 by nmougino         ###   ########.fr        #
+#    Updated: 2017/09/12 14:47:46 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,6 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			tc_misc/err_dep.c \
 			tc_misc/sh_go_doup.c \
 			tc_misc/tc_putc.c \
-			tc_misc/term_check.c \
 			tc_misc/terminit.c
 LIB =		ft
 OBJ =		$(SRC:.c=.o)

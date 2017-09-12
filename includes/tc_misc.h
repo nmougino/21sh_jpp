@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:25:28 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/14 15:42:12 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/12 14:47:30 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@ void	sh_go_up(t_cmdl *cmdl, int pos);
 */
 
 int		sh_putc(int c);
-
-/*
-** term_check.c
-*/
-
-int		term_check(void);
 
 /*
 ** terminit.c

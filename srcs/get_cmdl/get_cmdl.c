@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/11 18:56:19 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/12 15:36:14 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int				get_cmdl(t_cmdl *cmdl)
 	if (cmdl->cmdl)
 		handle_back_slash(cmdl);
 	if (g_meta.edmod && tcsetattr(0, TCSADRAIN, &save) == -1)
-		exit(tc_err_print(ERR_TCSETATTR_FAIL, 0));
+		exit(tc_err_print(ERR_TCSETATTR_FAIL, 0) - 1);
 	if (HISTO.is_in)
 		history_exit(cmdl);
 	else if (cmdl->cmdl)
