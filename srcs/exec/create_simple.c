@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:15:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 22:29:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/14 20:20:31 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void		com_init(t_com *com)
 	com->fd[1] = STDOUT_FILENO;
 	com->fd[2] = STDERR_FILENO;
 	ft_bzero(&(com->to_close), sizeof(int) * 3);
+	com->heredoc = NULL;
+	ft_bzero(&(com->hdfd), sizeof(int) * 2);
 }
 
 static t_list	*go_to_after_name(t_list *lst)

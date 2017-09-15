@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/09/12 14:47:46 by nmougino         ###   ########.fr        #
+#    Updated: 2017/09/14 20:06:12 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			exec/exec_ast.c \
 			exec/exec_simple.c \
 			exec/get_cmd_path.c \
+			exec/handle_heredoc.c \
 			exec/handle_redir.c \
 			exec/parse_redir.c \
 			get_cmdl/get_cmdl.c \

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/05 16:47:39 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/14 20:20:17 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct	s_com
 	char		**cmd_args;
 	int			fd[3];
 	int			to_close[3];
+	char		*heredoc; // contient d'abord le delimiteur, puis la chaine, == NULL alors pas de heredoc
+	int			hdfd[2]; // pipe pour l'ecriture des heredoc
 }				t_com;
 
 # define CMD_SUCCESS 0
@@ -77,6 +79,12 @@ void			exec_simple(int i, t_com *com, char **env)
 */
 
 int				get_cmd_path(t_list *lst, t_com *com);
+
+/*
+** handle_heredoc.c
+*/
+
+void			handle_heredoc(t_com *com);
 
 /*
 ** handle_redir.c
