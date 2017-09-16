@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:54:18 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/13 23:03:06 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/16 22:00:34 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		handle_redir(t_com *com, int *save)
 			close(1);
 		if (com->to_close[2])
 			close(2);
-		if (com->heredoc)
+		if (com->heredoc && com->hdfd[0] != com->hdfd[1])
 			handle_heredoc(com);
 	}
 }
