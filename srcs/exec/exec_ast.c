@@ -6,13 +6,13 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 17:25:13 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/16 21:23:11 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/16 21:53:11 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	do_fork(int	*i, t_com *com, char **env, int *save)
+static int	do_fork(int *i, t_com *com, char **env, int *save)
 {
 	pid_t	pid;
 
@@ -42,7 +42,7 @@ static int	launch_simple(t_btree *r)
 	int		j;
 	t_com	com;
 	char	**env;
-	int 	save[3];
+	int		save[3];
 
 	env = env_conv();
 	i = create_simple(&com, (t_list *)(r->data));

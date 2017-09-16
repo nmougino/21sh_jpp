@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 23:03:24 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/16 21:43:36 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/16 21:54:17 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	get_hd_line(t_cmdl *cmdl)
 {
 	t_termios	tcap;
 	t_termios	tcsave;
+
 	g_meta.edmod = terminit(&tcap, &tcsave);
 	g_meta.gcmdl_f = g_meta.edmod ? get_cmdl_loop : get_cmdl_notc;
 	g_meta.gcmdl_f(cmdl);

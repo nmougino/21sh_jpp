@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/16 19:08:00 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/16 21:54:50 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int		exec_pipe_left(t_btree *r, int *fd)
 		clodup(fd, 1);
 		handle_redir(&com, NULL);
 		if ((pid = is_builtin(com.com_name)))
-			exit (exec_builtin_pipe(&com, pid - 1, env));
+			exit(exec_builtin_pipe(&com, pid - 1, env));
 		exec_simple(i, &com, env);
 	}
 	else
@@ -68,7 +68,7 @@ static pid_t	pipe_right(t_btree *prev, t_btree *r, int *fd, int *pfd)
 		clodup(pfd, 1);
 		handle_redir(&com, NULL);
 		if ((pid = is_builtin(com.com_name)))
-			exit (exec_builtin_pipe(&com, pid - 1, env));
+			exit(exec_builtin_pipe(&com, pid - 1, env));
 		exec_simple(i, &com, env);
 	}
 	else if (pid)

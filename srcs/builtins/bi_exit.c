@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 20:52:54 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/11 19:37:33 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/16 21:54:32 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,3 @@ int	bi_exit(t_com *com, char **env)
 		free(g_meta.clipbo);
 	return (i);
 }
-
-// void	bi_exit_pipe(t_com *com, char **env)
-// {
-// 	int	i;
-//
-// 	i = !(com->cmd_args) || !(com->cmd_args)[1] ? 0
-// 		: ft_atoi((com->cmd_args)[1]);
-// 	com_del(com);
-// 	ft_arrdel((void***)&env);
-// 	exit (i);
-// }
