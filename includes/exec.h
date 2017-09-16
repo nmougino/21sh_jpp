@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/14 20:20:17 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/16 19:09:12 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ int				apply_op(t_btree *r);
 */
 
 int				apply_pipe(t_btree *r, int *pfd);
+
+/*
+** clodup.c
+*/
+
+void			clodup(int *fd, int i);
 
 /*
 ** com_del.c

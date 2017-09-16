@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 17:25:13 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/11 19:07:06 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/16 19:25:38 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,26 @@ static int	launch_simple(t_btree *r)
 	if ((pid = is_builtin(com.com_name)))
 		return (exec_builtin(&com, pid - 1, env, save));
 	if ((pid = ft_fork("sh")) && pid != -1)
+	{
+		if (com.heredoc)
+		{
+			clodup(com.hdfd, 1);
+			ft_putstr(com.heredoc);
+			restore_redir(save);
+			close(com.hdfd[1]);
+		}
 		waitpid(pid, &i, 0);
+	}
 	else if (!pid)
+	{
+		if (com.heredoc)
+			clodup(com.hdfd, 0);
 		exec_simple(i, &com, env);
+	}
 	com_del(&com);
 	ft_arrdel((void***)&env);
-	restore_redir(save);
+	if (!com.heredoc)
+		restore_redir(save);
 	return (pid != -1 ? i : CMD_FAIL);
 }
 
