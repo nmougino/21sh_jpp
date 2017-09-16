@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 23:03:24 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/16 19:26:49 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/16 21:43:36 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	get_hd_content(char **save, char *delem)
 	cmdl.cmdl = NULL;
 	cmdl.pos = 0;
 	g_meta.prompt_save = g_meta.prompt;
-	g_meta.prompt = "> ";
+	g_meta.prompt = "heredoc> ";
 	while (live)
 	{
 		if (!(live = get_hd_line(&cmdl)))
@@ -50,16 +50,12 @@ static void	get_hd_content(char **save, char *delem)
 			live = 0;
 		else
 		{
-			if (*save)
+			if (*save && **save)
 				ft_stradd(save, "\n");
-			else
-				*save = ft_strdup("");
 			ft_stradd(save, cmdl.cmdl);
 		}
 		sh_cmdl_init(&cmdl);
 	}
-	if (*save)
-		ft_stradd(save, "\n");
 	g_meta.prompt = g_meta.prompt_save;
 }
 
@@ -67,8 +63,10 @@ void		handle_heredoc(t_com *com)
 {
 	char	*save;
 
-	save = NULL;
+	save = ft_strdup("");
 	get_hd_content(&save, com->heredoc);
+	if (save && *save)
+		ft_stradd(&save, "\n");
 	if (save)
 		pipe(com->hdfd);
 	com->heredoc = save;
