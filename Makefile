@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/09/16 19:09:23 by nmougino         ###   ########.fr        #
+#    Updated: 2017/09/18 11:12:36 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ DEFRULE =	all
 SRCDIR =	srcs
 INCDIR =	includes
 OBJDIR =	objs
-DETDIR =	builtins cmdl_treatment env_dep exec get_cmdl history parser tc_misc
+DETDIR =	builtins cmdl_treatment env_dep exec get_cmdl heredocs history parser tc_misc
 
 #	Liste des sources
 SRC =		builtins/bi_cd_to_canonical.c \
@@ -59,7 +59,6 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			exec/exec_ast.c \
 			exec/exec_simple.c \
 			exec/get_cmd_path.c \
-			exec/handle_heredoc.c \
 			exec/handle_redir.c \
 			exec/parse_redir.c \
 			get_cmdl/get_cmdl.c \
@@ -73,6 +72,8 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			get_cmdl/handle_home_end.c \
 			get_cmdl/handle_quotes.c \
 			get_cmdl/print_cmdl.c \
+			heredocs/handle_heredoc.c \
+			heredocs/hd_parser.c \
 			history/destroy_history.c \
 			history/history_add.c \
 			history/history_dep.c \

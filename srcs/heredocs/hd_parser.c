@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   com_del.c                                          :+:      :+:    :+:   */
+/*   hd_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 18:48:03 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/18 11:57:37 by nmougino         ###   ########.fr       */
+/*   Created: 2017/09/18 11:03:39 by nmougino          #+#    #+#             */
+/*   Updated: 2017/09/18 11:48:56 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	com_del(t_com *com)
+void	hd_parser(t_btree **r)
 {
-	if (com->fd[0] != 0)
-		close(com->fd[0]);
-	if (com->fd[1] != 1)
-		close(com->fd[1]);
-	if (com->fd[2] != 2)
-		close(com->fd[2]);
-	// ft_strdel(&(com->heredoc)); semble ne pas necessiter un free, very weird
-	ft_strdel(&(com->cmd_path));
-	ft_arrdel((void***)&(com->cmd_args));
+	t_list	*lst;
+
+	lst = (t_list*)((*r)->data);
+	while (lst)
+	{
+		if (!ft_strcmp(((t_token*)(lst->content))->content, "<<"))
+			handle_heredoc(&(((t_token*)(lst->next->content))->content));
+		lst = lst->next;
+	}
 }

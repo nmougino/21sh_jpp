@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/07 20:45:58 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/18 11:14:05 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "parser.h"
 # include "tc_misc.h"
 # include "builtins.h"
+# include "heredocs.h"
 
 # define ERR_NO_NAME 0
 # define ERR_TGETENT_FAIL 1

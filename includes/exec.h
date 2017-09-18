@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/16 19:09:12 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/18 11:12:52 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,6 @@ void			exec_simple(int i, t_com *com, char **env)
 */
 
 int				get_cmd_path(t_list *lst, t_com *com);
-
-/*
-** handle_heredoc.c
-*/
-
-void			handle_heredoc(t_com *com);
 
 /*
 ** handle_redir.c

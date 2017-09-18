@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/07 21:02:01 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/18 11:15:26 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		exec_mother(t_cmdl *cmdl)
 	{
 		if ((g_meta.ast = ast_parser(tokens)))
 		{
+			ft_btreemap(&g_meta.ast, hd_parser);
 			exec_ast(g_meta.ast);
 			ft_btreedel(&g_meta.ast, del_ast);
 		}
@@ -127,3 +128,23 @@ int		main(int ac, char **av, char **env)
 		free(g_meta.clipbo);
 	return (0);
 }
+
+/*
+
+
+Probleme :
+Il faut : soit remplacer le systeme de parse de l'ast pour convertir les commandes avant l'execution
+			soit faire ca qu'avec les pipes
+
+	ceci dans le but de gerer les heredocs en pipes...
+	ca va saouler.
+	donc
+
+	le plus simple est de convertir toutes les commandes des le debut
+		il va donc falloir mallocer les com
+		adapter les fonctions d'executions
+		bien freer...
+
+
+
+*/
