@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 18:48:03 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/18 11:57:37 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/28 21:34:11 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	com_del(t_com *com)
 		close(com->fd[1]);
 	if (com->fd[2] != 2)
 		close(com->fd[2]);
-	// ft_strdel(&(com->heredoc)); semble ne pas necessiter un free, very weird
+	// ft_strdel(&(com->heredoc)); very weeeeird
 	ft_strdel(&(com->cmd_path));
 	ft_arrdel((void***)&(com->cmd_args));
 }

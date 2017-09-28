@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 17:25:13 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/28 20:58:56 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/28 21:37:05 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,7 @@ static int	do_fork(int *i, t_com *com, char **env, int *save)
 
 	if ((pid = ft_fork("sh")) && pid != -1)
 	{
-		if (com->heredoc)
-		{
-			clodup(com->hdfd, 1);
-			ft_putstr(com->heredoc);
-			restore_redir(save);
-			close(com->hdfd[1]);
-		}
+		write_hd(com, save);
 		waitpid(pid, i, 0);
 	}
 	else if (!pid)
