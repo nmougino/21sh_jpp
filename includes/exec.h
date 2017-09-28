@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/24 07:07:05 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/28 21:17:04 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ typedef struct	s_com
 */
 
 int				apply_op(t_btree *r);
+
+/*
+** apply_pipe_left.c
+*/
+
+int				pipe_left(t_btree *r, int *fd, char *hd);
 
 /*
 ** apply_pipe.c

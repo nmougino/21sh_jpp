@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 17:25:13 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/24 07:06:54 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/09/28 20:58:56 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	launch_simple(t_btree *r)
 	env = env_conv();
 	create_simple(&com, (t_list *)(r->data));
 	handle_redir(&com, save);
+	if (com.heredoc)
+		pipe(com.hdfd);
 	if (is_builtin(com.com_name))
 		return (exec_builtin(&com, is_builtin(com.com_name) - 1, env, save));
 	j = do_fork(&i, &com, env, save);
