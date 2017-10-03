@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/18 11:15:26 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/03 17:43:49 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int		main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
+	mapsigs();
 	g_meta.cmdl.cmdl = NULL;
 	g_meta.cmdl.pos = 0;
 	metainit(env);
@@ -114,8 +115,10 @@ int		main(int ac, char **av, char **env)
 	{
 		if (!get_cmdl(&(g_meta.cmdl)))
 			break;
+		g_meta.exec = 1;
 		if (!exec_mother(&(g_meta.cmdl)))
 			break;
+		g_meta.exec = 0;
 		sh_cmdl_init(&(g_meta.cmdl));
 	}
 	if (g_meta.shenv)

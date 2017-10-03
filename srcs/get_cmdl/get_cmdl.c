@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/12 15:36:14 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/03 17:43:21 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		sh_putprompt(void)
 	}
 }
 
-static void		go_out(t_cmdl *cmdl)
+void			go_out(t_cmdl *cmdl)
 {
 	if (cmdl && cmdl->cmdl)
 	{

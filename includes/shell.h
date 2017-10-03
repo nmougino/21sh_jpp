@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/18 11:14:05 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/03 17:43:08 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,14 @@ typedef struct		s_meta
 	t_bi			bi_tab[BI_NBR];
 	t_btree			*ast;
 	t_cmdl			cmdl;
+	int				exec;
 }					t_meta;
 
 extern t_meta		g_meta;
 
 void				sh_cmdl_init(t_cmdl *cmdl);
+
+void				mapsigs(void);
 
 void				metainit(char **env);
 

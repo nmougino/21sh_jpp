@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:09:26 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/29 14:49:44 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/03 16:15:40 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_cmdl
 
 int					get_cmdl(t_cmdl *cmdl);
 void				get_cmdl_loop(t_cmdl *cmdl);
+void				go_out(t_cmdl *cmdl);
 
 /*
 ** get_cmdl_notc.c

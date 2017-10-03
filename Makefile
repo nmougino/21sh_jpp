@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/09/28 21:37:54 by nmougino         ###   ########.fr        #
+#    Updated: 2017/10/02 23:47:24 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			get_cmdl/handle_home_end.c \
 			get_cmdl/handle_quotes.c \
 			get_cmdl/print_cmdl.c \
+			handle_signals.c\
 			heredocs/handle_heredoc.c \
 			heredocs/hd_parser.c \
 			heredocs/write_hd.c \
