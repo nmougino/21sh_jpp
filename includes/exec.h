@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/28 21:17:04 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/09 19:14:49 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void			com_del(t_com *com);
 ** parse_redir.c
 */
 
-void			parse_redir(t_list *cmdl, t_com *com);
+int				parse_redir(t_list *cmdl, t_com *com);
 
 /*
 ** create_simple.c

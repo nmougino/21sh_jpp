@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:15:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/24 07:05:00 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/10 00:49:18 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void			create_simple(t_com *com, t_list *lst)
 	int	i;
 
 	com_init(com);
-	parse_redir(lst, com);
-	if ((i = get_cmd_path(lst, com)) == 1)
+	i = parse_redir(lst, com);
+	if (i && (i = get_cmd_path(lst, com)) == 1)
 		com->cmd_args = get_cmd_args(com, lst);
 	com->i = i;
 }
