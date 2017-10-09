@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/03 17:43:49 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/04 18:29:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int		main(int ac, char **av, char **env)
 	close(g_meta.fd);
 	if (g_meta.clipbo)
 		free(g_meta.clipbo);
+	ft_putendl("exit bye xo");
 	return (0);
 }
 

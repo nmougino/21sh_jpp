@@ -6,9 +6,10 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 23:03:24 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/28 21:31:59 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/08 11:57:46 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "shell.h"
 
@@ -63,6 +64,7 @@ static void	get_hd_content(char **save, char *delem)
 void		handle_heredoc(char **dest)
 {
 	char	*save;
+	int		i;
 
 	save = ft_strdup("");
 	get_hd_content(&save, *dest);
