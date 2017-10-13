@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/13 21:39:30 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/13 23:58:52 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		exec_mother(t_cmdl *cmdl)
 		else
 			ft_lstdel(&tokens, del_tokens);
 	}
-	else
+	else if (cmdl->cmdl && cmdl->cmdl[0])
 		ft_lstdel(&tokens, del_tokens);
 	return (1);
 }
