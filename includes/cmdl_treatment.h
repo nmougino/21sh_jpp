@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:28:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/29 14:51:21 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/13 21:23:14 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ enum e_token_type		is_operator(char *cmdl);
 ** sh_inhib_exp.c
 */
 
+void					handle_expansion(char **str, size_t *i);
 void					sh_inhib_exp(t_list *lst);
 
 /*

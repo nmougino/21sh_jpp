@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 06:18:46 by nmougino          #+#    #+#             */
-/*   Updated: 2017/07/31 22:18:03 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/13 21:22:36 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		replace_expansion(char **str, char *cont, size_t *i, char *name)
 
 	tmp = ft_strndup(*str, *i);
 	ft_stradd(&tmp, cont);
-	ft_stradd(&tmp, *str + *i + ft_strlen(name));
+	ft_stradd(&tmp, *str + *i + 1 + ft_strlen(name));
 	ft_strdel(str);
 	*str = tmp;
 	*i += ft_strlen(cont);
@@ -37,13 +37,13 @@ static void		handle_tilde(char **str, size_t *i)
 		replace_expansion(str, env, i, "~");
 }
 
-static void		handle_expansion(char **str, size_t *i)
+void		handle_expansion(char **str, size_t *i)
 {
 	char	*tmp;
 	size_t	len;
 	char	*name;
 
-	len = ft_wordlen(*str + *i + 1, "\n\t \"'$");
+	len = ft_wordlen(*str + *i + 1, "\n\t \"><%&|'$");
 	name = ft_strndup(*str + *i + 1, len);
 	if ((tmp = get_env(name)))
 		replace_expansion(str, tmp, i, name);

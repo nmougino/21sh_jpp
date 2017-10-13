@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 23:03:24 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/09 18:52:36 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/13 21:23:37 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,21 @@ static void	get_hd_content(char **save, char *delem)
 void		handle_heredoc(char **dest)
 {
 	char	*save;
+	size_t	i;
 
 	save = ft_strdup("");
 	get_hd_content(&save, *dest);
 	if (save && *save)
+	{
 		ft_stradd(&save, "\n");
+		i = 0;
+		while (save[i])
+		{
+			if (save[i] == '$')
+				handle_expansion(&save, &i);
+			++i;
+		}
+	}
 	free(*dest);
 	*dest = save;
 }
