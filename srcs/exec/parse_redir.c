@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:20:07 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/10 00:24:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 16:12:55 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	do_it_han_red(char *tok, int io, t_com *com, char *next)
 	{
 		dest = (!ft_strcmp(tok, GREAT) || !ft_strcmp(tok, DGREAT)) ? 1 : 0;
 		flag = (!ft_strcmp(tok, LESS)) ? O_RDONLY : O_CREAT | O_WRONLY;
-		flag = (!ft_strcmp(tok, GREAT)) ? flag | O_TRUNC : flag;
+		flag = (!ft_strcmp(tok, GREAT)) ? flag | O_TRUNC : flag | O_APPEND;
 		if ((tmp = open(next, flag, 0644)) == -1)
 			return (redir_put_error(next));
 		com->fd[io == -1 ? dest : io] = tmp;
