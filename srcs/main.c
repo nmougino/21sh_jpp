@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/13 23:58:52 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 20:52:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ void	sh_cmdl_init(t_cmdl *cmdl)
 	cmdl->pos = 0;
 }
 
-// static void	put_someshit(t_list *lst)
-// {
-// 	ft_printf(" |%s|\n", lst->content);
-// }
+
 
 static void	del_tokens(void *elem, size_t s)
 {

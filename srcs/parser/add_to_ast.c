@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/06 17:16:45 by nmougino          #+#    #+#             */
-/*   Updated: 2017/08/06 17:17:17 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 20:55:11 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		middle_add_ast(t_btree **cur, t_btree **root,
 	t_btree	*new;
 	t_list	*simple;
 	t_list	*token;
+	t_btree	*tmp;
 
 	parent = ft_btree_find_parent(*root, *cur);
 	simple = *tok;
@@ -35,13 +36,13 @@ void		middle_add_ast(t_btree **cur, t_btree **root,
 	*tok = token->next;
 	token->next = NULL;
 	new = ft_btreenew(token);
-	(*cur)->right = ft_btreenew(simple);
+	tmp = (*cur);
+	while(tmp->right)
+		tmp = tmp->right;
+	tmp->right = ft_btreenew(simple);
 	new->left = *cur;
 	*cur = new;
-	if (parent)
-		parent->right = new;
-	else
-		*root = new;
+	parent ? (parent->right = new) : (*root = new);
 }
 
 /*
