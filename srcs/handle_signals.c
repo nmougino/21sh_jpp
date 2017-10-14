@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 22:24:05 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/05 00:40:16 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 22:53:23 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,25 @@ static void	handle_c(int s)
 	{
 		ft_putendl("");
 		sh_cmdl_init(&(g_meta.cmdl));
+		g_meta.prompt = g_meta.prompt_save;
 		ft_putstr(g_meta.prompt);
 		g_meta.cmdl.cmdl = ft_strdup("");
 	}
 }
 
-static void	do_nothing(int s)
+static void	handle_wch(int s)
 {
-	if (!g_meta.exec)
-	{
-		ft_printf(" This signal is not supported : %d\n", s);
-		sh_cmdl_init(&(g_meta.cmdl));
-		ft_putstr(g_meta.prompt);
-		g_meta.cmdl.cmdl = ft_strdup("");
-	}
-	else
-		ft_printf("\nThis signal is not supported : %d\n", s);
+	(void)s;
+	ioctl(0, TIOCGWINSZ, &(g_meta.ws));
 }
 
 void		mapsigs(void)
 {
+	int	i;
+
+	i = 1;
+	while (i < 32)
+		signal(i++, SIG_IGN);
 	signal(SIGINT, handle_c);
-	signal(18, do_nothing);
-	signal(19, do_nothing);
+	signal(SIGWINCH, handle_wch);
 }

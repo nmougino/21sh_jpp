@@ -6,26 +6,11 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 21:48:02 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 21:52:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-/*
-	toujours un probleme dans le retour historique d'une commande sur
-	plusieurs lignes
-*/
-
-/*
-** penser a remplacer les ansi escape sequences par des termcap
-** ajouter fonction e check des termcaps pour decider de leur activation
-** creer un mode de get_cmdl minishell
-*/
-
-/*
-	double free en CTRL D en parcours d'historique
-*/
 
 t_meta	g_meta;
 
