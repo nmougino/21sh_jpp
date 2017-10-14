@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/28 21:19:17 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 15:57:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int		do_so(t_btree *r, t_btree *tar, int (*f)(t_btree *, t_com *,
 static int		pipe_right(t_btree *r, t_com *com, void *t, char **env)
 {
 	pid_t	pid;
+	pid_t	pid_left;
 	int		save[3];
 
 	handle_redir(NULL, save);
@@ -44,8 +45,9 @@ static int		pipe_right(t_btree *r, t_com *com, void *t, char **env)
 	}
 	else if (pid != -1)
 	{
-		pipe_left(r, ((int **)t)[0], com->heredoc);
+		pid_left = pipe_left(r, ((int **)t)[0], com->heredoc);
 		waitpid(pid, &pid, 0);
+		kill(pid_left, SIGQUIT);
 		restore_redir(save);
 		if (((int **)t)[1])
 			close(((int **)t)[1][1]);
@@ -64,6 +66,5 @@ int				apply_pipe(t_btree *r, int *pfd)
 	if (pipe(fd) == -1)
 		return (ft_dprintf(2, "sh: pipe failed\n") ? -1 : -1);
 	i = do_so(r, r->right, pipe_right, tfd);
-	LOG("FINIT\n");
 	return (i);
 }

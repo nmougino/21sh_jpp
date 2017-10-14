@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/03 17:43:08 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 15:50:42 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "tc_misc.h"
 # include "builtins.h"
 # include "heredocs.h"
+# include <signal.h>
 
 # define ERR_NO_NAME 0
 # define ERR_TGETENT_FAIL 1

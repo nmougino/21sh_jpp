@@ -6,13 +6,13 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/10/02 23:47:24 by nmougino         ###   ########.fr        #
+#    Updated: 2017/10/14 15:17:09 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	Compilator - clang est plus sur que gcc
 CC =		clang
-CFLAGS =	-Wall -Wextra -Werror -Weverything -Wno-padded -g #-fsanitize=address
+CFLAGS =	-Wall -Wextra -Werror -Weverything -Wno-padded #-g #-fsanitize=address
 
 #	Binary
 NAME =		21sh
