@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 16:11:56 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/13 21:36:16 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 23:00:56 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void		metainit(char **env)
 	ioctl(0, TIOCGWINSZ, &(g_meta.ws));
 	g_meta.prompt = "cutie >> ";
 	g_meta.prompt_save = "cutie >> ";
-	g_meta.fd = ft_open("./log.txt", O_WRONLY | O_TRUNC | O_CREAT, 0644, "log");
-	LOG("open logs\n");
 	HISTO.lst = NULL;
 	HISTO.cur = NULL;
 	HISTO.is_in = 0;

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 15:50:42 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 23:01:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@
 # define K_ALT_W	-120
 # define K_ALT_Y	-91
 
-# define FD			g_meta.fd
 # define HISTO		g_meta.history
-# define LOG(X)		ft_dprintf(g_meta.fd, X);
-# define LOGS(X, Y)	ft_dprintf(g_meta.fd, X, Y);
 
 typedef int			(*t_bi)(char **, char **);
 
@@ -63,7 +60,6 @@ typedef struct		s_meta
 	char			*prompt_save;
 	t_history		history;
 	char			*clipbo;
-	int				fd;
 	int				edmod;
 	t_list			*shenv;
 	t_list			*shenv_save;

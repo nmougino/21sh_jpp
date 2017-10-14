@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 20:52:54 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/16 21:54:32 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 23:02:30 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	bi_exit(t_com *com, char **env)
 	else
 		ft_lstdel(&(g_meta.shenv_save), env_del);
 	destroy_history();
-	close(g_meta.fd);
 	if (g_meta.clipbo)
 		free(g_meta.clipbo);
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 21:52:43 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 23:02:49 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int			main(int ac, char **av, char **env)
 	g_meta.shenv ? ft_lstdel(&(g_meta.shenv), env_del)
 		: ft_lstdel(&(g_meta.shenv_save), env_del);
 	destroy_history();
-	close(g_meta.fd);
 	if (g_meta.clipbo)
 		free(g_meta.clipbo);
 	ft_putendl("exit bye xo");
