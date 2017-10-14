@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 15:57:10 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 16:40:05 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		pipe_right(t_btree *r, t_com *com, void *t, char **env)
 	{
 		pid_left = pipe_left(r, ((int **)t)[0], com->heredoc);
 		waitpid(pid, &pid, 0);
-		kill(pid_left, SIGQUIT);
+		kill(pid_left, SIGINT);
 		restore_redir(save);
 		if (((int **)t)[1])
 			close(((int **)t)[1][1]);

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 21:16:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 15:57:08 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 16:22:58 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int		exec_pipe_left(t_com *com, int *tfd, char **env, char *hd)
 	else if (pid != -1)
 	{
 		write_hd(com, save);
+		waitpid(pid, &pid, WNOHANG);
 		restore_redir(save);
 		close(tfd[1]);
 	}
