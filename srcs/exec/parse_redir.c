@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 18:20:07 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 16:12:55 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 21:44:03 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	redir_put_error(char *tar)
 {
 	struct stat	buf;
+
 	if (lstat(tar, &buf))
 		return (ft_dprintf(2, "sh: no such file or directory: %s\n", tar) && 0);
 	else if (access(tar, F_OK))

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 06:18:46 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/13 21:22:36 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 21:42:29 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		handle_tilde(char **str, size_t *i)
 		replace_expansion(str, env, i, "~");
 }
 
-void		handle_expansion(char **str, size_t *i)
+void			handle_expansion(char **str, size_t *i)
 {
 	char	*tmp;
 	size_t	len;

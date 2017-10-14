@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:38:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 00:28:32 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/14 21:43:35 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			get_cmdl_loop(t_cmdl *cmdl)
 				ft_strdel(&(cmdl->cmdl));
 			else if (buf[0] == 4)
 				cmdl->cmdl = NULL;
-			break;
+			break ;
 		}
 		else if (buf[0] == 4)
 			handle_action(cmdl, K_DEL);
