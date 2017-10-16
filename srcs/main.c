@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 23:02:49 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/16 18:39:19 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ int			main(int ac, char **av, char **env)
 	g_meta.cmdl.cmdl = NULL;
 	g_meta.cmdl.pos = 0;
 	metainit(env);
+
+	g_meta.pids = NULL;
+
 	while (true)
 	{
 		if (!get_cmdl(&(g_meta.cmdl)))

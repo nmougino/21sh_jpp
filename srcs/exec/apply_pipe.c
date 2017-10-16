@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/16 16:32:27 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/16 19:54:18 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ static int		do_so(t_btree *r, t_btree *tar, int (*f)(t_btree *, t_com *,
 static int		pipe_right(t_btree *r, t_com *com, void *t, char **env)
 {
 	pid_t	pid;
-	int		i;
 	pid_t	pid_left;
 	int		save[3];
 
+
 	handle_redir(NULL, save);
-	i = 0;
 	if (!(pid = ft_fork("sh")))
 	{
 		clodup(((int **)t)[0], 0);
@@ -47,13 +46,12 @@ static int		pipe_right(t_btree *r, t_com *com, void *t, char **env)
 	}
 	else if (pid != -1)
 	{
+		ft_lstadd_end(&g_meta.pids, ft_lstnew(&pid, sizeof(int)));
 		pid_left = pipe_left(r, ((int **)t)[0], com->heredoc);
-		waitpid(pid, &i, 0);
-		kill(pid_left, SIGINT);
 		restore_redir(save);
 		(((int **)t)[1]) ? close(((int **)t)[1][1]) : 0;
 	}
-	return (i);
+	return (CMD_SUCCESS);
 }
 
 int				apply_pipe(t_btree *r, int *pfd)
