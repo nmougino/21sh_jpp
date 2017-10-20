@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/16 18:39:19 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/20 11:59:02 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,34 @@ void		del_ast(void *d)
 	ft_lstdel((t_list **)&d, del_tokens);
 }
 
+static void	sh_putast(t_btree *r, int l)
+{
+	t_list	*lst;
+	if (r)
+	{
+		lst = ((t_list *)(r->data));
+		ft_putstr("|");
+		while (lst)
+		{
+			ft_putstr(((t_token *)(lst->content))->content);
+			if (lst->next)
+				ft_putstr(" ");
+			lst = lst->next;
+		}
+		ft_putendl("|");
+		if (r->left)
+		{
+			ft_printf("%*c|-left--: ", (l + 1) * 2, ' ');
+			sh_putast(r->left, l + 1);
+		}
+		if (r->right)
+		{
+			ft_printf("%*c|-right-: ", (l + 1) * 2, ' ');
+			sh_putast(r->right, l + 1);
+		}
+	}
+}
+
 int			exec_mother(t_cmdl *cmdl)
 {
 	t_list	*tokens;
@@ -45,6 +73,7 @@ int			exec_mother(t_cmdl *cmdl)
 	{
 		if ((g_meta.ast = ast_parser(tokens)))
 		{
+			sh_putast(g_meta.ast, 0);
 			ft_btreemap(&g_meta.ast, hd_parser);
 			exec_ast(g_meta.ast);
 			ft_btreedel(&g_meta.ast, del_ast);
@@ -67,7 +96,7 @@ int			main(int ac, char **av, char **env)
 	metainit(env);
 
 	g_meta.pids = NULL;
-
+	history_add("base64 /dev/urandom | head -c 40");
 	while (true)
 	{
 		if (!get_cmdl(&(g_meta.cmdl)))
