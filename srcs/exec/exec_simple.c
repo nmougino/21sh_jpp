@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 17:16:09 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/11 19:21:07 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/20 17:14:06 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		exec_simple(int i, t_com *com, char **env)
 		if (i)
 			i = cmd_err(i, com->com_name);
 		bi_exit(com, env);
-		exit(i);
+		exit(CMD_FAIL);
 	}
 	else
 		execve(com->cmd_path, com->cmd_args, env);

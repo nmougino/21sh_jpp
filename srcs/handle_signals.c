@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 22:24:05 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 22:53:23 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/20 17:11:49 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ void		mapsigs(void)
 	int	i;
 
 	i = 1;
-	while (i < 32)
-		signal(i++, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTERM, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
 	signal(SIGINT, handle_c);
 	signal(SIGWINCH, handle_wch);
 }
