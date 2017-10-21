@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/20 17:12:23 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/21 14:32:02 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int			main(int ac, char **av, char **env)
 	g_meta.cmdl.cmdl = NULL;
 	g_meta.cmdl.pos = 0;
 	metainit(env);
-	g_meta.pids = NULL;
 	history_add("base64 /dev/urandom | head -c 40");
 	history_add("ls && titi && ls -l");
 	while (true)

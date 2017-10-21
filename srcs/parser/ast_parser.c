@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/01 22:56:49 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 23:59:40 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/21 18:17:36 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,15 @@ static t_btree	**find_rem_cur(t_btree **root)
 	return (cur);
 }
 
+static void		parse_parents(t_btree *root, t_btree *parent)
+{
+	if (!root)
+		return ;
+	root->parent = parent;
+	parse_parents(root->left, root);
+	parse_parents(root->right, root);
+}
+
 t_btree			*ast_parser(t_list *tok)
 {
 	t_btree	*root;
@@ -117,5 +126,6 @@ t_btree			*ast_parser(t_list *tok)
 	}
 	if (i)
 		add_simple_ast(find_rem_cur(&root), i, &tok);
+	parse_parents(root, NULL);
 	return (root);
 }

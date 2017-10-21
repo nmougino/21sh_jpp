@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 23:33:43 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/21 18:26:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ typedef struct	s_com
 	int			i;
 }				t_com;
 
+typedef struct	s_pre_exec
+{
+	t_com		com;
+	int			save[3];
+	char		**env;
+}				t_pre_exec;
+
 # define CMD_SUCCESS 0
 # define CMD_FAIL 1
 
@@ -47,7 +54,9 @@ int				pipe_left(t_btree *r, int *fd, char *hd);
 ** apply_pipe.c
 */
 
-int				apply_pipe(t_btree *r, int *pfd);
+int				ft_pipe_to_right(int *fd, t_btree *node_right);
+int				ft_launch_pipeline(t_btree *node_left, t_btree *node_right);
+int				apply_pipe(t_btree *r);
 
 /*
 ** clodup.c

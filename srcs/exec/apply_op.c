@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 00:02:37 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/21 13:33:02 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/21 18:13:50 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ int			apply_op(t_btree *r)
 
 	ret = CMD_SUCCESS;
 	tok = ((t_token *)(((t_list *)(r->data))->content))->content;
+
+
+	dprintf(2, "prout : %p\n", (void*)(r->parent));
+	dprintf(2, "prout : %p\n", (void*)(r->left->parent));
+	dprintf(2, "prout : %p\n", (void*)(r->right->parent));
+
 	if (ft_strequ(tok, AND_IF))
 		return (apply_and_if(r));
 	else if (ft_strequ(tok, OR_IF))

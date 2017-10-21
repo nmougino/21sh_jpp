@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 21:16:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/16 18:41:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/20 18:02:50 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		exec_pipe_left(t_com *com, int *tfd, char **env, char *hd)
 	int		save[3];
 
 	handle_redir(NULL, save);
-	i = 0;
+	i = CMD_FAIL;
 	if (!(pid = ft_fork("sh")))
 	{
 		clodup(tfd, 1);
@@ -34,12 +34,12 @@ static int		exec_pipe_left(t_com *com, int *tfd, char **env, char *hd)
 	}
 	else if (pid != -1)
 	{
-		ft_lstadd_end(&g_meta.pids, ft_lstnew(&pid, sizeof(int)));
 		write_hd(com, save);
+		waitpid(pid, &i, 0);
 		restore_redir(save);
 		close(tfd[1]);
 	}
-	return (pid);
+	return (i);
 }
 
 int				pipe_left(t_btree *r, int *fd, char *hd)

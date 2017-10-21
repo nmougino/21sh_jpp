@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/16 18:39:04 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/20 18:03:13 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ typedef struct		s_meta
 	t_btree			*ast;
 	t_cmdl			cmdl;
 	int				exec;
-
-	t_list			*pids;
 }					t_meta;
 
 extern t_meta		g_meta;
