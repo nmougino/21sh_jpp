@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 00:02:37 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/16 21:55:37 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/21 13:33:02 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,6 @@ static int	apply_semi(t_btree *r)
 	return (exec_ast(r->right));
 }
 
-static void		fdellol(void *p, size_t i)
-{
-	(void)i;
-	free(p);
-}
-
 int			apply_op(t_btree *r)
 {
 	char	*tok;
@@ -57,16 +51,7 @@ int			apply_op(t_btree *r)
 		return (apply_or_if(r));
 	else if (ft_strequ(tok, SEMI))
 		return (apply_semi(r));
-	else if (ft_strequ(tok, PIPE) && !apply_pipe(r, NULL) && g_meta.pids)
-	{
-		waitpid(*(pid_t*)(g_meta.pids->content), &ret, 0);
-		ft_lstrem(&g_meta.pids, g_meta.pids, fdellol);
-		while (g_meta.pids)
-		{
-			kill(*(pid_t*)(g_meta.pids->content), SIGINT);
-			ft_lstrem(&g_meta.pids, g_meta.pids, fdellol);
-		}
-		return (ret);
-	}
+	else if (ft_strequ(tok, PIPE))
+		return (apply_pipe(r));
 	return (CMD_FAIL);
 }
