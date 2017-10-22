@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/22 20:27:32 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/22 20:48:41 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ft_pipe_to_right(int *fd, t_btree *node_right)
 
 	status_right = CMD_FAIL;
 	if (!(rip = (node_right->parent->parent && ((t_token *)(((t_list *)
-	(node_right->parent->parent->data))->content))->type == OP_CONTROL)))
+	(node_right->parent->parent->data))->content))->content == PIPE)))
 		prepare_exec(&pre, node_right);
 	if (!(pid_right = ft_fork("sh")))
 		pipe_launch_right(rip, &pre, node_right, fd);
