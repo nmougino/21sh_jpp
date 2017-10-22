@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/21 18:26:25 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/22 19:22:19 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int				pipe_left(t_btree *r, int *fd, char *hd);
 ** apply_pipe.c
 */
 
+void			prout(int rip, t_pre_exec *pre, t_btree *nr,
+					int *fd) __attribute__((noreturn));
 int				ft_pipe_to_right(int *fd, t_btree *node_right);
 int				ft_launch_pipeline(t_btree *node_left, t_btree *node_right);
 int				apply_pipe(t_btree *r);
@@ -107,6 +109,13 @@ int				get_cmd_path(t_list *lst, t_com *com);
 
 void			restore_redir(int *save);
 void			handle_redir(t_com *com, int *save);
+
+/*
+** pre_close_exec.c
+*/
+
+void			prepare_exec(t_pre_exec *pre, t_btree *tar);
+void			close_exec(t_pre_exec *pre);
 
 /*
 ** ERNNO ERROR MESSAGES FOR EXECVE

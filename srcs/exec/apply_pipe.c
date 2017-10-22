@@ -6,64 +6,84 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/21 18:04:49 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/22 19:31:38 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int		pipe_right(t_btree *r, t_com *com, void *t, char **env)
+void	prout(int rip, t_pre_exec *pre, t_btree *nr, int *fd)
 {
-	pid_t	pid;
-	pid_t	pid_left;
-	int		save[3];
-	int		ret;
+	int	ibi;
 
-	ret = CMD_FAIL;
-	handle_redir(NULL, save);
-	if (!(pid = ft_fork("sh")))
+	clodup(fd, 0);
+	if (rip)
+		exit(ft_launch_pipeline(nr, nr->parent->parent->right));
+	else
 	{
-		clodup(((int **)t)[0], 0);
-		clodup(((int **)t)[1], 1);
-		handle_redir(com, NULL);
-		if ((pid = is_builtin(com->com_name)))
-			exit(exec_builtin_pipe(com, pid - 1, env));
-		exec_simple(com->i, com, env);
+		handle_redir(&(pre->com), NULL);
+		if ((ibi = is_builtin(pre->com.com_name)))
+			exit(exec_builtin_pipe(&(pre->com), ibi - 1, pre->env));
+		exec_simple(pre->com.i, &(pre->com), pre->env);
 	}
-	else if (pid != -1)
-	{
-		pid_left = pipe_left(r, ((int **)t)[0], com->heredoc);
-		waitpid(pid, &ret, 0);
-		restore_redir(save);
-		(((int **)t)[1]) ? close(((int **)t)[1][1]) : 0;
-	}
-	return (ret);
 }
 
-static int		do_so(t_btree *r, t_btree *tar, void *tfd)
+int		ft_pipe_to_right(int *fd, t_btree *node_right)
 {
-	t_com	com;
-	int		i;
-	char	**env;
+	int			rip;
+	t_pre_exec	pre;
+	pid_t		pid_right;
+	int			status_right;
 
-	env = env_conv();
-	create_simple(&com, (t_list *)(tar->data));
-	i = pipe_right(r, &com, tfd, env);
-	com_del(&com);
-	ft_arrdel((void***)&env);
-	return (i);
+	status_right = CMD_FAIL;
+	if (!(rip = (node_right->parent->parent && ((t_token *)(((t_list *)
+	(node_right->parent->parent->data))->content))->type == OP_CONTROL)))
+		prepare_exec(&pre, node_right);
+	if (!(pid_right = ft_fork("sh")))
+		prout(rip, &pre, node_right, fd);
+	else if (pid_right > 0)
+	{
+		close(fd[1]);
+		waitpid(pid_right, &status_right, 0);
+		if (!rip)
+			close_exec(&pre);
+	}
+	return (status_right);
 }
 
-int				apply_pipe(t_btree *r, int *pfd)
+int		ft_launch_pipeline(t_btree *node_left, t_btree *node_right)
 {
-	int	fd[2];
-	int i;
-	int	*tfd[2];
+	int			fd[2];
+	int			status_right;
+	pid_t		pid_left;
+	t_pre_exec	pre;
 
-	tfd[0] = fd;
-	tfd[1] = pfd;
+	status_right = CMD_FAIL;
 	if (pipe(fd) == -1)
-		return (ft_dprintf(2, "sh: pipe failed\n") ? -1 : -1);
-	i = do_so(r, r->right, tfd);
-	return (i);
+		return (ft_dprintf(2, "sh: pipe failed\n") ? CMD_FAIL : CMD_FAIL);
+	prepare_exec(&pre, node_left);
+	if (!(pid_left = ft_fork("sh")))
+	{
+		clodup(fd, 1);
+		handle_redir(&(pre.com), NULL);
+		if ((pid_left = is_builtin(pre.com.com_name)))
+			exit(exec_builtin_pipe(&(pre.com), pid_left - 1, pre.env));
+		exec_simple(pre.com.i, &(pre.com), pre.env);
+	}
+	else if (pid_left > 0)
+	{
+		status_right = ft_pipe_to_right(fd, node_right);
+		close(fd[0]);
+		waitpid(pid_left, NULL, 0);
+	}
+	close_exec(&pre);
+	return (status_right ? CMD_FAIL : CMD_SUCCESS);
+}
+
+int		apply_pipe(t_btree *r)
+{
+	if (!r->left)
+		return (ft_launch_pipeline(r, r->parent->right));
+	else
+		return (apply_pipe(r->left));
 }

@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/10/21 14:15:47 by nmougino         ###   ########.fr        #
+#    Updated: 2017/10/22 18:26:48 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			env_dep/get_env.c \
 			env_dep/is_env.c \
 			exec/apply_op.c \
-			exec/apply_pipe.new.c \
+			exec/apply_pipe.c \
 			exec/clodup.c \
 			exec/com_del.c \
 			exec/create_simple.c \
@@ -61,6 +61,7 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			exec/get_cmd_path.c \
 			exec/handle_redir.c \
 			exec/parse_redir.c \
+			exec/pre_close_exec.c \
 			get_cmdl/get_cmdl.c \
 			get_cmdl/get_cmdl_notc.c \
 			get_cmdl/handle_actions.c \

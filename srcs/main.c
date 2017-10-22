@@ -6,11 +6,42 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/21 14:32:02 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/22 19:24:30 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+** en cas de besoin, cette fonction affiche le constenu de l'ast :
+** static void	sh_putast(t_btree *r, int l)
+** {
+** 	t_list	*lst;
+** 	if (r)
+** 	{
+** 		lst = ((t_list *)(r->data));
+** 		ft_putstr("|");
+** 		while (lst)
+** 		{
+** 			ft_putstr(((t_token *)(lst->content))->content);
+** 			if (lst->next)
+** 				ft_putstr(" ");
+** 			lst = lst->next;
+** 		}
+** 		ft_putendl("|");
+** 		if (r->left)
+** 		{
+** 			ft_printf("%*c|-left--: ", (l + 1) * 2, ' ');
+** 			sh_putast(r->left, l + 1);
+** 		}
+** 		if (r->right)
+** 		{
+** 			ft_printf("%*c|-right-: ", (l + 1) * 2, ' ');
+** 			sh_putast(r->right, l + 1);
+** 		}
+** 	}
+** }
+*/
 
 t_meta	g_meta;
 
@@ -36,47 +67,21 @@ void		del_ast(void *d)
 	ft_lstdel((t_list **)&d, del_tokens);
 }
 
-static void	sh_putast(t_btree *r, int l)
-{
-	t_list	*lst;
-	if (r)
-	{
-		lst = ((t_list *)(r->data));
-		ft_putstr("|");
-		while (lst)
-		{
-			ft_putstr(((t_token *)(lst->content))->content);
-			if (lst->next)
-				ft_putstr(" ");
-			lst = lst->next;
-		}
-		ft_putendl("|");
-		if (r->left)
-		{
-			ft_printf("%*c|-left--: ", (l + 1) * 2, ' ');
-			sh_putast(r->left, l + 1);
-		}
-		if (r->right)
-		{
-			ft_printf("%*c|-right-: ", (l + 1) * 2, ' ');
-			sh_putast(r->right, l + 1);
-		}
-	}
-}
-
 int			exec_mother(t_cmdl *cmdl)
 {
 	t_list	*tokens;
+	int		save[3];
 
 	if (cmdl->cmdl && cmdl->cmdl[0] &&
 		syntax_check((tokens = cmdl_treatment(cmdl))))
 	{
 		if ((g_meta.ast = ast_parser(tokens)))
 		{
-			sh_putast(g_meta.ast, 0);
+			handle_redir(NULL, save);
 			ft_btreemap(&g_meta.ast, hd_parser);
 			exec_ast(g_meta.ast);
 			ft_btreedel(&g_meta.ast, del_ast);
+			restore_redir(save);
 		}
 		else
 			ft_lstdel(&tokens, del_tokens);
@@ -90,13 +95,15 @@ int			main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-
 	mapsigs();
 	g_meta.cmdl.cmdl = NULL;
 	g_meta.cmdl.pos = 0;
 	metainit(env);
-	history_add("base64 /dev/urandom | head -c 40");
-	history_add("ls && titi && ls -l");
+
+	history_add("base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g'");
+	history_add("mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi");
+	history_add("cd /tmp; sort << EOF | cat -e > sorted_poem ; sed -e 's/Roses/Turnips/' < sorted_poem > better_poem; cd -; echo \"I prefer turnips anyway\" >> /tmp/better_poem; cat /tmp/better_poem");
+
 	while (true)
 	{
 		if (!get_cmdl(&(g_meta.cmdl)))

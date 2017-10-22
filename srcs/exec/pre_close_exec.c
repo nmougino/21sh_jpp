@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clodup.c                                           :+:      :+:    :+:   */
+/*   pre_close_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/16 19:08:12 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/22 18:02:31 by nmougino         ###   ########.fr       */
+/*   Created: 2017/10/22 18:25:54 by nmougino          #+#    #+#             */
+/*   Updated: 2017/10/22 18:26:03 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-/*
-** THE finest utility for not-plombers...
-*/
-
-void	clodup(int *fd, int i)
+void	prepare_exec(t_pre_exec *pre, t_btree *tar)
 {
-	if (!fd)
-		return ;
-	if (i)
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-	}
-	else
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-	}
+	pre->env = env_conv();
+	create_simple(&(pre->com), (t_list *)(tar->data));
+	handle_redir(NULL, pre->save);
+}
+
+void	close_exec(t_pre_exec *pre)
+{
+	com_del(&(pre->com));
+	ft_arrdel((void***)&(pre->env));
 }
