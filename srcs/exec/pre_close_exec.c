@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/22 18:25:54 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/22 18:26:03 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/22 20:14:12 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	prepare_exec(t_pre_exec *pre, t_btree *tar)
 	pre->env = env_conv();
 	create_simple(&(pre->com), (t_list *)(tar->data));
 	handle_redir(NULL, pre->save);
+	if (pre->com.heredoc)
+		pipe(pre->com.hdfd);
 }
 
 void	close_exec(t_pre_exec *pre)

@@ -6,17 +6,32 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 16:46:11 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/22 19:31:38 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/22 20:27:32 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	prout(int rip, t_pre_exec *pre, t_btree *nr, int *fd)
+void	pipe_launch_left(t_pre_exec *pre, int *fd)
+{
+	int	ibi;
+
+	clodup(fd, 1);
+	if (pre->com.heredoc)
+		clodup(pre->com.hdfd, 0);
+	handle_redir(&(pre->com), NULL);
+	if ((ibi = is_builtin(pre->com.com_name)))
+		exit(exec_builtin_pipe(&(pre->com), ibi - 1, pre->env));
+	exec_simple(pre->com.i, &(pre->com), pre->env);
+}
+
+void	pipe_launch_right(int rip, t_pre_exec *pre, t_btree *nr, int *fd)
 {
 	int	ibi;
 
 	clodup(fd, 0);
+	if (pre->com.heredoc)
+		clodup(pre->com.hdfd, 0);
 	if (rip)
 		exit(ft_launch_pipeline(nr, nr->parent->parent->right));
 	else
@@ -40,9 +55,11 @@ int		ft_pipe_to_right(int *fd, t_btree *node_right)
 	(node_right->parent->parent->data))->content))->type == OP_CONTROL)))
 		prepare_exec(&pre, node_right);
 	if (!(pid_right = ft_fork("sh")))
-		prout(rip, &pre, node_right, fd);
+		pipe_launch_right(rip, &pre, node_right, fd);
 	else if (pid_right > 0)
 	{
+		if (!rip)
+			write_hd(&(pre.com), pre.save);
 		close(fd[1]);
 		waitpid(pid_right, &status_right, 0);
 		if (!rip)
@@ -63,15 +80,10 @@ int		ft_launch_pipeline(t_btree *node_left, t_btree *node_right)
 		return (ft_dprintf(2, "sh: pipe failed\n") ? CMD_FAIL : CMD_FAIL);
 	prepare_exec(&pre, node_left);
 	if (!(pid_left = ft_fork("sh")))
-	{
-		clodup(fd, 1);
-		handle_redir(&(pre.com), NULL);
-		if ((pid_left = is_builtin(pre.com.com_name)))
-			exit(exec_builtin_pipe(&(pre.com), pid_left - 1, pre.env));
-		exec_simple(pre.com.i, &(pre.com), pre.env);
-	}
+		pipe_launch_left(&pre, fd);
 	else if (pid_left > 0)
 	{
+		write_hd(&(pre.com), pre.save);
 		status_right = ft_pipe_to_right(fd, node_right);
 		close(fd[0]);
 		waitpid(pid_left, NULL, 0);

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:06:02 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/22 19:22:19 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/22 20:25:33 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ int				pipe_left(t_btree *r, int *fd, char *hd);
 ** apply_pipe.c
 */
 
-void			prout(int rip, t_pre_exec *pre, t_btree *nr,
+void			pipe_launch_right(int rip, t_pre_exec *pre, t_btree *nr,
+					int *fd) __attribute__((noreturn));
+void			pipe_launch_left(t_pre_exec *pre,
 					int *fd) __attribute__((noreturn));
 int				ft_pipe_to_right(int *fd, t_btree *node_right);
 int				ft_launch_pipeline(t_btree *node_left, t_btree *node_right);
