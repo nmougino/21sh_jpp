@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:22:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/23 13:41:16 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:13:34 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ static int	do_chdir(char *curpath, int op)
 		ans = bi_cd_err(curpath);
 	else if (op)
 	{
-		env_set("OLDPWD", tmp);
+		env_set("OLDPWD", tmp ? tmp : ".");
 		env_set("PWD", curpath);
 	}
 	else
 	{
-		env_set("OLDPWD", tmp);
+		env_set("OLDPWD", tmp ? tmp : ".");
 		ft_strdel(&tmp);
 		tmp = getcwd(NULL, 0);
 		env_set("PWD", tmp);
