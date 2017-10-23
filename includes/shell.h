@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:47:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/20 18:03:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/22 21:25:54 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void				sh_cmdl_init(t_cmdl *cmdl);
 void				mapsigs(void);
 
 void				metainit(char **env);
+
+void				to_be_fair(void);
 
 int					exec_mother(t_cmdl *cmdl);
 void				del_ast(void *d);

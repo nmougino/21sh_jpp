@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:34:57 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/22 21:03:24 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/22 21:25:32 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,6 @@ int			exec_mother(t_cmdl *cmdl)
 	else if (cmdl->cmdl && cmdl->cmdl[0])
 		ft_lstdel(&tokens, del_tokens);
 	return (1);
-}
-
-static void	to_be_fair(void)
-{
-	history_add("base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | se\
-d -e 's/1/Yes/g' -e 's/0/No/g'");
-	history_add("mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; c\
-at fifi");
-	history_add("cd /tmp; sort << EOF | cat -e > sorted_poem ; sed -e 's/Roses\
-/Turnips/' < sorted_poem > better_poem; cd -; echo \"I prefer turnips any\
-way\" >> /tmp/better_poem; cat /tmp/better_poem");
 }
 
 int			main(int ac, char **av, char **env)
