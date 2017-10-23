@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 14:34:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 20:43:16 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/23 18:18:02 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int			bi_cd_to_canonical(char **str)
 	arr = ft_strsplit(*str, '/');
 	if (!to_can_loop(arr))
 	{
+		ft_strdel(str);
 		ft_arrdel((void***)&arr);
 		return (0);
 	}
