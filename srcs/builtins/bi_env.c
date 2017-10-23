@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/30 17:25:49 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/05 18:34:14 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:16:54 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,16 @@ static int	bi_env_subsh(char **com, char **env)
 {
 	t_cmdl	cmdl;
 	int		i;
+	t_btree	*ast_save;
 
+	ast_save = g_meta.ast;
+	g_meta.ast = NULL;
 	env_init(&(g_meta.shenv), env);
 	i = 0;
 	cmdl.cmdl = ft_arrglu(com, " ", 1);
 	cmdl.pos = 0;
 	i = exec_mother(&cmdl);
+	g_meta.ast = ast_save;
 	ft_strdel(&(cmdl.cmdl));
 	ft_lstdel(&(g_meta.shenv), env_del);
 	g_meta.shenv = g_meta.shenv_save;
@@ -69,6 +73,7 @@ int			bi_env(char **com, char **env)
 	int		i;
 	char	**new_env;
 
+	dprintf(2, "coucou!\n");
 	++com;
 	new_env = NULL;
 	if ((i = bi_env_check_options(com[0])) == -1)
