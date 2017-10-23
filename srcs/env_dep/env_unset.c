@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 19:48:58 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 20:15:41 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:43:29 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	delf(void *e, size_t s)
 	el = e;
 	free(el->name);
 	free(el->cont);
+	free(e);
 }
 
 void		env_unset(char *tar)

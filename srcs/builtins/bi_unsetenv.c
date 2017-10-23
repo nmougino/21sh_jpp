@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 19:34:31 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/04 20:15:28 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:40:29 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	bi_unsetenv_iserror(char **com)
 {
 	int		i;
 
-	i = (!com || !com[1] || !com[1][0]) ? 1 : 0;
+	i = (!com || !com[1] || !com[1][0]);
 	++com;
 	while (*com)
 	{

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/30 17:25:49 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/23 16:16:54 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:36:45 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int			bi_env(char **com, char **env)
 	int		i;
 	char	**new_env;
 
-	dprintf(2, "coucou!\n");
 	++com;
 	new_env = NULL;
 	if ((i = bi_env_check_options(com[0])) == -1)
