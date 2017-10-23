@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:22:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/09/03 22:39:24 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/23 13:41:16 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ int			bi_cd(char **com, char **env)
 	op = check_options(com[1]);
 	if (!com[1] && !is_env_local(env, "HOME"))
 		return ((ft_dprintf(2, "cd: HOME not set\n") && 0) - 1);
+	if (ft_strequ(com[1], "-") && !is_env_local(env, "OLDPWD"))
+		return ((ft_dprintf(2, "cd: OLDPWD not set\n") && 0) - 1);
 	curpath = get_curpath(com, env);
 	if (!op && (!bi_cd_to_canonical(&curpath) || !curpath))
 		return (-1);
