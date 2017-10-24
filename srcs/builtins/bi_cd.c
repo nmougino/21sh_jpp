@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:22:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/23 17:13:34 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/24 16:17:04 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,11 @@ static char	*get_curpath(char **com, char **env)
 	if (curpath[0] != '/')
 	{
 		tmp = curpath;
-		curpath = pwd[ft_strlen(pwd) - 1] == '/' ? ft_strdup(pwd) :
-			ft_strjoin(pwd, "/");
-		curpath = ft_stradd(&curpath, tmp);
+		curpath = NULL;
+		if (pwd)
+			curpath = pwd[ft_strlen(pwd) - 1] == '/' ? ft_strdup(pwd) :
+				ft_strjoin(pwd, "/");
+		curpath = curpath ? ft_stradd(&curpath, tmp) : ft_strdup(tmp);
 		free(tmp);
 	}
 	ft_strdel(&pwd);
