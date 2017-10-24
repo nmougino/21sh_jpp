@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 14:34:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/24 17:07:58 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/24 19:52:56 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	to_can_checkpath(char **arr)
 		ans = 1;
 	ft_strdel(&str);
 	ft_arrdel((void***)&arr);
+	ft_arrdel((void***)&tmp);
 	return (ans);
 }
 
