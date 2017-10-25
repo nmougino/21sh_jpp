@@ -6,14 +6,15 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:22:19 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/25 12:34:53 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:01:14 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 /*
-** i = 0 => L (defaut)
+** i = 0 => nothing
+** i = -1 => L (defaut)
 ** i = 1 => P
 */
 
@@ -29,10 +30,10 @@ static int	check_options(char *com)
 		++com;
 		while (*com)
 		{
-			if (*com == 'P')
+			if (*com == 'L')
 				i = 1;
-			else if (*com == 'L')
-				i = 0;
+			else if (*com == 'P')
+				i = -1;
 			else
 				return (0);
 			++com;
@@ -66,9 +67,7 @@ static int	do_chdir(char *curpath, int op)
 	ans = 0;
 	tmp = getcwd(NULL, 0);
 	if (chdir(curpath))
-	{
 		ans = bi_cd_err(curpath);
-	}
 	else if (op)
 	{
 		env_set("OLDPWD", tmp ? tmp : "");
@@ -118,7 +117,10 @@ int			bi_cd(char **com, char **env)
 	int		op;
 	char	*curpath;
 
-	op = check_options(com[1]);
+	if ((op = check_options(com[1])))
+		++com;
+	if (op == -1)
+		op = 0;
 	if (!com[1] && !is_env_local(env, "HOME"))
 		return ((ft_dprintf(2, "cd: HOME not set\n") && 0) - 1);
 	if (ft_strequ(com[1], "-") && !is_env_local(env, "OLDPWD"))
