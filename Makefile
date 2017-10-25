@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/10/22 21:26:12 by nmougino         ###   ########.fr        #
+#    Updated: 2017/10/24 23:14:55 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC =		builtins/bi_cd_to_canonical.c \
 			builtins/exec_builtin.c \
 			builtins/is_builtin.c \
 			cmdl_treatment/cmdl_treatment.c \
+			cmdl_treatment/handle_expansion.c \
 			cmdl_treatment/lex_define_token.c \
 			cmdl_treatment/lex_misc.c \
 			cmdl_treatment/sh_inhib_exp.c \

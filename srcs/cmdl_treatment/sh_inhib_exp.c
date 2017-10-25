@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 06:18:46 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/14 21:42:29 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/24 23:13:20 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Inhibitors and Expansion Conversion Departement
 */
 
-static void		replace_expansion(char **str, char *cont, size_t *i, char *name)
+void			replace_expansion(char **str, char *cont, size_t *i, char *name)
 {
 	char	*tmp;
 
@@ -35,26 +35,6 @@ static void		handle_tilde(char **str, size_t *i)
 
 	if ((env = get_env("HOME")))
 		replace_expansion(str, env, i, "~");
-}
-
-void			handle_expansion(char **str, size_t *i)
-{
-	char	*tmp;
-	size_t	len;
-	char	*name;
-
-	len = ft_wordlen(*str + *i + 1, "\n\t \"><%&|'$");
-	name = ft_strndup(*str + *i + 1, len);
-	if ((tmp = get_env(name)))
-		replace_expansion(str, tmp, i, name);
-	else
-	{
-		++len;
-		while (!tmp && len--)
-			ft_move_left(*str + *i);
-	}
-	free(name);
-	(*i)--;
 }
 
 static int		quote_act(char c, int *q)
@@ -90,7 +70,8 @@ void			sh_inhib_exp(t_list *lst)
 		else if ((*str)[i] == '\\')
 			ft_move_left(*str + i);
 		else if ((!q || q == 2) && (*str)[i] == '$' && (*str)[i + 1] &&
-			!ft_strchr(" \n\t\"'$", (*str)[i + 1]))
+			!ft_strchr(" \n\t\"'$", (*str)[i + 1])
+			&& !ft_isdigit((*str)[i + 1]))
 			handle_expansion(str, &i);
 		else if (!q && (*str)[i] == '~')
 			handle_tilde(str, &i);

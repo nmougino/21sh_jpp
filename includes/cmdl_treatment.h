@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 15:28:53 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/13 21:23:14 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/24 23:14:34 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ typedef struct			s_token
 t_list					*cmdl_treatment(t_cmdl *cmdl);
 
 /*
+** handle_expansion.c
+*/
+
+void					handle_expansion(char **str, size_t *i);
+
+/*
 ** lex_define_token.c
 */
 
@@ -73,12 +79,11 @@ void					lex_define_op_token(char **cmdl, t_list **lst);
 
 char					*which_operator(char *cmdl);
 enum e_token_type		is_operator(char *cmdl);
-
 /*
 ** sh_inhib_exp.c
 */
-
-void					handle_expansion(char **str, size_t *i);
+void					replace_expansion(char **str, char *cont, size_t *i,
+						char *name);
 void					sh_inhib_exp(t_list *lst);
 
 /*
