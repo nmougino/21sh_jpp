@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 17:16:09 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/20 17:14:06 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:14:17 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void		exec_simple(int i, t_com *com, char **env)
 	}
 	else
 		execve(com->cmd_path, com->cmd_args, env);
-	ft_dprintf(2, "sh: permission denied: %s\n(%s)\n", com->com_name,
+	if (com->com_name && com->com_name[0])
+		ft_dprintf(2, "sh: permission denied: %s\n(%s)\n", com->com_name,
 		execve_error());
 	bi_exit(com, env);
 	exit(-1);

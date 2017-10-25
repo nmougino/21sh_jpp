@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/22 21:25:18 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/25 12:16:08 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:04:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ at fifi");
 /Turnips/' < sorted_poem > better_poem; cd -; echo \"I prefer turnips any\
 way\" >> /tmp/better_poem; cat /tmp/better_poem");
 	history_add("mkdir toto; cd toto ; rm -rf ../toto ; cd . ; cd .. ; cd -");
-	history_add("chmod 777 toto; rm -rf toto; mkdir toto; cd toto; chmod 000 .; unsetenv PWD OLDPWD; cd ..");
+	history_add("chmod 777 toto; rm -rf toto; mkdir toto; cd toto; chmod 00\
+0 .; unsetenv PWD OLDPWD; cd ..");
 	history_add("mkdir toto ; cd toto ; rm -rf ../toto ; cd ..");
-	history_add("mkdir toto ; cd toto ; rm -rf ../toto ; unsetenv PWD OLDPWD; cd .");
+	history_add("mkdir toto ; cd toto ; rm -rf ../toto ; unsetenv PWD OLD\
+PWD; cd .");
 }
