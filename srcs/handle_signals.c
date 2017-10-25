@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 22:24:05 by nmougino          #+#    #+#             */
-/*   Updated: 2017/10/20 17:11:49 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/10/25 15:11:00 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void	handle_c(int s)
 {
 	(void)s;
+	ft_putendl("");
 	if (!g_meta.exec)
 	{
-		ft_putendl("");
 		sh_cmdl_init(&(g_meta.cmdl));
 		g_meta.prompt = g_meta.prompt_save;
 		ft_putstr(g_meta.prompt);
